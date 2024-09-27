@@ -1,0 +1,731 @@
+<div class="box-body !p-0">
+  <!-- <form (ngSubmit)="onSubmit()" [formGroup]="wellInfoForm"> -->
+    <form>
+
+    <div class="grid grid-cols-12 sm:gap-x-6 sm:gap-y-4">
+
+      <fieldset class="md:col-span-6 col-span-12 mb-4 border border-solid border-gray-300 p-3 box dark:border-gray-600">
+        <legend>
+          Well Center Cordinates
+        </legend>
+
+        <div class="md:col-span-6 col-span-12 mb-4">
+          <label class="form-label">Latitude</label>
+          <div>
+
+
+            <div class="sm:flex rounded-sm">
+              <input type="text"
+                class="ti-form-input rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0  sm:first:rounded-se-none  sm:last:rounded-es-none  sm:last:rounded-e-sm  relative focus:z-10"
+                formControlName="latDeg" placeholder="Degree">
+              <input type="text"
+                class="ti-form-input rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0  sm:first:rounded-se-none  sm:last:rounded-es-none  sm:last:rounded-e-sm  relative focus:z-10"
+                formControlName="latMin" placeholder="Minute">
+              <input type="text"
+                class="ti-form-input rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0  sm:first:rounded-se-none  sm:last:rounded-es-none  sm:last:rounded-e-sm  relative focus:z-10"
+                formControlName="latSec" placeholder="Second">
+
+              <select formControlName="latUnit"
+                class="inline-block rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-sm border-l-0 border-r border-defaultborder dark:border-defaultborder/10 focus:ring-primary focus:border-primary dark:focus:border-defaultborder/10 dark:bg-bodybg ps-2 pe-[2.25rem]">
+                <!-- <option *ngFor="let unit of data.latUnits" [value]="unit" [selected]="unit == selectedLatUnit">{{unit}}
+                </option> -->
+              </select>
+            </div>
+          </div>
+          <!-- @if( wellInfoForm.controls['latUnit'].invalid &&
+          (wellInfoForm.controls['latUnit'].dirty ||
+          wellInfoForm.controls['latUnit'].touched)){
+
+          <div class="text-danger"
+            *ngIf="wellInfoForm.controls['latUnit'].errors?.['required'] && wellInfoForm.controls['latUnit'].touched">
+            Latitude Direction is required
+          </div>
+
+          <div *ngIf="wellInfoForm.controls['latUnit'].errors?.['pattern'] && wellInfoForm.controls['latUnit'].touched"
+            class="text-danger">
+            Invalid Input.
+          </div>
+
+
+
+          } -->
+
+
+          <!-- @if( wellInfoForm.controls['latDeg'].invalid &&
+          (wellInfoForm.controls['latDeg'].dirty ||
+          wellInfoForm.controls['latDeg'].touched)){
+
+          <div class="text-danger"
+            *ngIf="wellInfoForm.controls['latDeg'].errors?.['required'] && wellInfoForm.controls['latDeg'].touched">
+            Degree is required
+          </div>
+
+          <div class="text-danger"
+            *ngIf="wellInfoForm.controls['latDeg'].errors?.['isLatitude'] && wellInfoForm.controls['latDeg'].touched">
+            Latitude should be between -90 and 90.
+          </div>
+
+
+          <div *ngIf="wellInfoForm.controls['latDeg'].errors?.['pattern'] && wellInfoForm.controls['latDeg'].touched"
+            class="text-danger">
+            Invalid Input.
+          </div>
+
+          } -->
+
+          <!-- @if( wellInfoForm.controls['latMin'].invalid &&
+          (wellInfoForm.controls['latMin'].dirty ||
+          wellInfoForm.controls['latMin'].touched)){
+
+
+          <div class="text-danger"
+            *ngIf="wellInfoForm.controls['latMin'].errors?.['isMinSec'] && wellInfoForm.controls['latMin'].touched">
+            Minitues should be between 0 and 60.
+          </div>
+          <div class="text-danger"
+            *ngIf="wellInfoForm.controls['latMin'].errors?.['required'] && wellInfoForm.controls['latMin'].touched">
+            Minitues is required
+          </div>
+
+          <div *ngIf="wellInfoForm.controls['latMin'].errors?.['pattern'] && wellInfoForm.controls['latMin'].touched"
+            class="text-danger">
+            Invalid Input.
+          </div>
+
+          } -->
+
+          <!-- @if( wellInfoForm.controls['latSec'].invalid &&
+          (wellInfoForm.controls['latSec'].dirty ||
+          wellInfoForm.controls['latSec'].touched)){
+
+
+          <div class="text-danger"
+            *ngIf="wellInfoForm.controls['latSec'].errors?.['isMinSec'] && wellInfoForm.controls['latSec'].touched">
+            Seconds should be between 0 and 60.
+          </div>
+
+          <div class="text-danger"
+            *ngIf="wellInfoForm.controls['latSec'].errors?.['required'] && wellInfoForm.controls['latSec'].touched">
+            Seconds is required
+          </div>
+
+          <div *ngIf="wellInfoForm.controls['latSec'].errors?.['pattern'] && wellInfoForm.controls['latSec'].touched"
+            class="text-danger">
+            Invalid Input.
+          </div>
+
+
+          } -->
+
+        </div>
+
+        <div class="md:col-span-6 col-span-12 mb-4">
+          <label class="form-label" for="clientrep">Longitude</label>
+          <div>
+
+
+            <div class="sm:flex rounded-sm">
+              <input type="text"
+                class="ti-form-input rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0  sm:first:rounded-se-none  sm:last:rounded-es-none  sm:last:rounded-e-sm  relative focus:z-10"
+                formControlName="lngDeg" placeholder="Degree">
+              <input type="text"
+                class="ti-form-input rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0  sm:first:rounded-se-none  sm:last:rounded-es-none  sm:last:rounded-e-sm  relative focus:z-10"
+                formControlName="lngMin" placeholder="Minitues">
+              <input type="text"
+                class="ti-form-input rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0  sm:first:rounded-se-none  sm:last:rounded-es-none  sm:last:rounded-e-sm  relative focus:z-10"
+                formControlName="lngSec" placeholder="Seconds">
+
+              <select id="hs-inline-leading-select-currency" name="hs-inline-leading-select-currency"
+                formControlName="lngUnit"
+                class="inline-block rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-sm border-l-0 border-r border-defaultborder dark:border-defaultborder/10 focus:ring-primary focus:border-primary dark:focus:border-defaultborder/10 dark:bg-bodybg ps-2 pe-[2.25rem]">
+                <!-- <option *ngFor="let unit of data.lngUnits" [value]="unit" [selected]="unit == selectedLngUnit">{{unit}}
+                </option> -->
+              </select>
+            </div>
+          </div>
+
+          <!-- @if( wellInfoForm.controls['lngUnit'].invalid &&
+          (wellInfoForm.controls['lngUnit'].dirty ||
+          wellInfoForm.controls['lngUnit'].touched)){
+
+          <div class="text-danger"
+            *ngIf="wellInfoForm.controls['lngUnit'].errors?.['required'] && wellInfoForm.controls['lngUnit'].touched">
+            Longitude Direction is required
+          </div>
+          }
+
+          @if( wellInfoForm.controls['lngDeg'].invalid &&
+          (wellInfoForm.controls['lngDeg'].dirty ||
+          wellInfoForm.controls['lngDeg'].touched)){
+
+          <div class="text-danger"
+            *ngIf="wellInfoForm.controls['lngDeg'].errors?.['required'] && wellInfoForm.controls['lngDeg'].touched">
+            Degree is required
+          </div>
+
+          <div class="text-danger"
+            *ngIf="wellInfoForm.controls['lngDeg'].errors?.['isLongitude'] && wellInfoForm.controls['lngDeg'].touched">
+            Longitude should be between -180 and 180.
+          </div>
+
+          <div *ngIf="wellInfoForm.controls['lngDeg'].errors?.['pattern'] && wellInfoForm.controls['lngDeg'].touched"
+            class="text-danger">
+            Invalid Input.
+          </div>
+
+          } -->
+
+          <!-- @if( wellInfoForm.controls['lngMin'].invalid &&
+          (wellInfoForm.controls['lngMin'].dirty ||
+          wellInfoForm.controls['lngMin'].touched)){
+
+
+          <div class="text-danger"
+            *ngIf="wellInfoForm.controls['lngMin'].errors?.['isMinSec'] && wellInfoForm.controls['lngMin'].touched">
+            Minitues should be between 0 and 60.
+          </div>
+          <div class="text-danger"
+            *ngIf="wellInfoForm.controls['lngMin'].errors?.['required'] && wellInfoForm.controls['lngMin'].touched">
+            Minitues is required
+          </div>
+
+          <div *ngIf="wellInfoForm.controls['lngMin'].errors?.['pattern'] && wellInfoForm.controls['lngMin'].touched"
+            class="text-danger">
+            Invalid Input.
+          </div>
+
+          }
+
+          @if( wellInfoForm.controls['lngSec'].invalid &&
+          (wellInfoForm.controls['lngSec'].dirty ||
+          wellInfoForm.controls['lngSec'].touched)){
+
+
+          <div class="text-danger"
+            *ngIf="wellInfoForm.controls['lngSec'].errors?.['isMinSec'] && wellInfoForm.controls['lngSec'].touched">
+            Seconds should be between 0 and 60.
+          </div>
+
+          <div class="text-danger"
+            *ngIf="wellInfoForm.controls['lngSec'].errors?.['required'] && wellInfoForm.controls['lngSec'].touched">
+            Seconds is required
+          </div>
+
+          <div *ngIf="wellInfoForm.controls['lngSec'].errors?.['pattern'] && wellInfoForm.controls['lngSec'].touched"
+            class="text-danger">
+            Invalid Input.
+          </div>
+
+          } -->
+
+
+        </div>
+
+
+      </fieldset>
+
+      <fieldset class="md:col-span-6 col-span-12 mb-4 border border-solid border-gray-300 p-3 box dark:border-gray-600">
+        <legend>
+          UTM Cordinates
+        </legend>
+
+        <div class="md:col-span-6 col-span-12 mb-4">
+          <label class="form-label" for="northing">Northing</label>
+          <div>
+
+
+            <div class="sm:flex rounded-sm">
+              <input id="northing" type="text" formControlName="northing" placeholder=""
+                class="ti-form-input rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0  sm:first:rounded-se-none  sm:last:rounded-es-none  sm:last:rounded-e-sm  relative focus:z-10">
+              <select formControlName="northingUnit" id="hs-inline-leading-select-currency"
+                name="hs-inline-leading-select-currency"
+                class="inline-block rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-sm border-l-0 border-r border-defaultborder dark:border-defaultborder/10 focus:ring-primary focus:border-primary dark:focus:border-defaultborder/10 dark:bg-bodybg ps-2 pe-[2.25rem]">
+<!--
+                <option *ngFor="let unit of data.northingUnits" [value]="unit"
+                  [selected]="unit == selectedNorthingUnit">{{unit}}
+                </option> -->
+
+              </select>
+            </div>
+          </div>
+          <!-- @if( wellInfoForm.controls['northingUnit'].invalid &&
+          (wellInfoForm.controls['northingUnit'].dirty ||
+          wellInfoForm.controls['northingUnit'].touched)){
+
+          <div class="text-danger"
+            *ngIf="wellInfoForm.controls['northingUnit'].errors?.['required'] && wellInfoForm.controls['northingUnit'].touched">
+            Northing Unit is required
+          </div>
+
+          <div
+            *ngIf="wellInfoForm.controls['northingUnit'].errors?.['pattern'] && wellInfoForm.controls['northingUnit'].touched"
+            class="text-danger">
+            Invalid Input.
+          </div>
+
+          }
+
+
+          @if( wellInfoForm.controls['northing'].invalid &&
+          (wellInfoForm.controls['northing'].dirty ||
+          wellInfoForm.controls['northing'].touched)){
+
+          <div class="text-danger"
+            *ngIf="wellInfoForm.controls['northing'].errors?.['required'] && wellInfoForm.controls['northing'].touched">
+            Northing is required
+          </div>
+
+          <div class="text-danger"
+            *ngIf="wellInfoForm.controls['northing'].errors?.['isNorthing'] && wellInfoForm.controls['northing'].touched">
+            Northing should be between 0 and 10,000,000.
+          </div>
+
+          <div
+            *ngIf="wellInfoForm.controls['northing'].errors?.['pattern'] && wellInfoForm.controls['northing'].touched"
+            class="text-danger">
+            Invalid Input.
+          </div>
+
+          } -->
+        </div>
+        <div class="md:col-span-6 col-span-12 mb-4">
+          <label class="form-label" for="easting">Easting</label>
+          <div>
+
+
+            <div class="sm:flex rounded-sm">
+              <input id="easting" type="text" formControlName="easting" placeholder=""
+                class="ti-form-input rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0  sm:first:rounded-se-none  sm:last:rounded-es-none  sm:last:rounded-e-sm  relative focus:z-10">
+              <select formControlName="eastingUnit" name="hs-inline-leading-select-currency"
+                class="inline-block rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-sm border-l-0 border-r border-defaultborder dark:border-defaultborder/10 focus:ring-primary focus:border-primary dark:focus:border-defaultborder/10 dark:bg-bodybg ps-2 pe-[2.25rem]">
+                <!-- <option *ngFor="let unit of data.eastingUnits" [value]="unit" [selected]="unit == selectedEastingUnit">
+                  {{unit}}
+                </option> -->
+              </select>
+            </div>
+          </div>
+
+          <!-- @if( wellInfoForm.controls['eastingUnit'].invalid &&
+          (wellInfoForm.controls['eastingUnit'].dirty ||
+          wellInfoForm.controls['eastingUnit'].touched)){
+
+          <div class="text-danger"
+            *ngIf="wellInfoForm.controls['eastingUnit'].errors?.['required'] && wellInfoForm.controls['eastingUnit'].touched">
+            Northing Unit is required
+          </div>
+
+          <div
+            *ngIf="wellInfoForm.controls['eastingUnit'].errors?.['pattern'] && wellInfoForm.controls['eastingUnit'].touched"
+            class="text-danger">
+            Invalid Input.
+          </div>
+
+          }
+
+
+
+          @if( wellInfoForm.controls['easting'].invalid &&
+          (wellInfoForm.controls['easting'].dirty ||
+          wellInfoForm.controls['easting'].touched)){
+
+          <div class="text-danger"
+            *ngIf="wellInfoForm.controls['easting'].errors?.['required'] && wellInfoForm.controls['easting'].touched">
+            Easting is required
+          </div>
+
+          <div class="text-danger"
+            *ngIf="wellInfoForm.controls['easting'].errors?.['isEasting'] && wellInfoForm.controls['easting'].touched">
+            Easting should be between 100,000 and 900,000.
+          </div>
+          <div
+            *ngIf="wellInfoForm.controls['isEasting'].errors?.['pattern'] && wellInfoForm.controls['isEasting'].touched"
+            class="text-danger">
+            Invalid Input.
+          </div>
+
+          } -->
+
+        </div>
+      </fieldset>
+
+      <div class="md:col-span-6 col-span-12 mb-4">
+        <label class="form-label" for="refElevation">Referance Elevation</label>
+        <select id="refElevation" class="form-select !py-[0.59rem]" formControlName="refElevation">
+          <!-- <option *ngFor="let customer of customers" [value]="customer" [selected]="customer == selectedCustomer">{{customer}}
+        </option> -->
+          <!-- <option *ngFor="let refElevation of refElevations" [value]="refElevation"
+            [selected]="refElevation == selectedrefElevation">{{refElevation}}
+          </option> -->
+        </select>
+
+        <!-- @if( wellInfoForm.controls['refElevation'].invalid &&
+        (wellInfoForm.controls['refElevation'].dirty ||
+        wellInfoForm.controls['refElevation'].touched)){
+
+        <div class="text-danger"
+          *ngIf="wellInfoForm.controls['refElevation'].errors?.['required'] && wellInfoForm.controls['refElevation'].touched">
+          Referance Elevationt is required
+        </div>
+
+        <div
+          *ngIf="wellInfoForm.controls['refElevation'].errors?.['pattern'] && wellInfoForm.controls['refElevation'].touched"
+          class="text-danger">
+          Invalid Input.
+        </div>
+
+        } -->
+
+      </div>
+
+      <div class="md:col-span-6 col-span-12 mb-4">
+        <label class="form-label" for="refDatum">Referance Datum</label>
+        <select id="refDatum" class="form-select !py-[0.59rem]" formControlName="refDatum">
+          <!-- <option *ngFor="let refDatum of refDatums" [value]="refDatum" [selected]="refDatum == selectedrefDatum">
+            {{refDatum}}
+          </option> -->
+        </select>
+
+        <!-- @if( wellInfoForm.controls['refDatum'].invalid &&
+        (wellInfoForm.controls['refDatum'].dirty ||
+        wellInfoForm.controls['refDatum'].touched)){
+
+        <div class="text-danger"
+          *ngIf="wellInfoForm.controls['refDatum'].errors?.['required'] && wellInfoForm.controls['refElevation'].touched">
+          Referance Datum is required
+        </div>
+
+        <div *ngIf="wellInfoForm.controls['refDatum'].errors?.['pattern'] && wellInfoForm.controls['refDatum'].touched"
+          class="text-danger">
+          Invalid Input.
+        </div>
+
+        } -->
+      </div>
+
+      <div class="md:col-span-4 col-span-12 mb-4">
+        <label class="form-label" for="wellType">Well Type</label>
+        <select id="wellType" class="form-select !py-[0.59rem]" formControlName="wellType">
+          <!-- <option *ngFor="let wellType of wellTypes" [value]="wellType" [selected]="wellType == selectedwellType">
+            {{wellType}}
+          </option> -->
+        </select>
+
+        <!-- @if( wellInfoForm.controls['wellType'].invalid &&
+        (wellInfoForm.controls['wellType'].dirty ||
+        wellInfoForm.controls['wellType'].touched)){
+
+        <div class="text-danger"
+          *ngIf="wellInfoForm.controls['wellType'].errors?.['required'] && wellInfoForm.controls['wellType'].touched">
+          Well Type is required
+        </div>
+
+        <div *ngIf="wellInfoForm.controls['wellType'].errors?.['pattern'] && wellInfoForm.controls['wellType'].touched"
+          class="text-danger">
+          Invalid Input.
+        </div>
+
+        } -->
+      </div>
+
+      <div class="md:col-span-4 col-span-12 mb-4">
+        <label class="form-label" for="expWellTemp">Expected Well Temperature</label>
+        <div>
+
+
+          <div class="sm:flex rounded-sm">
+            <input id="expWellTemp" type="text" formControlName="expectedWellTemp"
+              class="ti-form-input rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0  sm:first:rounded-se-none  sm:last:rounded-es-none  sm:last:rounded-e-sm  relative focus:z-10">
+            <select name="hs-inline-leading-select-currency" formControlName="expectedWellTempUnit"
+              class="inline-block rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-sm border-l-0 border-r border-defaultborder dark:border-defaultborder/10 focus:ring-primary focus:border-primary dark:focus:border-defaultborder/10 dark:bg-bodybg ps-2 pe-[2.25rem]">
+              <!-- <option *ngFor="let expectedWellTempUnit of data.expectedWellTempUnits" [value]="expectedWellTempUnit"
+                [selected]="expectedWellTempUnit == selectedExpectedWellTempUnit">{{expectedWellTempUnit}}
+              </option> -->
+            </select>
+          </div>
+        </div>
+        <!-- @if( wellInfoForm.controls['expectedWellTemp'].invalid &&
+        (wellInfoForm.controls['expectedWellTemp'].dirty ||
+        wellInfoForm.controls['expectedWellTemp'].touched)){
+
+
+        <div class="text-danger"
+          *ngIf="wellInfoForm.controls['expectedWellTemp'].errors?.['isNumber'] && wellInfoForm.controls['expectedWellTemp'].touched">
+          Invalid Format.
+        </div>
+        <div class="text-danger"
+          *ngIf="wellInfoForm.controls['expectedWellTemp'].errors?.['required'] && wellInfoForm.controls['expectedWellTemp'].touched">
+          Expected Temperature is required
+        </div>
+
+        <div
+          *ngIf="wellInfoForm.controls['expectedWellTemp'].errors?.['pattern'] && wellInfoForm.controls['expectedWellTemp'].touched"
+          class="text-danger">
+          Invalid Input.
+        </div>
+
+
+        }
+
+        @if( wellInfoForm.controls['expectedWellTempUnit'].invalid &&
+        (wellInfoForm.controls['expectedWellTempUnit'].dirty ||
+        wellInfoForm.controls['expectedWellTempUnit'].touched)){
+
+        <div class="text-danger"
+          *ngIf="wellInfoForm.controls['expectedWellTempUnit'].errors?.['required'] && wellInfoForm.controls['expectedWellTempUnit'].touched">
+          Temperature Unit is required
+        </div>
+
+
+        <div
+          *ngIf="wellInfoForm.controls['expectedWellTempUnit'].errors?.['pattern'] && wellInfoForm.controls['expectedWellTempUnit'].touched"
+          class="text-danger">
+          Invalid Input.
+        </div>
+
+        } -->
+
+      </div>
+      <div class="md:col-span-4 col-span-12 mb-4">
+        <label class="form-label" for="expectedWellboreInclination">Expected Wellbore Inclination</label>
+        <div>
+          <div class="sm:flex rounded-sm">
+            <input id="expectedWellboreInclination" type="text" formControlName="expectedWellInclination"
+              class="ti-form-input rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0  sm:first:rounded-se-none  sm:last:rounded-es-none  sm:last:rounded-e-sm  relative focus:z-10">
+            <select name="hs-inline-leading-select-currency" formControlName="expectedWellInclinationUnit"
+              class="inline-block rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-sm border-l-0 border-r border-defaultborder dark:border-defaultborder/10 focus:ring-primary focus:border-primary dark:focus:border-defaultborder/10 dark:bg-bodybg ps-2 pe-[2.25rem]">
+              <!-- <option *ngFor="let expectedWellInclination of data.expectedWellInclinationUnits"
+                [value]="expectedWellInclination"
+                [selected]="expectedWellInclination == selectedExpectedWellInclinationUnit">{{expectedWellInclination}}
+              </option> -->
+            </select>
+          </div>
+        </div>
+
+        <!-- @if( wellInfoForm.controls['expectedWellInclination'].invalid &&
+        (wellInfoForm.controls['expectedWellInclination'].dirty ||
+        wellInfoForm.controls['expectedWellInclination'].touched)){
+
+
+        <div class="text-danger"
+          *ngIf="wellInfoForm.controls['expectedWellInclination'].errors?.['isNumber'] && wellInfoForm.controls['expectedWellInclination'].touched">
+          Invalid Format.
+        </div>
+        <div class="text-danger"
+          *ngIf="wellInfoForm.controls['expectedWellInclination'].errors?.['required'] && wellInfoForm.controls['expectedWellInclination'].touched">
+          Expected Well Inclination is required
+        </div>
+
+        <div
+          *ngIf="wellInfoForm.controls['expectedWellInclination'].errors?.['pattern'] && wellInfoForm.controls['expectedWellInclination'].touched"
+          class="text-danger">
+          Invalid Input.
+        </div>
+
+        }
+
+        <div class="text-danger" *ngIf="wellInfoForm.errors?.['isVertical']">
+          For Vertical well Inclination has to be bellow 12
+        </div>
+        <div class="text-danger" *ngIf="wellInfoForm.errors?.['isDeviated']">
+          For Deviated well Inclination has to be above 12
+        </div>
+
+        @if( wellInfoForm.controls['expectedWellInclinationUnit'].invalid &&
+        (wellInfoForm.controls['expectedWellInclinationUnit'].dirty ||
+        wellInfoForm.controls['expectedWellInclinationUnit'].touched)){
+
+        <div class="text-danger"
+          *ngIf="wellInfoForm.controls['expectedWellInclinationUnit'].errors?.['required'] && wellInfoForm.controls['expectedWellInclinationUnit'].touched">
+          Expected Well Inclination Unit is required
+        </div>
+
+        <div
+          *ngIf="wellInfoForm.controls['expectedWellInclinationUnit'].errors?.['pattern'] && wellInfoForm.controls['expectedWellInclinationUnit'].touched"
+          class="text-danger">
+          Invalid Input.
+        </div>
+
+        } -->
+
+      </div>
+
+      <div class="md:col-span-4 col-span-12 mb-4">
+        <label class="form-label" for="centralMeridian">Central Meridian</label>
+        <div>
+          <div class="sm:flex rounded-sm">
+            <input id="centralMeridian" type="text" formControlName="centralMeridian"
+              class="ti-form-input rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0  sm:first:rounded-se-none  sm:last:rounded-es-none  sm:last:rounded-e-sm  relative focus:z-10">
+            <select id="hs-inline-leading-select-currency" name="hs-inline-leading-select-currency"
+              formControlName="centralMeridianUnit"
+              class="inline-block rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-sm border-l-0 border-r border-defaultborder dark:border-defaultborder/10 focus:ring-primary focus:border-primary dark:focus:border-defaultborder/10 dark:bg-bodybg ps-2 pe-[2.25rem]">
+              <!-- <option *ngFor="let centralMeridianUnit of data.centralMeridianUnits" [value]="centralMeridianUnit"
+                [selected]="centralMeridianUnit == selectedCentralMeridianUnit">{{centralMeridianUnit}}
+              </option> -->
+            </select>
+          </div>
+        </div>
+
+        <!-- @if( wellInfoForm.controls['centralMeridian'].invalid &&
+        (wellInfoForm.controls['centralMeridian'].dirty ||
+        wellInfoForm.controls['centralMeridian'].touched)){
+
+
+        <div class="text-danger"
+          *ngIf="wellInfoForm.controls['centralMeridian'].errors?.['isCentralMeridian'] && wellInfoForm.controls['centralMeridian'].touched">
+          Central Meridian Should be between -177 and 177
+        </div>
+        <div class="text-danger"
+          *ngIf="wellInfoForm.controls['centralMeridian'].errors?.['required'] && wellInfoForm.controls['centralMeridian'].touched">
+          Central Meridian is required.
+        </div>
+
+        <div
+          *ngIf="wellInfoForm.controls['centralMeridian'].errors?.['pattern'] && wellInfoForm.controls['centralMeridian'].touched"
+          class="text-danger">
+          Invalid Input.
+        </div>
+
+
+        }
+
+        @if( wellInfoForm.controls['centralMeridianUnit'].invalid &&
+        (wellInfoForm.controls['centralMeridianUnit'].dirty ||
+        wellInfoForm.controls['centralMeridianUnit'].touched)){
+
+        <div class="text-danger"
+          *ngIf="wellInfoForm.controls['centralMeridianUnit'].errors?.['required'] && wellInfoForm.controls['centralMeridianUnit'].touched">
+          Central Meridian Unit is required.
+        </div>
+
+        <div
+          *ngIf="wellInfoForm.controls['centralMeridianUnit'].errors?.['pattern'] && wellInfoForm.controls['centralMeridianUnit'].touched"
+          class="text-danger">
+          Invalid Input.
+        </div>
+
+
+        } -->
+
+
+      </div>
+
+      <div class="md:col-span-4 col-span-12 mb-4">
+        <label class="form-label" for="gle">GLE</label>
+        <div>
+          <div class="sm:flex rounded-sm">
+            <input type="text" id="gle" formControlName="gle"
+              class="ti-form-input rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0  sm:first:rounded-se-none  sm:last:rounded-es-none  sm:last:rounded-e-sm  relative focus:z-10">
+            <select name="hs-inline-leading-select-currency" formControlName="gleUnit"
+              class="inline-block rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-sm border-l-0 border-r border-defaultborder dark:border-defaultborder/10 focus:ring-primary focus:border-primary dark:focus:border-defaultborder/10 dark:bg-bodybg ps-2 pe-[2.25rem]">
+              <!-- <option *ngFor="let gleUnit of data.gleUnits" [value]="gleUnit" [selected]="gleUnit == selectedGleUnit">
+                {{gleUnit}}
+              </option> -->
+            </select>
+          </div>
+        </div>
+
+        <!-- @if( wellInfoForm.controls['gle'].invalid &&
+        (wellInfoForm.controls['gle'].dirty ||
+        wellInfoForm.controls['gle'].touched)){
+
+
+        <div class="text-danger"
+          *ngIf="wellInfoForm.controls['gle'].errors?.['isNumber'] && wellInfoForm.controls['gle'].touched">
+          Invalid Format
+        </div>
+        <div class="text-danger"
+          *ngIf="wellInfoForm.controls['gle'].errors?.['required'] && wellInfoForm.controls['gle'].touched">
+          GLE is required.
+        </div>
+
+
+        <div *ngIf="wellInfoForm.controls['gle'].errors?.['pattern'] && wellInfoForm.controls['gle'].touched"
+          class="text-danger">
+          Invalid Input.
+        </div>
+
+        }
+
+        @if( wellInfoForm.controls['gleUnit'].invalid &&
+        (wellInfoForm.controls['gleUnit'].dirty ||
+        wellInfoForm.controls['gleUnit'].touched)){
+
+        <div class="text-danger"
+          *ngIf="wellInfoForm.controls['gleUnit'].errors?.['required'] && wellInfoForm.controls['gleUnit'].touched">
+          GLE Unit is required.
+        </div>
+
+        <div *ngIf="wellInfoForm.controls['gleUnit'].errors?.['pattern'] && wellInfoForm.controls['gleUnit'].touched"
+          class="text-danger">
+          Invalid Input.
+        </div>
+
+
+        } -->
+
+      </div>
+
+      <div class="md:col-span-4 col-span-12 mb-4">
+        <label class="form-label" for="rkb">RKB</label>
+        <div>
+          <div class="sm:flex rounded-sm">
+            <input type="text" id="rkb" formControlName="rkb"
+              class="ti-form-input rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0  sm:first:rounded-se-none  sm:last:rounded-es-none  sm:last:rounded-e-sm  relative focus:z-10">
+            <select name="hs-inline-leading-select-currency" formControlName="rkbUnit"
+              class="inline-block rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-sm border-l-0 border-r border-defaultborder dark:border-defaultborder/10 focus:ring-primary focus:border-primary dark:focus:border-defaultborder/10 dark:bg-bodybg ps-2 pe-[2.25rem]">
+              <!-- <option *ngFor="let rkbUnit of data.rkbUnits" [value]="rkbUnit" [selected]="rkbUnit == selectedRkbUnit">
+                {{rkbUnit}}
+              </option> -->
+            </select>
+          </div>
+        </div>
+
+        <!-- @if( wellInfoForm.controls['rkb'].invalid &&
+        (wellInfoForm.controls['rkb'].dirty ||
+        wellInfoForm.controls['rkb'].touched)){
+
+
+        <div class="text-danger"
+          *ngIf="wellInfoForm.controls['rkb'].errors?.['isNumber'] && wellInfoForm.controls['rkb'].touched">
+          Invalid Format
+        </div>
+        <div class="text-danger"
+          *ngIf="wellInfoForm.controls['rkb'].errors?.['required'] && wellInfoForm.controls['rkb'].touched">
+          RKB is required.
+        </div>
+
+        <div *ngIf="wellInfoForm.controls['rkb'].errors?.['pattern'] && wellInfoForm.controls['rkb'].touched"
+          class="text-danger">
+          Invalid Input.
+        </div>
+
+        }
+
+        @if( wellInfoForm.controls['rkbUnit'].invalid &&
+        (wellInfoForm.controls['rkbUnit'].dirty ||
+        wellInfoForm.controls['rkbUnit'].touched)){
+
+        <div class="text-danger"
+          *ngIf="wellInfoForm.controls['rkbUnit'].errors?.['required'] && wellInfoForm.controls['rkbUnit'].touched">
+          RKB Unit is required.
+        </div>
+
+        <div *ngIf="wellInfoForm.controls['rkbUnit'].errors?.['pattern'] && wellInfoForm.controls['rkbUnit'].touched"
+          class="text-danger">
+          Invalid Input.
+        </div>
+
+        } -->
+      </div>
+<!--
+      <div class="md:col-span-12 col-span-12 flex justify-end sm:gap-x-4 sm:gap-y-4">
+        <button type="button" class="ti-btn ti-btn-outline-primary ti-btn-wave !mb-0" (click)="onBack()">Back</button>
+        <button type="submit" class="ti-btn ti-btn-primary-full !mb-0">Next</button>
+      </div> -->
+    </div>
+
+  </form>
+
+
+
+</div>

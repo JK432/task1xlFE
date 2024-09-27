@@ -1,0 +1,130 @@
+<div class="box-body">
+  <form (ngSubmit)="onSubmit()" [formGroup]="jobInfoForm">
+
+    <div class="grid grid-cols-12 sm:gap-x-6 sm:gap-y-4">
+      <div class="md:col-span-6 col-span-12 mb-4">
+        <label class="form-label" for="clientrep">Client Reprasentative</label>
+        <input id="clientrep" type="text" class="form-control" placeholder="" aria-label="Clint Reprasentative"
+          formControlName="clientRepresentative">
+
+        @if( jobInfoForm.controls['clientRepresentative'].invalid &&
+        (jobInfoForm.controls['clientRepresentative'].dirty ||
+        jobInfoForm.controls['clientRepresentative'].touched)){
+
+        <div
+          *ngIf="jobInfoForm.controls['clientRepresentative'].errors?.['required'] && jobInfoForm.controls['clientRepresentative'].touched"
+          class="text-danger">
+          Client Representative is required.
+        </div>
+        <div
+          *ngIf="jobInfoForm.controls['clientRepresentative'].errors?.['pattern'] && jobInfoForm.controls['clientRepresentative'].touched"
+          class="text-danger">
+          Invalid Input.
+        </div>
+        }
+
+      </div>
+
+      <div class="md:col-span-3 col-span-12 mb-4">
+        <label class="form-label" for="rigid">Rig Number</label>
+        <select id="rigid" class="form-select !py-[0.59rem]" formControlName="rigNo">
+          <option *ngFor="let rigNo of rigNos" [value]="rigNo.id" [selected]="rigNo.id == selectedrigNo">
+            {{rigNo.rig_number}}</option>
+        </select>
+
+        @if( jobInfoForm.controls['rigNo'].invalid &&
+        (jobInfoForm.controls['rigNo'].dirty ||
+        jobInfoForm.controls['rigNo'].touched)){
+
+        <div class="text-danger"
+          *ngIf="jobInfoForm.controls['rigNo'].errors?.['required'] && jobInfoForm.controls['rigNo'].touched">
+          Rig Number is required.
+        </div>
+        <div *ngIf="jobInfoForm.controls['rigNo'].errors?.['pattern'] && jobInfoForm.controls['rigNo'].touched"
+          class="text-danger">
+          Invalid Input.
+        </div>
+        }
+      </div>
+
+
+
+
+      <div class="md:col-span-3 col-span-12 mb-4">
+        <label class="form-label" for="wellid">Well Id</label>
+        <input id="wellid" type="text" class="form-control" placeholder="" aria-label="Well Id"
+          formControlName="wellId">
+
+        @if( jobInfoForm.controls['wellId'].invalid &&
+        (jobInfoForm.controls['wellId'].dirty ||
+        jobInfoForm.controls['wellId'].touched)){
+
+        <div *ngIf="jobInfoForm.controls['wellId'].errors?.['required'] && jobInfoForm.controls['wellId'].touched"
+          class="text-danger">
+          Well Id is required.
+        </div>
+
+        <div *ngIf="jobInfoForm.controls['wellId'].errors?.['pattern'] && jobInfoForm.controls['wellId'].touched"
+          class="text-danger">
+          Invalid Input.
+        </div>
+
+        }
+      </div>
+
+
+      <div class="md:col-span-6 col-span-12 mb-4">
+        <label class="form-label" for="wellname">Well Name</label>
+        <input id="wellname" type="text" class="form-control" placeholder="" aria-label="Well Name"
+          formControlName="wellName">
+        @if( jobInfoForm.controls['wellName'].invalid &&
+        (jobInfoForm.controls['wellName'].dirty ||
+        jobInfoForm.controls['wellName'].touched)){
+
+        <div class="text-danger"
+          *ngIf="jobInfoForm.controls['wellName'].errors?.['required'] && jobInfoForm.controls['wellName'].touched">
+          Well Name is required.
+        </div>
+
+        <div *ngIf="jobInfoForm.controls['wellName'].errors?.['pattern'] && jobInfoForm.controls['wellName'].touched"
+          class="text-danger">
+          Invalid Input.
+        </div>
+
+        }
+      </div>
+
+
+
+
+      <div class="md:col-span-6 col-span-12 mb-4">
+        <label class="form-label" for="location">Location</label>
+        <input id="location" type="text" class="form-control" placeholder="" aria-label="Location"
+          formControlName="location">
+        @if( jobInfoForm.controls['location'].invalid &&
+        (jobInfoForm.controls['location'].dirty ||
+        jobInfoForm.controls['location'].touched)){
+
+        <div class="text-danger"
+          *ngIf="jobInfoForm.controls['location'].errors?.['required'] && jobInfoForm.controls['location'].touched">
+          Location is required.
+        </div>
+
+        <div *ngIf="jobInfoForm.controls['location'].errors?.['pattern'] && jobInfoForm.controls['location'].touched"
+          class="text-danger">
+          Invalid Input.
+        </div>
+
+        }
+      </div>
+      <div class="md:col-span-12 col-span-12 flex justify-end sm:gap-x-4 sm:gap-y-4">
+        <button type="button" class="ti-btn ti-btn-outline-primary ti-btn-wave !mb-0" (click)="onBack()">Back</button>
+        <button type="submit" class="ti-btn ti-btn-primary-full !mb-0">Next</button>
+      </div>
+    </div>
+
+  </form>
+
+
+
+</div>

@@ -1,0 +1,18 @@
+<app-switcher></app-switcher>
+<div class="page flex flex-col min-h-screen">
+  <app-header></app-header>
+  <div class="flex flex-grow" style="justify-content: space-between;">
+    <app-sidebar appHoverEffectSidebar></app-sidebar>
+    <div class="w-full flex flex-col" style="height: 100vh;">
+      <div class="content pr-0 flex-grow" style="overflow-y: auto;">
+        <div class="main-content" (click)="togglesidemenuBody()">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+      <app-footer class="mt-auto"></app-footer>
+      <app-tab-to-top></app-tab-to-top>
+    </div>
+    <app-sidesupernav class="pt-14 transition-all ease-linear duration-[0.05s] relative"></app-sidesupernav>
+  </div>
+</div>
+<div id="responsive-overlay" (click)="clearToggle()"></div>

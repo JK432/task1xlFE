@@ -1,0 +1,151 @@
+<app-page-header [title]="'Jobs'" [activeTitle]="'Home'" [title1]="'Jobs'"></app-page-header>
+
+<div class="container pt-4">
+  <div class="grid grid-cols-12 gap-6">
+    <div class="xl:col-span-12 col-span-12">
+      <div class="box">
+        <div class="box-header justify-between sm:flex block">
+          <div class="box-title">
+            Jobs
+          </div>
+          <div>
+            <nav class="sm:flex block sm:mt-0 mt-2" aria-label="Tabs">
+              <a class="block w-full sm:w-auto hs-tab-active:bg-primary/10 hs-tab-active:text-primary cursor-pointer text-defaulttextcolor dark:text-defaulttextcolor/70 py-2 px-4  text-[0.8rem] font-medium text-center rounded-md hover:text-primary active"
+                id="active-item" data-hs-tab="#taskactive" aria-controls="taskactive">
+                Active
+              </a>
+              <a class="block w-full sm:w-auto hs-tab-active:bg-primary/10 hs-tab-active:text-primary cursor-pointer text-defaulttextcolor dark:text-defaulttextcolor/70 py-2 px-4 text-[0.8rem] font-medium text-center  rounded-md hover:text-primary "
+                id="completed-item" data-hs-tab="#completed" aria-controls="completed">
+                Completed
+              </a>
+            </nav>
+          </div>
+        </div>
+        <div class="box-body !p-0">
+          <div class="tab-content">
+            <div class="tab-pane show active text-[#8c9097] dark:text-white/50 !border-0 !p-0" id="taskactive"
+              role="tabpanel">
+              <div class="table-responsive overflow-auto">
+                <table class="table whitespace-nowrap min-w-full mb-0">
+                  <thead>
+                    <tr>
+                      <th scope="col" class="text-center">Job.no</th>
+                      <th scope="col" class="text-start">Service</th>
+                      <th scope="col" class="text-start">Location</th>
+                      <th scope="col" class="text-start">Status</th>
+                      <th scope="col" class="text-start">Customer</th>
+                      <th scope="col" class="text-start">Created at</th>
+                    </tr>
+                  </thead>
+                  <tbody *ngIf=" !(dataService.masterDataGetLoading$ | async) &&  !(dataService.jobGetLoading$ | async);  else loadedContent " class="top-selling">
+                    @if(jobs.length>0){
+                    @for (job of jobs; track $index) {
+                    <tr class="border-y border-inherit border-solid dark:border-defaultborder/10">
+                      <td class="text-center leading-none">
+                        <div class="flex items-center font-semibold">
+                          {{ job.job_number }}
+                        </div>
+                      </td>
+                      <td>{{ job.service | forignAsync : "SERVICETYPE" }}</td>
+                      <td>{{ job.location }}</td>
+                      <td>
+                        <span class="badge badge-sm bg-success/10 text-success !font-normal">Presurvey</span>
+                      </td>
+                      <td>
+                        <span class="">{{
+                          job.customer | forignAsync : "CUSTOMER"
+                          }}</span>
+                      </td>
+                      <td>
+                        <span class="">{{
+                          job.job_created_date | hoursAgo
+                          }}</span>
+                      </td>
+                      <td>
+
+                        <button type="button" class="ti-btn ti-btn-primary-full label-ti-btn label-end m-0 !py-1" (click)="startPresurvey(job)">
+                          <i class="ri-arrow-right-s-line label-ti-btn-icon ms-2 text-[1.125rem]"></i>
+                          Start
+                        </button>
+                      </td>
+                    </tr>
+                    }
+                    }@else{
+                    <tr
+                      class="border-y border-inherit border-solid dark:border-defaultborder/10 m-0 px-5 py-2 flex items-center">
+                      No Jobs Found.</tr>
+                    }
+                  </tbody>
+                  <ng-template #loadedContent>
+                    <div class="ti-spinner text-primary p-2 m-2" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </ng-template>
+                </table>
+              </div>
+            </div>
+            <div class="tab-pane text-[#8c9097] dark:text-white/50 !border-0 !p-0 hidden" id="completed" role="tabpanel"
+              aria-labelledby="completed-item">
+              <div class="table-responsive overflow-auto">
+                <table class="table whitespace-nowrap min-w-full mb-0">
+                  <thead>
+                    <tr>
+                      <th scope="col" class="text-center">Job.no</th>
+                      <th scope="col" class="text-start">Service</th>
+                      <th scope="col" class="text-start">Location</th>
+                      <th scope="col" class="text-start">Status</th>
+                      <th scope="col" class="text-start">Customer</th>
+                      <th scope="col" class="text-start">Created at</th>
+                    </tr>
+                  </thead>
+                  <tbody *ngIf="!(dataService.masterDataGetLoading$ | async) &&  !(dataService.jobGetLoading$ | async);  else loadedContent  " class="top-selling">
+                    @if(jobs.length>0){
+                    @for (job of jobs; track $index) {
+                    <tr class="border-y border-inherit border-solid dark:border-defaultborder/10">
+                      <td class="text-center leading-none">
+                        <div class="flex items-center font-semibold">
+                          {{ job.job_number }}
+                        </div>
+                      </td>
+                      <td>{{ job.service | forignAsync : "SERVICETYPE" }}</td>
+                      <td>{{ job.location }}</td>
+                      <td>
+                        <span class="badge badge-sm bg-success/10 text-success !font-normal">Completed</span>
+                      </td>
+                      <td>
+                        <span class="">{{
+                          job.customer | forignAsync : "CUSTOMER"
+                          }}</span>
+                      </td>
+                      <td>
+                        <span class="">{{
+                          job.job_created_date | hoursAgo
+                          }}</span>
+                      </td>
+                      <td>
+                        <a aria-label="anchor" href="javascript:void(0);">
+                          <span class="orders-arrow"><i class="ri-arrow-right-s-line text-[1.125rem]"></i></span>
+                        </a>
+                      </td>
+                    </tr>
+                    }
+                    }@else{
+                    <tr
+                      class="border-y border-inherit border-solid dark:border-defaultborder/10 m-0 px-5 py-2 flex items-center">
+                      No Jobs Found.</tr>
+                    }
+                  </tbody>
+                  <ng-template #loadedContent>
+                    <div class="ti-spinner text-primary p-2 m-2" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </ng-template>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

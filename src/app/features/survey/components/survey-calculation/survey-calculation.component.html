@@ -1,0 +1,97 @@
+<app-page-header [title]="'Quality Analysis'" [activeTitle]="'Home'" [title1]="'Quality Analysis'"></app-page-header>
+
+<div class="grid grid-cols-12 gap-x-6">
+  <div class="xl:col-span-12 col-span-12">
+    <div class="table-responsive">
+
+      @if(dataServices.surveyCalculationDetailsPostLoading$ | async){
+                              <div class="ti-spinner text-primary p-2 m-2" role="status">
+                                <span class="sr-only">Loading...</span>
+                              </div>
+      }@else {
+              @if (this.surveyCalculationDetails.status != "no_data"){
+
+              <div class="box">
+                <div class="box-header">
+                  <h5 class="box-title">Survey Calculation Details</h5>
+                </div>
+                <div class="box-body">
+                  <table class="table whitespace-nowrap min-w-full">
+                    <thead>
+                      <tr class=" table-primary border-b border-defaultborder">
+                        <th scope="col" class="text-start">Depth</th>
+                        <th scope="col" class="text-start">Inc</th>
+                        <th scope="col" class="text-start">Azimuth</th>
+                        <th scope="col" class="text-start">TVD</th>
+                        <th scope="col" class="text-start">Vertical Section</th>
+                        <th scope="col" class="text-start">+N/-S</th>
+                        <th scope="col" class="text-start">+E/-W</th>
+                        <th scope="col" class="text-start">DLS</th>
+                        <th scope="col" class="text-start">Closure Distance</th>
+                        <th scope="col" class="text-start">Closure Direction</th>
+                      </tr>
+                    </thead>
+                    <tbody *ngIf=" !(dataServices.surveyCalculationDetailsPostLoading$ | async);  else loadedContent">
+                      <!-- @if (this.qualityAnalysis.results.length>0){ -->
+                      @for(result of this.surveyCalculationDetails.results; track $index){
+                      <tr class="border-b border-defaultborder">
+                        <td>{{result.measured_depth}}</td>
+                        <td>{{result.inclination}}</td>
+                        <td>{{result.azimuth}}</td>
+                        <td>{{result.tvd}}</td>
+                        <td>{{result.Vertical_Section}}</td>
+                        <td>{{result.latitude}}</td>
+                        <td>{{result.departure}}</td>
+                        <td>{{result.DLS}}</td>
+                        <td>{{result.closure_distance}}</td>
+                        <td>{{result.closure_direction}}</td>
+                      </tr>
+                      }
+
+                    </tbody>
+                    <ng-template #loadedContent>
+                      <div class="ti-spinner text-primary p-2 m-2" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                    </ng-template>
+
+                  </table>
+                </div>
+
+              </div>
+              }@else{
+              <div class="">
+                <div class="box">
+                  <div class="box-header">
+                    <h5 class="box-title">No File Imported</h5>
+                  </div>
+                  <div class="m-4">
+                    <label class="block">
+                      <span class="sr-only">Choose Survey File</span>
+                      <input type="file" class="block w-full border border-gray-200 focus:shadow-sm dark:focus:shadow-white/10 rounded-sm text-sm focus:z-10 focus:outline-0 focus:border-gray-200 dark:focus:border-white/10 dark:border-white/10 dark:text-[#8c9097] dark:text-white/50
+                            file:me-4 file:py-2 file:px-4
+                            file:rounded-s-sm file:border-0
+                            file:text-sm file:font-semibold
+                            file:bg-primary file:text-white
+                            hover:file:bg-primary focus-visible:outline-none
+                          " accept=".xlsx, .xls" (change)="onFileSelected($event)">
+                    </label>
+                    <div class="ti-modal-footer mt-4 flex justify-end">
+                      <button *ngIf="(dataServices.qualityAnalysisPostLoading$| async); else loadedContent" type="button"
+                        class="ti-btn ti-btn-primary-full ti-btn-loader ti-btn-disabled !py-1">
+                        <span class="me-2">Analysing..</span>
+                        <span class="loading"><i class="ri-refresh-line text-[1rem] animate-spin"></i></span>
+                      </button>
+                      <ng-template #loadedContent>
+                        <button class="ti-btn ti-btn-primary-full !py-1" (click)="onUpload()">Import</button>
+                      </ng-template>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              }
+      }
+
+    </div>
+  </div>
+</div>

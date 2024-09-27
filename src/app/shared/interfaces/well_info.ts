@@ -1,0 +1,29 @@
+export interface WellInfo {
+  well_info_id: number;
+  north_coordinates: number;
+  east_coorinates: number;
+  w_t: number;
+  max_wt: number;
+  min_wt: number;
+  g_t: number;
+  max_gt: number;
+  min_gt: number;
+  well_id: number;
+  latitude_1: number;
+  latitude_2: number;
+  latitude_3: number;
+  longitude_1: number;
+  longitude_2: number;
+  longitude_3: number;
+  northing: number;
+  easting: number;
+  expected_well_temp: number;
+  expected_wellbore_inclination: number;
+  central_meridian: number;
+  GLE: number;
+  RKB: number;
+  ref_elivation: string;
+  ref_datum: string;
+  job_number: string;
+  well_type: number;
+}

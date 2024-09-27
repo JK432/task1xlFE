@@ -1,0 +1,103 @@
+<div class="box custom-box !mb-3">
+  <div class="box-body">
+    @if((this.dataService.jobLoading$ | async)|| (this.runDashDataServices.masterDataGetLoading$| async)){
+    <div class="ti-spinner text-primary p-2 m-2" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+    }@else{
+    @if(!(this.job.job_number=="")){
+    <div class="sm:flex align-top justify-between">
+      <div>
+        <div class="sm:flex flex-wrap gap-2">
+          <div>
+            <h4 class="font-bold mb-0 flex items-center">
+              <a href="javascript:void(0);">{{this.job.job_number}}</a>
+            </h4>
+          </div>
+        </div>
+      </div>
+      <!-- <div>
+        <div class="btn-list sm:flex items-center mb-2"></div>
+        <p class="mb-0">
+          <i class="bi bi-info-circle text-danger me-1"></i>
+          <b>45 days left </b> to complete this job
+        </p>
+      </div> -->
+    </div>
+    <div class="sm:flex mt-4 !text-[#8c9097] dark:text-white/50">
+      <div class="mb-2 sm:mb-0 flex items-center gap-8">
+        <div class="mb-1">
+          <div class="mr-3 form-label !mb-1">Service Type</div>
+          <b>{{ job.service | forignAsync : "SERVICETYPE" }}</b>
+        </div>
+        <div class="mb-1">
+          <div class="mr-3 form-label !mb-1">Customer</div>
+          <b>{{
+            job.customer | forignAsync : "CUSTOMER"
+            }}</b>
+        </div>
+        <div class="mb-1">
+          <div class="mr-3 form-label !mb-1">Location</div>
+          <b>{{job.location}}</b>
+        </div>
+        <div class="mb-1">
+          <div class="mr-3 form-label !mb-1">Rig No</div>
+          <b>{{ job.rig_number | forignAsync : "RIGNO" }}</b>
+        </div>
+        <div class="mb-1">
+          <div class="mr-3 form-label !mb-1">Date</div>
+          <b>{{job.estimated_date| hoursAgo}}</b>
+        </div>
+      </div>
+    </div>
+    }@else{
+    <div class="p-2 m-2">Sorry failed to fetch data.</div>
+    }
+    }
+
+  </div>
+</div>
+<div class="box custom-box !pt-0">
+  <div class="box-body">
+    <!-- <div
+      class="popular-tags mb-2 sm:mb-0 space-x-1 rtl:space-x-reverse text-[1rem] mt-2 xl:flex xl:items-center text-left">
+    </div> -->
+
+    <div class="flex items-center xl:space-x-4 space-x-2">
+      <!-- Presurvey -->
+      <div class="!rounded-full bg-info/10 !pr-4 !font-semibold flex items-center">
+        <span
+          class="inline-flex items-center justify-center !w-[1.75rem] !h-[1.75rem] leading-[1.75rem] text-[1rem] rounded-full text-success bg-success/10 font-semibold mr-2">
+          1
+        </span>
+        <span class="">Presurvey</span>
+      </div>
+
+      <!-- Arrow -->
+      <i
+        class="ti ti-chevrons-right flex-shrink-0 text-[#8c9097] dark:text-white/50 px-[0.5rem] hidden xl:inline-block"></i>
+
+      <!-- Quality Analysis -->
+      <div class="!rounded-full bg-info/10 !pr-4 !font-semibold flex items-center">
+        <span
+          class="inline-flex items-center justify-center !w-[1.75rem] !h-[1.75rem] leading-[1.75rem] text-[1rem] rounded-full text-success bg-success/10 font-semibold mr-2">
+          2
+        </span>
+        <span class="">Quality Analysis</span>
+      </div>
+
+      <!-- Arrow -->
+      <i
+        class="ti ti-chevrons-right flex-shrink-0 text-[#8c9097] dark:text-white/50 px-[0.5rem] hidden xl:inline-block"></i>
+
+      <!-- Survey Calculation -->
+      <div class="!rounded-full bg-info/10 !pr-4 !font-semibold flex items-center">
+        <span
+          class="inline-flex items-center justify-center !w-[1.75rem] !h-[1.75rem] leading-[1.75rem] text-[1rem] rounded-full text-success bg-success/10 font-semibold mr-2">
+          3
+        </span>
+        <span class="">Survey Calculation</span>
+      </div>
+    </div>
+  </div>
+</div>

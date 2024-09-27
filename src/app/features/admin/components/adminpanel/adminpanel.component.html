@@ -1,0 +1,90 @@
+<!-- <p>adminpanel works!</p>
+ -->
+
+<app-page-header [title]="'Admin'" [activeTitle]="'Admin'" [title1]="'Admin Panel'"></app-page-header>
+
+<div class="container pt-4">
+  <div class="grid grid-cols-12 gap-6">
+    <div class="xl:col-span-12 col-span-12">
+      <div class="box custom-card">
+        <div class="box-header justify-between">
+          <div class="box-title">Jobs</div>
+          <div class="flex flex-wrap gap-2">
+            <div>
+              <input class="ti-form-control form-control-sm" type="text" placeholder="Search Here"
+                aria-label=".form-control-sm example" />
+            </div>
+            <a href="/admin/addjob/">
+              <button type="button" class="ti-btn ti-btn-primary-full label-ti-btn !m-0 !py-1">
+                <i class="bx bx-plus-circle label-ti-btn-icon me-2"></i>
+                Add Job
+              </button>
+            </a>
+          </div>
+        </div>
+        <div class="box-body !p-0">
+          <div class="table-responsive">
+            <table class="table whitespace-nowrap min-w-full mb-0">
+              <thead>
+                <tr>
+                  <th scope="col" class="text-center">Job.no</th>
+                  <th scope="col" class="text-start">Service</th>
+                  <th scope="col" class="text-start">Location</th>
+                  <th scope="col" class="text-start">Status</th>
+                  <th scope="col" class="text-start">Customer</th>
+                  <th scope="col" class="text-start">Created at</th>
+                </tr>
+              </thead>
+
+                <tbody *ngIf="
+                  !(dataService.intialDataGetLoading$ | async) &&
+                    !(dataService.jobGetLoading$ | async);
+                  else loadedContent
+                " class="top-selling">
+
+                 @if(jobs.length>0){
+                  @for (job of jobs; track $index) {
+                  <tr class="border-y border-inherit border-solid dark:border-defaultborder/10">
+                    <td class="text-center leading-none">
+                      <div class="flex items-center font-semibold">
+                        {{ job.job_number }}
+                      </div>
+                    </td>
+                    <td>{{ job.service | serviceType : "SERVICETYPE" }}</td>
+                    <td>{{ job.location }}</td>
+                    <td>
+                      <span class="badge badge-sm bg-success/10 text-success !font-normal">Presurvey</span>
+                    </td>
+                    <td>
+                      <span class="">{{
+                        job.customer | serviceType : "CUSTOMER"
+                        }}</span>
+                    </td>
+                    <td>
+                      <span class="">{{
+                        job.job_created_date | hoursAgo
+                        }}</span>
+                    </td>
+                    <td>
+                      <a aria-label="anchor" href="javascript:void(0);">
+                        <span class="orders-arrow"><i class="ri-arrow-right-s-line text-[1.125rem]"></i></span>
+                      </a>
+                    </td>
+                  </tr>
+                  }
+                 }@else{
+                  <tr class="border-y border-inherit border-solid dark:border-defaultborder/10 m-0 px-5 py-2 flex items-center"> No Jobs Found.</tr>
+                 }
+                </tbody>
+              <ng-template #loadedContent>
+                <div class="ti-spinner text-primary p-2 m-2" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+              </ng-template>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

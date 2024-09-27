@@ -1,0 +1,118 @@
+<!-- <div
+  style="display: flex; flex-direction: row !important; justify-content: right; height: 100%;  transition: transform 0.3s ease-in-out; transform: translateX(0);"
+  x-show.transition.opacity=display>
+  <div [style.display]="!display? 'none': 'block'" class="box"
+    style="width: 300px; z-index: 10;  border-top-right-radius:0px;border-bottom-right-radius:0px; height: 100%;">
+    <div style="justify-content: right;">
+
+
+      <div class="sidesupernav_topbar border-b dark:border-defaultborder/10 pb-5">
+
+        <div (click)="action=''; display=false;" style=" height:20px; width:20px;"><a class="side-menu__item p-2 "
+            style="font-size: 25px;">
+            <i class="side-menu__icon bx bx-x bx-tada-hover"></i>
+          </a></div>
+
+        <div class="sidesupernav_header font-semibold mb-0 text-[1rem]">
+          {{tittle}}
+        </div>
+      </div>
+    </div>
+    <div class="" style="height:inherit; overflow-y: auto;">
+    <div #contentdiv>
+
+    </div>
+    </div>
+
+
+  </div>
+  <div class="box border-l dark:border-defaultborder/10" style="height: 100%; border-top-right-radius:0px;border-bottom-right-radius:0px;">
+
+    <ng-container>
+      <li class="slide pl-2 pr-2 pt-2" style="display: flex; justify-content: center; align-items: center;">
+        <a class="side-menu__item" style="font-size: 20px;">
+          <i (click)="showComponent('Calendar')" class="side-menu__icon bx bx-mail-send bx-tada-hover"></i>
+        </a>
+      </li>
+    </ng-container>
+
+    <ng-container>
+      <li class="slide pl-2 pr-2 pt-2" style="display: flex; justify-content: center; align-items: center;">
+        <a class="side-menu__item" style="font-size: 20px;">
+          <i (click)="showComponent('Quick Apps')" class="side-menu__icon bx bx-share-alt bx-tada-hover"></i>
+        </a>
+      </li>
+    </ng-container>
+
+    <ng-container>
+      <li class="slide pl-2 pr-2 pt-2" style=" display: flex; justify-content: center; align-items: center;">
+        <a class="side-menu__item" style="font-size: 20px;">
+          <i (click)="showComponent('Notification')" class="side-menu__icon bx bx-spreadsheet bx-tada-hover"></i>
+        </a>
+      </li>
+    </ng-container>
+
+
+  </div>
+</div> -->
+
+<div
+  style="display: flex; flex-direction: row !important; justify-content: right; height: 100%; transition: transform 0.3s ease-in-out; transform: translateX(0);"
+  x-show.transition.opacity="display">
+  <div [style.display]="!display ? 'none' : 'block'" class="box "
+    style="width: 300px; z-index: 10; border-top-right-radius:0px;border-bottom-right-radius:0px; height: 100%; overflow-y: auto; padding: 0px;margin: 0px;">
+    <div style="justify-content: right;">
+      <div class="sidesupernav_topbar border-b dark:border-defaultborder/10 pb-5">
+        <div (click)="action=''; display=false;" style=" height:20px; width:20px;">
+          <a class="side-menu__item p-2" style="font-size: 25px;">
+            <i class="side-menu__icon bx bx-x bx-tada-hover"></i>
+          </a>
+        </div>
+        <div class="sidesupernav_header font-semibold mb-0 text-[1rem]">
+          {{tittle}}
+        </div>
+      </div>
+    </div>
+    <div style="height: calc(100vh - 98px); overflow-y: auto; padding-top: 5px;"class="scrollbar-thumb-rounded-full scrollbar-thin scrollbar-track-rounded-full scrollbar scrollbar-track-transparent">
+      <div #contentdiv>
+        <!-- Your content here -->
+      </div>
+    </div>
+  </div>
+
+<div class="box border-l dark:border-defaultborder/10"
+  style="height: 100%; border-top-right-radius:0px;border-bottom-right-radius:0px;">
+
+  <ng-container>
+    <li class="slide pl-2 pr-2 pt-2" style="display: flex; justify-content: center; align-items: center;">
+      <a class="side-menu__item" style="font-size: 20px;">
+        <i (click)="showComponent('Logs')" class="side-menu__icon bx bx-receipt bx-tada-hover"></i>
+      </a>
+    </li>
+  </ng-container>
+
+  <ng-container>
+    <li class="slide pl-2 pr-2 pt-2" style="display: flex; justify-content: center; align-items: center;">
+      <a class="side-menu__item" style="font-size: 20px;">
+        <i (click)="showComponent('Quick Apps')" class="side-menu__icon bx bx-category-alt bx-tada-hover"></i>
+      </a>
+    </li>
+  </ng-container>
+<!-- <i class='bx bx-category-alt'></i> -->
+  <ng-container>
+    <li class="slide pl-2 pr-2 pt-2" style=" display: flex; justify-content: center; align-items: center;">
+      <a class="side-menu__item" style="font-size: 20px;">
+        <i (click)="showComponent('Notification')" class="side-menu__icon bx bx-bell bx-tada-hover"></i>
+      </a>
+    </li>
+  </ng-container>
+  <ng-container>
+    <li class="slide pl-2 pr-2 pt-2" style=" display: flex; justify-content: center; align-items: center;">
+      <a class="side-menu__item" style="font-size: 20px;">
+        <i (click)="showComponent('Mail')" class="side-menu__icon bx bx-mail-send bx-tada-hover"></i>
+      </a>
+    </li>
+  </ng-container>
+
+</div>
+</div>

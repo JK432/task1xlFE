@@ -1,0 +1,99 @@
+<div class="box-body">
+  <form (ngSubmit)="onSubmit()" [formGroup]="startJobForm">
+
+    <div class="grid grid-cols-12 sm:gap-x-6 sm:gap-y-4">
+      <div class="md:col-span-6 col-span-12 mb-4">
+        <label class="form-label" for="servicetype">Service Type</label>
+        <select id="servicetype" class="form-select !py-[0.59rem]" formControlName="serviceType">
+          <option *ngFor="let service of serviceTypes" [value]="service.id">
+            {{service.service_type}}</option>
+        </select>
+
+        @if(startJobForm.get('serviceType')!.invalid &&
+        (startJobForm.get('serviceType')!.dirty || startJobForm.get('serviceType')!.touched)){
+
+        <div class="text-danger">
+          Service Type is required.
+        </div>
+        }
+
+      </div>
+      <div class="md:col-span-6 col-span-12 mb-4">
+        <label class="form-label" for="jobno">Job No</label>
+        <input id="jobno" type="text" class="form-control" placeholder="" aria-label="Job No"
+          formControlName="jobNumber">
+        @if( startJobForm.controls['jobNumber'].invalid &&
+        (startJobForm.controls['jobNumber'].dirty ||
+        startJobForm.controls['jobNumber'].touched)){
+
+        <div class="text-danger">
+          Invalid Job Number.
+        </div>
+        }
+      </div>
+
+      <div class="md:col-span-6 col-span-12 mb-4">
+        <label class="form-label" for="customer">Customer</label>
+        <select id="customer" class="form-select !py-[0.59rem]" formControlName="customer">
+          <option *ngFor="let customer of customers" [value]="customer.customer_id" [selected]="customer.customer_id == selectedCustomer">
+            {{customer.customer_name}}</option>
+        </select>
+
+        @if( startJobForm.controls['customer'].invalid &&
+        (startJobForm.controls['customer'].dirty ||
+        startJobForm.controls['customer'].touched)){
+
+        <div class="text-danger">
+          Customer is required.
+        </div>
+        }
+      </div>
+
+      <div class="xxl:col-span-3 xl:col-span-12 col-span-12 mb-4">
+        <label class="form-label" for="units">Unit of Measure</label>
+        <select id="units" class="form-select !py-[0.59rem]" formControlName="unitOfMeasure">
+          <option *ngFor="let unit of units" [value]="unit.id" [selected]="unit.id == selectedUnit">{{unit.unit_of_measure}}
+          </option>
+        </select>
+        @if( startJobForm.controls['unitOfMeasure'].invalid &&
+        (startJobForm.controls['unitOfMeasure'].dirty ||
+        startJobForm.controls['unitOfMeasure'].touched)){
+
+        <div class="text-danger">
+          Unit of Measure is required.
+        </div>
+        }
+      </div>
+      <div class="xxl:col-span-3 xl:col-span-12 col-span-12 mb-4">
+        <label class="form-label" for="estimatedate">Estimated Date</label>
+        <input id="estimatedate" type="date" class="form-control" aria-label="estimateddate"
+          formControlName="estimatedDate">
+        @if( startJobForm.controls['estimatedDate'].invalid &&
+        (startJobForm.controls['estimatedDate'].dirty ||
+        startJobForm.controls['estimatedDate'].touched)){
+
+        <div class="text-danger"
+          *ngIf="startJobForm.controls['estimatedDate'].errors?.['required'] && startJobForm.controls['estimatedDate'].touched">
+          Estimated Date is required.
+        </div>
+
+        <div class="text-danger"
+          *ngIf="startJobForm.controls['estimatedDate'].errors?.['isDateFuture'] && startJobForm.controls['estimatedDate'].touched">
+          Invalid Estimated Date.
+        </div>
+
+        }
+
+
+      </div>
+      <div class="md:col-span-12 col-span-12 flex justify-end sm:gap-x-4 sm:gap-y-4">
+
+        <button type="submit" class="ti-btn ti-btn-primary-full !mb-0">Next</button>
+      </div>
+    </div>
+
+  </form>
+
+
+
+</div>

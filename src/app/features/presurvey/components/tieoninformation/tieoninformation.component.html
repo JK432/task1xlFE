@@ -1,0 +1,277 @@
+<div class="box-body">
+  <form (ngSubmit)="onSubmit()" [formGroup]="tieOnInfoForm">
+
+    <div class="grid grid-cols-12 sm:gap-x-6 sm:gap-y-4">
+
+      <div class="md:col-span-6 col-span-12 mb-4">
+        <label class="form-label" for="measuredDepth">Measured Depth</label>
+        <div>
+
+
+          <div class="sm:flex rounded-sm">
+            <input id="measuredDepth" type="text" formControlName="measuredDepth"
+              class="ti-form-input rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0  sm:first:rounded-se-none  sm:last:rounded-es-none  sm:last:rounded-e-sm  relative focus:z-10">
+            <select name="hs-inline-leading-select-currency" formControlName="measuredDepthUnit"
+              class="inline-block rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-sm border-l-0 border-r border-defaultborder dark:border-defaultborder/10 focus:ring-primary focus:border-primary dark:focus:border-defaultborder/10 dark:bg-bodybg ps-2 pe-[2.25rem]">
+              <option *ngFor="let measuredDepthUnit of data.meterFeetUnits" [value]="measuredDepthUnit"
+                [selected]="measuredDepthUnit == selectedMeasuredDepthUnit">{{measuredDepthUnit}}
+              </option>
+            </select>
+          </div>
+        </div>
+        @if( tieOnInfoForm.controls['measuredDepth'].invalid &&
+        (tieOnInfoForm.controls['measuredDepth'].dirty ||
+        tieOnInfoForm.controls['measuredDepth'].touched)){
+
+
+        <div class="text-danger"
+          *ngIf="tieOnInfoForm.controls['measuredDepth'].errors?.['isNumber'] && tieOnInfoForm.controls['measuredDepth'].touched">
+          Invalid Format.
+        </div>
+        <div class="text-danger"
+          *ngIf="tieOnInfoForm.controls['measuredDepth'].errors?.['required'] && tieOnInfoForm.controls['measuredDepth'].touched">
+          Measured Depth is required
+        </div>
+        }
+
+        @if( tieOnInfoForm.controls['measuredDepthUnit'].invalid &&
+        (tieOnInfoForm.controls['measuredDepthUnit'].dirty ||
+        tieOnInfoForm.controls['measuredDepthUnit'].touched)){
+
+        <div class="text-danger"
+          *ngIf="tieOnInfoForm.controls['measuredDepthUnit'].errors?.['required'] && tieOnInfoForm.controls['measuredDepthUnit'].touched">
+          Measured Depth Unit is required.
+        </div>
+        }
+
+      </div>
+
+      <div class="md:col-span-6 col-span-12 mb-4">
+        <label class="form-label" for="trueVerticalDepth">True Vertical Depth</label>
+        <div>
+
+
+          <div class="sm:flex rounded-sm">
+            <input id="trueVerticalDepth" type="text" formControlName="trueVerticalDepth"
+              class="ti-form-input rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0  sm:first:rounded-se-none  sm:last:rounded-es-none  sm:last:rounded-e-sm  relative focus:z-10">
+            <select name="hs-inline-leading-select-currency" formControlName="trueVerticalDepthUnit"
+              class="inline-block rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-sm border-l-0 border-r border-defaultborder dark:border-defaultborder/10 focus:ring-primary focus:border-primary dark:focus:border-defaultborder/10 dark:bg-bodybg ps-2 pe-[2.25rem]">
+              <option *ngFor="let trueVerticalDepthUnit of data.meterFeetUnits" [value]="trueVerticalDepthUnit"
+                [selected]="trueVerticalDepthUnit == selectedTrueVerticalDepthUnit">{{trueVerticalDepthUnit}}
+              </option>
+            </select>
+          </div>
+        </div>
+        @if( tieOnInfoForm.controls['trueVerticalDepth'].invalid &&
+        (tieOnInfoForm.controls['trueVerticalDepth'].dirty ||
+        tieOnInfoForm.controls['trueVerticalDepth'].touched)){
+
+
+        <div class="text-danger"
+          *ngIf="tieOnInfoForm.controls['trueVerticalDepth'].errors?.['isNumber'] && tieOnInfoForm.controls['trueVerticalDepth'].touched">
+          Invalid Format.
+        </div>
+        <div class="text-danger"
+          *ngIf="tieOnInfoForm.controls['trueVerticalDepth'].errors?.['required'] && tieOnInfoForm.controls['trueVerticalDepth'].touched">
+          True Vertical Depth is required
+        </div>
+        }
+
+        @if( tieOnInfoForm.controls['trueVerticalDepthUnit'].invalid &&
+        (tieOnInfoForm.controls['trueVerticalDepthUnit'].dirty ||
+        tieOnInfoForm.controls['trueVerticalDepthUnit'].touched)){
+
+        <div class="text-danger"
+          *ngIf="tieOnInfoForm.controls['trueVerticalDepthUnit'].errors?.['required'] && tieOnInfoForm.controls['trueVerticalDepthUnit'].touched">
+          True Vertical Depth Unit is required.
+        </div>
+        }
+
+      </div>
+
+
+      <div class="md:col-span-6 col-span-12 mb-4">
+        <label class="form-label" for="inclination">Inclination</label>
+        <div>
+
+
+          <div class="sm:flex rounded-sm">
+            <input id="inclination" type="text" formControlName="inclination"
+              class="ti-form-input rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0  sm:first:rounded-se-none  sm:last:rounded-es-none  sm:last:rounded-e-sm  relative focus:z-10">
+            <select name="hs-inline-leading-select-currency" formControlName="inclinationUnit"
+              class="inline-block rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-sm border-l-0 border-r border-defaultborder dark:border-defaultborder/10 focus:ring-primary focus:border-primary dark:focus:border-defaultborder/10 dark:bg-bodybg ps-2 pe-[2.25rem]">
+              <option *ngFor="let inclinationUnit of data.inclinationUnits" [value]="inclinationUnit"
+                [selected]="inclinationUnit == selectedInclinationUnit">{{inclinationUnit}}
+              </option>
+            </select>
+          </div>
+        </div>
+        @if( tieOnInfoForm.controls['inclination'].invalid &&
+        (tieOnInfoForm.controls['inclination'].dirty ||
+        tieOnInfoForm.controls['inclination'].touched)){
+
+
+        <div class="text-danger"
+          *ngIf="tieOnInfoForm.controls['inclination'].errors?.['isNumber'] && tieOnInfoForm.controls['inclination'].touched">
+          Invalid Format.
+        </div>
+        <div class="text-danger"
+          *ngIf="tieOnInfoForm.controls['inclination'].errors?.['required'] && tieOnInfoForm.controls['inclination'].touched">
+          Inclination is required.
+        </div>
+        }
+
+        @if( tieOnInfoForm.controls['inclinationUnit'].invalid &&
+        (tieOnInfoForm.controls['inclinationUnit'].dirty ||
+        tieOnInfoForm.controls['inclinationUnit'].touched)){
+
+        <div class="text-danger"
+          *ngIf="tieOnInfoForm.controls['inclinationUnit'].errors?.['required'] && tieOnInfoForm.controls['inclinationUnit'].touched">
+          Inclination Unit is required.
+        </div>
+        }
+
+      </div>
+
+      <div class="md:col-span-6 col-span-12 mb-4">
+        <label class="form-label" for="latitude">latitude (+N/-S)</label>
+        <div>
+
+
+          <div class="sm:flex rounded-sm">
+            <input id="latitude" type="text" formControlName="latitude"
+              class="ti-form-input rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0  sm:first:rounded-se-none  sm:last:rounded-es-none  sm:last:rounded-e-sm  relative focus:z-10">
+            <select name="hs-inline-leading-select-currency" formControlName="latitudeUnit"
+              class="inline-block rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-sm border-l-0 border-r border-defaultborder dark:border-defaultborder/10 focus:ring-primary focus:border-primary dark:focus:border-defaultborder/10 dark:bg-bodybg ps-2 pe-[2.25rem]">
+              <option *ngFor="let latitudeUnit of data.meterFeetUnits" [value]="latitudeUnit"
+                [selected]="latitudeUnit == selectedLatitudeUnit">{{latitudeUnit}}
+              </option>
+            </select>
+          </div>
+        </div>
+        @if( tieOnInfoForm.controls['latitude'].invalid &&
+        (tieOnInfoForm.controls['latitude'].dirty ||
+        tieOnInfoForm.controls['latitude'].touched)){
+
+
+        <div class="text-danger"
+          *ngIf="tieOnInfoForm.controls['latitude'].errors?.['isNumber'] && tieOnInfoForm.controls['latitude'].touched">
+          Invalid Format.
+        </div>
+        <div class="text-danger"
+          *ngIf="tieOnInfoForm.controls['latitude'].errors?.['required'] && tieOnInfoForm.controls['latitude'].touched">
+          latitude is required.
+        </div>
+        }
+
+        @if( tieOnInfoForm.controls['latitudeUnit'].invalid &&
+        (tieOnInfoForm.controls['latitudeUnit'].dirty ||
+        tieOnInfoForm.controls['latitudeUnit'].touched)){
+
+        <div class="text-danger"
+          *ngIf="tieOnInfoForm.controls['latitudeUnit'].errors?.['required'] && tieOnInfoForm.controls['latitudeUnit'].touched">
+          Inclination Unit is required.
+        </div>
+        }
+
+      </div>
+
+      <div class="md:col-span-6 col-span-12 mb-4">
+        <label class="form-label" for="azimuth">Azimuth</label>
+        <div>
+
+
+          <div class="sm:flex rounded-sm">
+            <input id="azimuth" type="text" formControlName="azimuth"
+              class="ti-form-input rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0  sm:first:rounded-se-none  sm:last:rounded-es-none  sm:last:rounded-e-sm  relative focus:z-10">
+            <select name="hs-inline-leading-select-currency" formControlName="azimuthUnit"
+              class="inline-block rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-sm border-l-0 border-r border-defaultborder dark:border-defaultborder/10 focus:ring-primary focus:border-primary dark:focus:border-defaultborder/10 dark:bg-bodybg ps-2 pe-[2.25rem]">
+              <option *ngFor="let azimuthUnit of data.inclinationUnits" [value]="azimuthUnit"
+                [selected]="azimuthUnit == selectedAzimuthUnit">{{azimuthUnit}}
+              </option>
+            </select>
+          </div>
+        </div>
+        @if( tieOnInfoForm.controls['azimuth'].invalid &&
+        (tieOnInfoForm.controls['azimuth'].dirty ||
+        tieOnInfoForm.controls['azimuth'].touched)){
+
+
+        <div class="text-danger"
+          *ngIf="tieOnInfoForm.controls['azimuth'].errors?.['isNumber'] && tieOnInfoForm.controls['azimuth'].touched">
+          Invalid Format.
+        </div>
+        <div class="text-danger"
+          *ngIf="tieOnInfoForm.controls['azimuth'].errors?.['required'] && tieOnInfoForm.controls['azimuth'].touched">
+          Azimuth is required.
+        </div>
+        }
+
+        @if( tieOnInfoForm.controls['azimuthUnit'].invalid &&
+        (tieOnInfoForm.controls['azimuthUnit'].dirty ||
+        tieOnInfoForm.controls['azimuthUnit'].touched)){
+
+        <div class="text-danger"
+          *ngIf="tieOnInfoForm.controls['azimuthUnit'].errors?.['required'] && tieOnInfoForm.controls['azimuthUnit'].touched">
+          Azimuth Unit is required.
+        </div>
+        }
+
+      </div>
+
+      <div class="md:col-span-6 col-span-12 mb-4">
+        <label class="form-label" for="departure">Departure</label>
+        <div>
+
+
+          <div class="sm:flex rounded-sm">
+            <input id="departure" type="text" formControlName="departure"
+              class="ti-form-input rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0  sm:first:rounded-se-none  sm:last:rounded-es-none  sm:last:rounded-e-sm  relative focus:z-10">
+            <select name="hs-inline-leading-select-currency" formControlName="departureUnit"
+              class="inline-block rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-sm border-l-0 border-r border-defaultborder dark:border-defaultborder/10 focus:ring-primary focus:border-primary dark:focus:border-defaultborder/10 dark:bg-bodybg ps-2 pe-[2.25rem]">
+              <option *ngFor="let departureUnit of data.meterFeetUnits" [value]="departureUnit"
+                [selected]="departureUnit == selectedDepartureUnit">{{departureUnit}}
+              </option>
+            </select>
+          </div>
+        </div>
+        @if( tieOnInfoForm.controls['departure'].invalid &&
+        (tieOnInfoForm.controls['departure'].dirty ||
+        tieOnInfoForm.controls['departure'].touched)){
+
+
+        <div class="text-danger"
+          *ngIf="tieOnInfoForm.controls['departure'].errors?.['isNumber'] && tieOnInfoForm.controls['departure'].touched">
+          Invalid Format.
+        </div>
+        <div class="text-danger"
+          *ngIf="tieOnInfoForm.controls['departure'].errors?.['required'] && tieOnInfoForm.controls['departure'].touched">
+          Departure is required.
+        </div>
+        }
+
+        @if( tieOnInfoForm.controls['departureUnit'].invalid &&
+        (tieOnInfoForm.controls['departureUnit'].dirty ||
+        tieOnInfoForm.controls['departureUnit'].touched)){
+
+        <div class="text-danger"
+          *ngIf="tieOnInfoForm.controls['departureUnit'].errors?.['required'] && tieOnInfoForm.controls['departureUnit'].touched">
+          Departure Unit is required.
+        </div>
+        }
+
+      </div>
+
+
+      <div class="md:col-span-12 col-span-12 flex justify-end sm:gap-x-4 sm:gap-y-4">
+        <button type="button" class="ti-btn ti-btn-outline-primary ti-btn-wave !mb-0 !mr-5" (click)="tieInToSurface()">Tie-in to Surface</button>
+        <button type="button" class="ti-btn ti-btn-outline-primary ti-btn-wave !mb-0" (click)="onBack()">Back</button>
+        <button type="submit" class="ti-btn ti-btn-primary-full !mb-0">Submit</button>
+      </div>
+    </div>
+
+  </form>
+
+
+
+</div>

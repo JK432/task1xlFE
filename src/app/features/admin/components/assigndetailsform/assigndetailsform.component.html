@@ -1,0 +1,49 @@
+<div class="xxl:col-span-12 xl:col-span-12 col-span-12">
+  <div class="box-body">
+    <div class="box-header flex justify-end mb-0 col-span-12">
+      <div class="xl:col-span-12 col-span-12 mb-0 w-full">
+        <input type="text" class="form-control w-full" id="input-rounded1" placeholder="Search here..">
+      </div>
+    </div>
+    <div class="box-body">
+      <ul class="list-none mb-0">
+
+        <li class="mb-[0.9rem]">
+          <div class="form-check form-check-md !flex items-start flex-wrap  w-full">
+            <input class="form-check-input" type="checkbox" value="" id="checkebox-md" checked>
+            <label class="form-check-label flex-grow" for="checkebox-md">
+          <!-- <div class="flex items-start flex-wrap"></div> -->
+            <div class="me-2">
+              <span
+                class="inline-flex items-center justify-center !w-[1.75rem] !h-[1.75rem] leading-[1.75rem] text-[0.65rem]  rounded-full text-warning  bg-warning/10 font-semibold">
+                EK
+              </span>
+            </div>
+            <div class="flex-grow">
+              <p class="font-semibold mb-[1.4px]  text-[0.813rem]">Michael Jordan
+              </p>
+              <p class="text-[#8c9097] dark:text-white/50 text-[0.75rem]">michael.jordan&#64;example.com</p>
+            </div>
+            <div class="font-semibold text-[0.9375rem] ">$2,893</div>
+            </label>
+          </div>
+
+        </li>
+
+      </ul>
+    </div>
+
+    <div class="md:col-span-12 col-span-12 flex justify-end sm:gap-x-4 sm:gap-y-4">
+
+
+    <button *ngIf="(dataServices.jobPostLoading$ | async); else loadedContent" type="button" class="ti-btn ti-btn-primary-full ti-btn-loader ti-btn-disabled m-2">
+      <span class="me-2">Posting..</span>
+      <span class="loading"><i class="ri-refresh-line text-[1rem] animate-spin"></i></span>
+    </button>
+    <ng-template #loadedContent>
+      <button class="ti-btn ti-btn-primary-full !mb-0" (click)="onSubmit()">Next</button>
+    </ng-template>
+
+    </div>
+  </div>
+</div>

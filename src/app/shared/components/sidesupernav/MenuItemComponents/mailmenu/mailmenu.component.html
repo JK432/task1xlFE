@@ -1,0 +1,283 @@
+<div class="border !border-t-0 dark:border-defaultborder/10 px-2 " style=" width: 300px;">
+  <!-- <div class="!p-4 flex items-center border-b dark:border-defaultborder/10">
+    <div class="me-4">
+      <input class="form-check-input" type="checkbox" id="checkAll" value="" aria-label="...">
+    </div>
+    <div class="flex-grow">
+      <h6 class="font-semibold mb-0 text-[1rem] !text-defaulttextcolor dark:!text-defaulttextcolor/70">All Mails</h6>
+    </div>
+    <button aria-label="button" type="button"
+      class="ti-btn ti-btn-icon ti-btn-light me-1 lg:hidden block total-mails-close !mb-0"
+      (click)="toggleNotifyEmpty()">
+      <i class="ri-close-line"></i>
+    </button>
+    <div class="hs-dropdown ti-dropdown  hidden">
+      <button aria-label="button" class="!w-[2.313rem] !h-[2.313rem]  rounded-sm ti-btn-icon ti-btn-light" type="button"
+        aria-expanded="false">
+        <i class="ti ti-dots-vertical"></i>
+      </button>
+      <ul class="hs-dropdown-menu ti-dropdown-menu hidden">
+        <li><a class="ti-dropdown-item !py-2 !px-[0.9375rem] !text-[0.8125rem] !font-medium"
+            href="javascript:void(0);">Recent</a></li>
+        <li><a class="ti-dropdown-item !py-2 !px-[0.9375rem] !text-[0.8125rem] !font-medium"
+            href="javascript:void(0);">Unread</a></li>
+        <li><a class="ti-dropdown-item !py-2 !px-[0.9375rem] !text-[0.8125rem] !font-medium"
+            href="javascript:void(0);">Mark All Read</a></li>
+        <li><a class="ti-dropdown-item !py-2 !px-[0.9375rem] !text-[0.8125rem] !font-medium"
+            href="javascript:void(0);">Spam</a></li>
+        <li><a class="ti-dropdown-item !py-2 !px-[0.9375rem] !text-[0.8125rem] !font-medium"
+            href="javascript:void(0);">Delete All</a></li>
+      </ul>
+    </div>
+  </div> -->
+
+
+  <div class="p-4" style="width: 100%;">
+    <div class="input-group">
+      <input type="text" class="form-control !bg-light !border-0 !rounded-s-md" placeholder="Search Email"
+        aria-describedby="button-addon2">
+      <button aria-label="button" class="ti-btn ti-btn-light !rounded-s-none !mb-0" type="button" id="button-addon2"><i
+          class="ri-search-line text-[#8c9097] dark:text-white/50"></i></button>
+    </div>
+  </div>
+
+  <ngx-simplebar style="width:100%; height: 100%;">
+    <div class="mail-messages" id="mail-messages">
+      <ul class="list-none mb-0 mail-messages-container text-defaulttextcolor text-defaultsize">
+        <li class="!border-x-1 pt-2">
+          <div class="flex items-start">
+            <div class="me-1 leading-none">
+              <span class="avatar avatar-md online me-2 avatar-rounded mail-msg-avatar">
+                <img src="./assets/images/faces/5.jpg" alt="">
+              </span>
+            </div>
+            <div class="flex-grow">
+              <a href="javascript:void(0);">
+                <p class="mb-1 text-[0.75rem]">
+                  Sujika <span
+                    class="ltr:float-right rtl:float-left text-[#8c9097] dark:text-white/50 font-normal text-[.6875rem]"><span
+                      class="me-2"><i class="ri-attachment-2 align-middle text-[0.75rem]"></i></span>1:32PM</span>
+                </p>
+              </a>
+              <p class="mail-msg mb-0">
+                <span class="block mb-0 font-semibold ">New Project details</span>
+                <span class="text-[.6875rem] text-[#8c9097] dark:text-white/50 text-wrap ">Lorem
+                  ipsum dolor sit amet consectetur adipisicing elit
+                  <button aria-label="button" type="button"
+                    class="btn p-0 leading-none mail-starred true border-0 ltr:float-right rtl:float-left">
+                    <i class="ri-star-fill text-[.875rem]"></i>
+                  </button>
+                </span>
+              </p>
+            </div>
+          </div>
+        </li>
+        <li class="!border-t-0 !border-x-0 pt-5">
+          <div class="flex items-start">
+            <!-- <div class="me-4 mt-1">
+              <input class="form-check-input" type="checkbox" id="checkboxNoLabel2" value="" aria-label="..." checked>
+            </div> -->
+            <div class="me-1 leading-none">
+              <span class="avatar avatar-md online me-2 avatar-rounded mail-msg-avatar">
+                <img src="./assets/images/faces/12.jpg" alt="">
+              </span>
+            </div>
+            <div class="flex-grow">
+              <a href="javascript:void(0);">
+                <p class="mb-1 text-[0.75rem]">
+                  Michael Jeremy <span
+                    class="ltr:float-right rtl:float-left text-[#8c9097] dark:text-white/50 font-normal text-[.6875rem]">10:27AM</span>
+                </p>
+              </a>
+              <p class="mail-msg mb-0">
+                <span class="block mb-0 font-semibold dark:!text-defaulttextcolor/70">History of planets are discovered
+                  yesterday.</span>
+                <span class="text-[.6875rem] text-[#8c9097] text-wrap dark:!text-defaulttextcolor/70">Lorem
+                  ipsum dolor sit amet consectetur adipisicing elit
+                  <button aria-label="button" type="button"
+                    class="btn p-0 leading-none mail-starred border-0 ltr:float-right rtl:float-left">
+                    <i class="ri-star-fill text-[.875rem]"></i>
+                  </button>
+                </span>
+              </p>
+            </div>
+          </div>
+        </li>
+        <li class="!border-t-0 !border-x-0 pt-5">
+          <div class="flex items-start">
+            <!-- <div class="me-3 mt-1">
+              <input class="form-check-input" type="checkbox" id="checkboxNoLabel3" value="" aria-label="...">
+            </div> -->
+            <div class="me-1 leading-none">
+              <span class="avatar avatar-md offline me-2 avatar-rounded mail-msg-avatar">
+                <img src="./assets/images/faces/14.jpg" alt="">
+              </span>
+            </div>
+            <div class="flex-grow">
+              <a href="javascript:void(0);">
+                <p class="mb-1 text-[0.75rem]">
+                  King Berunda <span class="badge bg-success text-white">Promotion</span><span
+                    class="ltr:float-right rtl:float-left text-[#8c9097] dark:text-white/50 font-normal text-[.6875rem]">Yesterday,
+                    10:27AM</span>
+                </p>
+              </a>
+              <p class="mail-msg mb-0">
+                <span class="block mb-0 font-semibold ">Request for return of item ?</span>
+                <span class="text-[.6875rem] text-[#8c9097] dark:text-white/50 text-wrap ">Lorem
+                  ipsum dolor sit amet consectetur adipisicing elit
+                  <button aria-label="button" type="button"
+                    class="btn p-0 leading-none mail-starred border-0 ltr:float-right rtl:float-left">
+                    <i class="ri-star-fill text-[.875rem]"></i>
+                  </button>
+                </span>
+              </p>
+            </div>
+          </div>
+        </li>
+        <li class="!border-t-0 !border-x-0 pt-5">
+          <div class="flex items-start">
+            <div class="me-1 leading-none">
+              <span class="avatar avatar-md offline me-2 avatar-rounded mail-msg-avatar">
+                <img src="./assets/images/faces/7.jpg" alt="">
+              </span>
+            </div>
+            <div class="flex-grow">
+              <a href="javascript:void(0);">
+                <p class="mb-1 text-[0.75rem]">
+                  Samantha May <span class="badge bg-primary text-white">Social</span><span
+                    class="ltr:float-right rtl:float-left text-[#8c9097] dark:text-white/50 font-normal text-[.6875rem]">24
+                    Oct, 5:45PM</span>
+                </p>
+              </a>
+              <p class="mail-msg mb-0">
+                <span class="block mb-0 font-semibold">Completion of work is pending</span>
+                <span class="text-[.6875rem] text-[#8c9097] dark:text-white/50 text-wrap ">Lorem
+                  ipsum dolor sit amet consectetur adipisicing elit
+                  <button type="button" aria-label="button"
+                    class="btn p-0 leading-none mail-starred border-0 ltr:float-right rtl:float-left">
+                    <i class="ri-star-fill text-[.875rem]"></i>
+                  </button>
+                </span>
+              </p>
+            </div>
+          </div>
+        </li>
+        <li class="!border-t-0 !border-x-0 pt-5">
+          <div class="flex items-start">
+            <div class="me-1 leading-none">
+              <span class="avatar avatar-md offline me-2 avatar-rounded mail-msg-avatar">
+                <img src="./assets/images/faces/15.jpg" alt="">
+              </span>
+            </div>
+            <div class="flex-grow">
+              <a href="javascript:void(0);">
+                <p class="mb-1 text-[0.75rem]">
+                  Alex Carey <span
+                    class="ltr:float-right rtl:float-left text-[#8c9097] dark:text-white/50 font-normal text-[.6875rem]">12
+                    Sep, 11:24AM</span>
+                </p>
+              </a>
+              <p class="mail-msg mb-0">
+                <span class="block mb-0 font-semibold ">Most Probable date of project completion</span>
+                <span class="text-[.6875rem] text-[#8c9097] dark:text-white/50 text-wrap ">Lorem
+                  ipsum dolor sit amet consectetur adipisicing elit
+                  <button aria-label="button" type="button"
+                    class="btn p-0 leading-none mail-starred true border-0 ltr:float-right rtl:float-left">
+                    <i class="ri-star-fill text-[.875rem]"></i>
+                  </button>
+                </span>
+              </p>
+            </div>
+          </div>
+        </li>
+        <li class="!border-t-0 !border-x-0 pt-5">
+          <div class="flex items-start">
+            <div class="me-1 leading-none">
+              <span class="avatar avatar-md offline me-2 avatar-rounded mail-msg-avatar">
+                <img src="./assets/images/faces/16.jpg" alt="">
+              </span>
+            </div>
+            <div class="flex-grow">
+              <a href="javascript:void(0);">
+                <p class="mb-1 text-[0.75rem]">
+                  Dawn Bradshaw <span class="badge bg-danger text-white">Personal</span><span
+                    class="ltr:float-right rtl:float-left text-[#8c9097] dark:text-white/50 font-normal text-[.6875rem]">11
+                    Sep, 10:32AM</span>
+                </p>
+              </a>
+              <p class="mail-msg mb-0">
+                <span class="block mb-0 font-semibold ">Personal Mail</span>
+                <span class="text-[.6875rem] text-[#8c9097] dark:text-white/50 text-wrap ">Lorem
+                  ipsum dolor sit amet consectetur adipisicing elit
+                  <button aria-label="button" type="button"
+                    class="btn p-0 leading-none mail-starred true border-0 ltr:float-right rtl:float-left">
+                    <i class="ri-star-fill text-[.875rem]"></i>
+                  </button>
+                </span>
+              </p>
+            </div>
+          </div>
+        </li>
+        <li class="!border-t-0 !border-x-0 pt-5">
+          <div class="flex items-start">
+            <div class="me-1 leading-none">
+              <span class="avatar avatar-md offline me-2 avatar-rounded mail-msg-avatar">
+                <img src="./assets/images/faces/3.jpg" alt="">
+              </span>
+            </div>
+            <div class="flex-grow">
+              <a href="javascript:void(0);">
+                <p class="mb-1 text-[0.75rem]">
+                  Kiara Jah <span
+                    class="ltr:float-right rtl:float-left text-[#8c9097] dark:text-white/50 font-normal text-[.6875rem]">08
+                    Aug, 08:12AM</span>
+                </p>
+              </a>
+              <p class="mail-msg mb-0">
+                <span class="block mb-0 font-semibold ">Applying for bank loan?</span>
+                <span class="text-[.6875rem] text-[#8c9097] dark:text-white/50 text-wrap ">Lorem
+                  ipsum dolor sit amet consectetur adipisicing elit
+                  <button type="button" aria-label="button"
+                    class="btn p-0 leading-none mail-starred border-0 ltr:float-right rtl:float-left">
+                    <i class="ri-star-fill text-[.875rem]"></i>
+                  </button>
+                </span>
+              </p>
+            </div>
+          </div>
+        </li>
+        <li class="!border-t-0 !border-x-0 pt-5">
+          <div class="flex items-start">
+            <!-- <div class="me-3 mt-1">
+              <input class="form-check-input" type="checkbox" id="checkboxNoLabel44" value="" aria-label="...">
+            </div> -->
+            <div class="me-1 leading-none">
+              <span class="avatar avatar-md offline me-2 avatar-rounded mail-msg-avatar">
+                <img src="./assets/images/faces/13.jpg" alt="">
+              </span>
+            </div>
+            <div class="flex-grow">
+              <a href="javascript:void(0);">
+                <p class="mb-1 text-[0.75rem]">
+                  David Subhman <span
+                    class="ltr:float-right rtl:float-left text-[#8c9097] dark:text-white/50 font-normal text-[.6875rem]">16
+                    July, 05:52PM</span>
+                </p>
+              </a>
+              <p class="mail-msg mb-0">
+                <span class="block mb-0 font-semibold ">Life Insurance Corparation.</span>
+                <span class="text-[.6875rem] text-[#8c9097] dark:text-white/50 text-wrap ">Lorem
+                  ipsum dolor sit amet consectetur adipisicing elit
+                  <button type="button" aria-label="button"
+                    class="tt-btn p-0 leading-none mail-starred border-0 ltr:float-right rtl:float-left">
+                    <i class="ri-star-fill text-[.875rem]"></i>
+                  </button>
+                </span>
+              </p>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </ngx-simplebar>
+</div>
