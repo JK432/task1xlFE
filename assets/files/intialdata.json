@@ -1,0 +1,354 @@
+{
+  "service_type": [
+    {
+      "id": 1,
+      "service_type": "Wireline Multishot from DB"
+    },
+    {
+      "id": 2,
+      "service_type": "Gyroscopic Wireline Survey < 2,500 m"
+    },
+    {
+      "id": 3,
+      "service_type": "Wireline Orientation"
+    },
+    {
+      "id": 4,
+      "service_type": "Wireline Orientation w/ Multishot"
+    },
+    {
+      "id": 5,
+      "service_type": "Wireline Pumpdown Multishot"
+    },
+    {
+      "id": 6,
+      "service_type": "Memory / Drop Gyro (Low Angle=<20)"
+    },
+    {
+      "id": 7,
+      "service_type": "Memory Drop Gyrocompass"
+    },
+    {
+      "id": 8,
+      "service_type": "Memory Drop Continous"
+    },
+    {
+      "id": 9,
+      "service_type": "Memory Drop Pumpdown"
+    },
+    {
+      "id": 10,
+      "service_type": "Memory Slickline Multishot"
+    },
+    {
+      "id": 11,
+      "service_type": "Memory Slickline Orientation"
+    },
+    {
+      "id": 12,
+      "service_type": "Memory Slickline Orientation w/ Multishot"
+    },
+    {
+      "id": 13,
+      "service_type": "Memory Pumpdown Drop"
+    },
+    {
+      "id": 14,
+      "service_type": "Memory Pumpdown Slickline"
+    }
+  ],
+  "unit_of_measure": [
+    {
+      "id": 1,
+      "unit_of_measure": "m"
+    },
+    {
+      "id": 2,
+      "unit_of_measure": "ft"
+    }
+  ],
+  "rig_master": [
+    {
+      "id": 1,
+      "rig_number": "26"
+    },
+    {
+      "id": 2,
+      "rig_number": "38"
+    },
+    {
+      "id": 3,
+      "rig_number": "80"
+    },
+    {
+      "id": 4,
+      "rig_number": "81"
+    },
+    {
+      "id": 5,
+      "rig_number": "126"
+    },
+    {
+      "id": 6,
+      "rig_number": "101"
+    },
+    {
+      "id": 7,
+      "rig_number": "102"
+    },
+    {
+      "id": 8,
+      "rig_number": "103"
+    },
+    {
+      "id": 9,
+      "rig_number": "1"
+    },
+    {
+      "id": 10,
+      "rig_number": "104"
+    },
+    {
+      "id": 11,
+      "rig_number": "138"
+    },
+    {
+      "id": 12,
+      "rig_number": "116"
+    },
+    {
+      "id": 13,
+      "rig_number": "32"
+    },
+    {
+      "id": 14,
+      "rig_number": "53"
+    },
+    {
+      "id": 15,
+      "rig_number": "96"
+    },
+    {
+      "id": 16,
+      "rig_number": "97"
+    },
+    {
+      "id": 17,
+      "rig_number": "113"
+    },
+    {
+      "id": 18,
+      "rig_number": "43"
+    },
+    {
+      "id": 19,
+      "rig_number": "31"
+    },
+    {
+      "id": 20,
+      "rig_number": "58"
+    },
+    {
+      "id": 21,
+      "rig_number": "44"
+    },
+    {
+      "id": 22,
+      "rig_number": "59"
+    },
+    {
+      "id": 23,
+      "rig_number": "129"
+    },
+    {
+      "id": 24,
+      "rig_number": "72"
+    },
+    {
+      "id": 25,
+      "rig_number": "62"
+    },
+    {
+      "id": 26,
+      "rig_number": "115"
+    },
+    {
+      "id": 27,
+      "rig_number": "117"
+    },
+    {
+      "id": 28,
+      "rig_number": "140"
+    },
+    {
+      "id": 29,
+      "rig_number": "118"
+    },
+    {
+      "id": 30,
+      "rig_number": "95"
+    },
+    {
+      "id": 31,
+      "rig_number": "139"
+    },
+    {
+      "id": 32,
+      "rig_number": "99"
+    },
+    {
+      "id": 33,
+      "rig_number": "49"
+    },
+    {
+      "id": 34,
+      "rig_number": "10"
+    },
+    {
+      "id": 35,
+      "rig_number": "50"
+    },
+    {
+      "id": 36,
+      "rig_number": "62"
+    },
+    {
+      "id": 37,
+      "rig_number": "98"
+    },
+    {
+      "id": 38,
+      "rig_number": "19"
+    },
+    {
+      "id": 39,
+      "rig_number": "58"
+    },
+    {
+      "id": 40,
+      "rig_number": "83"
+    },
+    {
+      "id": 41,
+      "rig_number": "84"
+    },
+    {
+      "id": 42,
+      "rig_number": "114"
+    },
+    {
+      "id": 43,
+      "rig_number": "45"
+    },
+    {
+      "id": 44,
+      "rig_number": "63"
+    },
+    {
+      "id": 45,
+      "rig_number": "64"
+    },
+    {
+      "id": 46,
+      "rig_number": "74"
+    },
+    {
+      "id": 47,
+      "rig_number": "111"
+    },
+    {
+      "id": 48,
+      "rig_number": "110"
+    },
+    {
+      "id": 49,
+      "rig_number": "122"
+    },
+    {
+      "id": 50,
+      "rig_number": "123"
+    },
+    {
+      "id": 51,
+      "rig_number": "75"
+    },
+    {
+      "id": 52,
+      "rig_number": "76"
+    },
+    {
+      "id": 53,
+      "rig_number": "306"
+    },
+    {
+      "id": 54,
+      "rig_number": "128"
+    },
+    {
+      "id": 55,
+      "rig_number": "127"
+    },
+    {
+      "id": 56,
+      "rig_number": "142"
+    },
+    {
+      "id": 57,
+      "rig_number": "88"
+    },
+    {
+      "id": 58,
+      "rig_number": "82"
+    },
+    {
+      "id": 59,
+      "rig_number": "144"
+    },
+    {
+      "id": 60,
+      "rig_number": "81"
+    },
+    {
+      "id": 61,
+      "rig_number": "Rigless 80"
+    }
+  ],
+  "customers": [
+    {
+      "customer_id": 1,
+      "customer_name": "Petroleum Development of Oman"
+    },
+    {
+      "customer_id": 2,
+      "customer_name": "British Petroleum"
+    },
+    {
+      "customer_id": 3,
+      "customer_name": "Daleel"
+    },
+    {
+      "customer_id": 4,
+      "customer_name": "OXY "
+    },
+    {
+      "customer_id": 5,
+      "customer_name": "QAM"
+    },
+    {
+      "customer_id": 6,
+      "customer_name": "MEDCO"
+    },
+    {
+      "customer_id": 7,
+      "customer_name": "FES"
+    },
+    {
+      "customer_id": 8,
+      "customer_name": "Tethys"
+    },
+    {
+      "customer_id": 9,
+      "customer_name": "123"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "employee_id": "EMP001"
+  },
+  {
+    "id": 2,
+    "name": "Jane Smith",
+    "email": "jane.smith@example.com",
+    "employee_id": "EMP002"
+  },
+  {
+    "id": 3,
+    "name": "Michael Johnson",
+    "email": "michael.johnson@example.com",
+    "employee_id": "EMP003"
+  },
+  {
+    "id": 4,
+    "name": "Emily Davis",
+    "email": "emily.davis@example.com",
+    "employee_id": "EMP004"
+  },
+  {
+    "id": 5,
+    "name": "Robert Brown",
+    "email": "robert.brown@example.com",
+    "employee_id": "EMP005"
+  }
+]

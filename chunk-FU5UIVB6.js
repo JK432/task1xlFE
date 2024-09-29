@@ -1,0 +1,1 @@
+import{$b as a,la as o}from"./chunk-RBD7S4WU.js";import"./chunk-YT5AF7SN.js";import"./chunk-SIAVTO45.js";var p=(()=>{let e=class e{};e.\u0275fac=function(n){return new(n||e)},e.\u0275cmp=o({type:e,selectors:[["app-addrun"]],standalone:!0,features:[a],decls:0,vars:0,template:function(n,i){}});let t=e;return t})();export{p as AddrunComponent};
