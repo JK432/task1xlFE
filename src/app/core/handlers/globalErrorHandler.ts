@@ -21,7 +21,7 @@ export class GlobalErrorHandler implements ErrorHandler {
       this.toastrService.error(error.message, 'Error', { positionClass: 'toast-top-center' });
     }
     else {
-      this.toastrService.error("Something went worng", 'Error', { positionClass: 'toast-top-center' });
+      // this.toastrService.error("Something went worng", 'Error', { positionClass: 'toast-top-center' });
     }
   }
 }

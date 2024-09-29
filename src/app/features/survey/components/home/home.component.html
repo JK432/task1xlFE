@@ -96,18 +96,7 @@
                         <td>Done</td>
                         <td><button type="button" class="ti-btn ti-btn-primary-full !py-1 !px-2 ti-btn-wave m-2"(click)="navigateToQualityAnalysis()">View
                             Quality Analysis</button></td>
-                        <!-- <td>=</td>
-                                        <td>{{ convertToDecimalDegrees(wellInfo.latitude_1, wellInfo.latitude_2,
-                                          +wellInfo.latitude_3) }}</td> -->
                       </tr>
-                      <!-- <tr class="text-start">
-                                        <th scope="row" class="form-label">Longitude</th>
-                                        <td>{{wellInfo.longitude_1}} ° &nbsp; {{wellInfo.longitude_2}}' &nbsp;
-                                          {{wellInfo.longitude_3}}"</td>
-                                        <td>=</td>
-                                        <td>{{ convertToDecimalDegrees(wellInfo.longitude_1, wellInfo.longitude_2,
-                                          +wellInfo.longitude_3) }}</td>
-                                      </tr> -->
                     </tbody>
                   </table>
 
@@ -144,22 +133,28 @@
                       <tbody>
                         <tr class="text-start">
                           <th scope="row" class="form-label">Status</th>
-                          <td>Done</td>
-                          <td><button type="button" class="ti-btn ti-btn-primary-full !py-1 !px-2 ti-btn-wave m-2"
-                              (click)="navigateToSurveyCalculation()">View
-                              Survey</button></td>
-                          <!-- <td>=</td>
-                                            <td>{{ convertToDecimalDegrees(wellInfo.latitude_1, wellInfo.latitude_2,
-                                              +wellInfo.latitude_3) }}</td> -->
+
+                          @if(surveyDataServices.surveyCalculationDetailsError$ | async){
+                            <td>Click to calculate.</td>
+                          }@else{
+                            <td>Done</td>
+                          }
+
+                          <!-- <td>Done</td> -->
+                          <td>
+                            @if(!(this.surveyDataServices.surveyCalculationDetailsPostLoading$ | async)){
+                            <button type="button" class="ti-btn ti-btn-primary-full !py-1 !px-2 ti-btn-wave m-2" (click)="navigateToSurveyCalculation()">
+                               View Survey
+                            </button>
+                            }@else{
+                            <button type="button" class="ti-btn ti-btn-primary-full !py-1 !px-2 ti-btn-wave m-2 ti-btn-disabled">
+                              View Survey
+                              <span class="loading"><i class="ri-refresh-line text-[1rem] animate-spin"></i></span>
+                            </button>
+                            }
+                            </td>
+
                         </tr>
-                        <!-- <tr class="text-start">
-                                            <th scope="row" class="form-label">Longitude</th>
-                                            <td>{{wellInfo.longitude_1}} ° &nbsp; {{wellInfo.longitude_2}}' &nbsp;
-                                              {{wellInfo.longitude_3}}"</td>
-                                            <td>=</td>
-                                            <td>{{ convertToDecimalDegrees(wellInfo.longitude_1, wellInfo.longitude_2,
-                                              +wellInfo.longitude_3) }}</td>
-                                          </tr> -->
                       </tbody>
                     </table>
 

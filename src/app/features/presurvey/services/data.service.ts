@@ -100,6 +100,7 @@ const geodeticDatumSubject = new BehaviorSubject<string>('');
 })
 export class DataService {
   PresurveyInfo$ = PreSurveyDataSubject.asObservable();
+  Infoloading$ = InfoLoadingSubject.asObservable();
 
   latUnits: string[] = ['N', 'S'];
   lngUnits: string[] = ['E', 'W'];
@@ -230,8 +231,10 @@ export class DataService {
         {
           next: (data: PresurveyInfo) => {
             PreSurveyDataSubject.next(data);
+            resolve(true)
           },
           error: (error) => {
+            reject(false);
             console.error('Error fetching data', error);
           },
         }

@@ -37,7 +37,9 @@
                       <th scope="col" class="text-start">Created at</th>
                     </tr>
                   </thead>
-                  <tbody *ngIf=" !(dataService.masterDataGetLoading$ | async) &&  !(dataService.jobGetLoading$ | async);  else loadedContent " class="top-selling">
+                  <tbody
+                    *ngIf=" !(dataService.masterDataGetLoading$ | async) &&  !(dataService.jobGetLoading$ | async);  else loadedContent "
+                    class="top-selling">
                     @if(jobs.length>0){
                     @for (job of jobs; track $index) {
                     <tr class="border-y border-inherit border-solid dark:border-defaultborder/10">
@@ -62,11 +64,37 @@
                           }}</span>
                       </td>
                       <td>
+                        @if(this.selectedjobNo == job.job_number){
 
-                        <button type="button" class="ti-btn ti-btn-primary-full label-ti-btn label-end m-0 !py-1" (click)="startPresurvey(job)">
-                          <i class="ri-arrow-right-s-line label-ti-btn-icon ms-2 text-[1.125rem]"></i>
-                          Start
-                        </button>
+                                                  @if(!(this.presurveyDataServices.Infoloading$ | async)){
+                                                  <button type="button" class="ti-btn ti-btn-primary-full label-ti-btn label-end m-0 !py-1" (click)="startPresurvey(job)">
+                                                    <i class="ri-arrow-right-s-line label-ti-btn-icon ms-2 text-[1.125rem]"></i>
+                                                    Start
+                                                  </button>
+                                                  }@else{
+
+
+                                                  <button type="button" class="ti-btn ti-btn-primary-full ti-btn-loader ti-btn-disabled m-0 !py-1">
+                                                    <span class="me-2">Start</span>
+                                                    <span class="loading"><i class="ri-refresh-line text-[1rem] animate-spin"></i></span>
+                                                  </button>
+                                                  }
+
+                        }@else{
+                          @if(!(this.presurveyDataServices.Infoloading$ | async)){
+                          <button type="button" class="ti-btn ti-btn-primary-full label-ti-btn label-end m-0 !py-1" (click)="startPresurvey(job)">
+                            <i class="ri-arrow-right-s-line label-ti-btn-icon ms-2 text-[1.125rem]"></i>
+                            Start
+                          </button>
+                          }@else{
+                            <button type="button" class="ti-btn ti-btn-primary-full label-ti-btn label-end m-0 !py-1 ti-btn-disabled">
+                              <i class="ri-arrow-right-s-line label-ti-btn-icon ms-2 text-[1.125rem]"></i>
+                              Start
+                            </button>
+                          }
+                        }
+
+
                       </td>
                     </tr>
                     }
@@ -98,7 +126,9 @@
                       <th scope="col" class="text-start">Created at</th>
                     </tr>
                   </thead>
-                  <tbody *ngIf="!(dataService.masterDataGetLoading$ | async) &&  !(dataService.jobGetLoading$ | async);  else loadedContent  " class="top-selling">
+                  <tbody
+                    *ngIf="!(dataService.masterDataGetLoading$ | async) &&  !(dataService.jobGetLoading$ | async);  else loadedContent  "
+                    class="top-selling">
                     @if(jobs.length>0){
                     @for (job of jobs; track $index) {
                     <tr class="border-y border-inherit border-solid dark:border-defaultborder/10">

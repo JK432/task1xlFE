@@ -27,51 +27,59 @@
             <div class="table-responsive overflow-auto">
               <table class=" table box-table table-vcenter whitespace-nowrap mb-0 min-w-full !text-[#8c9097]">
                 <tbody class="active-tab">
-                  @for (surveyinfo of this.presurveyInfo.survey_info; track $index) {
-                  <tr>
-                    <td>
-                      <div class="flex items-center">
-                        <div class="items-center ml-2">
-                          <input class="form-check-input" type="radio" name="Radio" id="Radio-md" [checked]="this.selectedRun==surveyinfo.run_number" (click)="this.selectRun(surveyinfo.run_number)">
-                        </div>
-                      </div>
-                    </td>
 
-                    <td>
-                      <div class="flex items-center">
-                        <div class="items-center ml-2">
-                          <span class="text-[0.75rem] dark:text-white/50 form-label">Run #</span>
-                          <p class="mb-0">{{surveyinfo.run_number}}</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="items-center">
-                        <span class="text-[0.75rem] dark:text-white/50 form-label">Run Name</span>
-                        <p class="mb-0 font-semibold">{{surveyinfo.run_name}}</p>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="items-center">
-                        <span class="text-[0.75rem] dark:text-white/50 form-label">Date</span>
-                        <p class="mb-0">27 August 2024</p>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="items-center">
-                        <span class="text-[0.75rem] dark:text-white/50 form-label">Time</span>
-                        <p class="mb-0">10:24 PM</p>
-                      </div>
-                    </td>
+                  @if(this.presurveyInfo.survey_info.length>0){
+                                      @for (surveyinfo of this.presurveyInfo.survey_info; track $index) {
+                                      <tr>
+                                        <td>
+                                          <div class="flex items-center">
+                                            <div class="items-center ml-2">
+                                              <input class="form-check-input" type="radio" name="Radio" id="Radio-md"
+                                                [checked]="this.selectedRun==surveyinfo.run_number" (click)="this.selectRun(surveyinfo.run_number)">
+                                            </div>
+                                          </div>
+                                        </td>
 
-                    <td>
-                      <a aria-label="anchor" href="javascript:void(0);">
-                        <span class="orders-arrow"><i class="ri-arrow-right-s-line text-[1.125rem]"></i></span>
-                      </a>
-                    </td>
-                  </tr>
+                                        <td>
+                                          <div class="flex items-center">
+                                            <div class="items-center ml-2">
+                                              <span class="text-[0.75rem] dark:text-white/50 form-label">Run #</span>
+                                              <p class="mb-0">{{surveyinfo.run_number}}</p>
+                                            </div>
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div class="items-center">
+                                            <span class="text-[0.75rem] dark:text-white/50 form-label">Run Name</span>
+                                            <p class="mb-0 font-semibold">{{surveyinfo.run_name}}</p>
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div class="items-center">
+                                            <span class="text-[0.75rem] dark:text-white/50 form-label">Date</span>
+                                            <p class="mb-0">27 August 2024</p>
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div class="items-center">
+                                            <span class="text-[0.75rem] dark:text-white/50 form-label">Time</span>
+                                            <p class="mb-0">10:24 PM</p>
+                                          </div>
+                                        </td>
+
+                                        <td>
+                                          <a aria-label="anchor" href="javascript:void(0);">
+                                            <span class="orders-arrow"><i class="ri-arrow-right-s-line text-[1.125rem]"></i></span>
+                                          </a>
+                                        </td>
+                                      </tr>
+                                      }
+                  }@else{
+                  <div class="p-3 !text-[#8c9097]"> No data found.</div>
                   }
-              </tbody>
+
+
+                </tbody>
               </table>
             </div>
           </div>
@@ -143,7 +151,7 @@
                       <span class="sr-only">Loading...</span>
                     </div>
                     }@else if(this.selectedSurveyInfo.survey_info_id == 0){
-                    <div class="p-3"> No data Found.</div>
+                    <div class="p-3 !text-[#8c9097]"> No data found.</div>
                     }@else{
                     <tbody>
                       <tr class="text-start">
@@ -153,7 +161,7 @@
                         <td>{{this.selectedSurveyInfo.hole_section}}</td>
                       </tr>
                       <tr class="text-start">
-                        <th scope="row" class="form-label">Survey Calculation>
+                        <th scope="row" class="form-label">Survey Calculation</th>
                         <td>{{this.selectedSurveyInfo.survey_calculation_method}}</td>
                         <td class="form-label">Map Zone</td>
                         <td>{{this.selectedSurveyInfo.map_zone}}</td>
@@ -201,58 +209,6 @@
 
                 </div>
               </div>
-              <!-- <table class="table whitespace-nowrap table-borderless !text-[#8c9097] dark:text-white/50 min-w-full">
-                        <tbody>
-                          <tr class="text-start">
-                            <th scope="row">Job No</th>
-                            <td>OM12457</td>
-                            <td>Rig No</td>
-                            <td>7"</td>
-                          </tr>
-                          <tr class="text-start">
-                            <th scope="row">Survey Calculation</th>
-                            <td>Minimum Curvature</td>
-                            <td>Map Zone</td>
-                            <td>Zone 40N (54E to 60E)</td>
-                          </tr>
-                          <tr class="text-start">
-                            <th scope="row">Geodetic</th>
-                            <td>Universal Transverse</td>
-                            <td>Prop. Direction</td>
-                            <td>5</td>
-                          </tr>
-                          <tr class="text-start">
-                            <th scope="row">Geodetic Datum</th>
-                            <td>3.5%</td>
-                            <td>52 Week Low</td>
-                            <td>1586.20</td>
-                          </tr>
-                          <tr class="text-start">
-                            <th scope="row">Job No</th>
-                            <td>OM12457</td>
-                            <td>Rig No</td>
-                            <td>7"</td>
-                          </tr>
-                          <tr class="text-start">
-                            <th scope="row">Survey Calculation</th>
-                            <td>Minimum Curvature</td>
-                            <td>Map Zone</td>
-                            <td>Zone 40N (54E to 60E)</td>
-                          </tr>
-                          <tr class="text-start">
-                            <th scope="row">Geodetic</th>
-                            <td>Universal Transverse</td>
-                            <td>Prop. Direction</td>
-                            <td>5</td>
-                          </tr>
-                          <tr class="text-start">
-                            <th scope="row">Geodetic Datum</th>
-                            <td>3.5%</td>
-                            <td>52 Week Low</td>
-                            <td>1586.20</td>
-                          </tr>
-                        </tbody>
-                      </table> -->
             </div>
           </div>
         </div>
@@ -320,7 +276,7 @@
                   <span class="sr-only">Loading...</span>
                 </div>
                 }@else if(this.selectedTieOnInfo.id == 0){
-                <div class="p-3"> No data Found.</div>
+              <div class="p-3 !text-[#8c9097]"> No data found.</div>
                 }@else{
                 <tbody>
                   <tr class="text-start">
@@ -357,88 +313,7 @@
   <div class=" xxl:col-span-6 xl:col-span-6 col-span-12">
     <div class="grid grid-cols-12 gap-x-6">
 
-      <!-- JOB INFORMATION -->
-      <!-- <div class="xl:col-span-12 col-span-12">
-        <div class="box">
-          <div class="box-header justify-between sm:flex block ">
-            <div class="box-title">
-              Job Information
-            </div>
-            <div class="">
-              <button type="button" class="hs-dropdown-toggle ti-btn ti-btn-primary-full !py-1 !px-2"
-                data-hs-overlay="#editJobInfoModal">
-                Edit Job Information
-              </button>
-              <div id="editJobInfoModal" class="hs-overlay hidden ti-modal">
-                <div
-                  class="hs-overlay-open:mt-7 ti-modal-box mt-0 ease-out lg:!max-w-4xl lg:w-full lg:!mx-auto w-full min-h-[calc(100%-3.5rem)] flex items-center">
-                  <div class="ti-modal-content">
-                    <div class="ti-modal-header">
-                      <div class="box-title">
-                        Job Information
-                      </div>
-                      <button type="button" class="hs-dropdown-toggle ti-modal-close-btn"
-                        data-hs-overlay="#editJobInfoModal">
-                        <span class="sr-only">Close</span>
-                        <svg class="w-3.5 h-3.5" width="8" height="8" viewBox="0 0 8 8" fill="none"
-                          xmlns="http://www.w3.org/2000/svg">
-                          <path
-                            d="M0.258206 1.00652C0.351976 0.912791 0.479126 0.860131 0.611706 0.860131C0.744296 0.860131 0.871447 0.912791 0.965207 1.00652L3.61171 3.65302L6.25822 1.00652C6.30432 0.958771 6.35952 0.920671 6.42052 0.894471C6.48152 0.868271 6.54712 0.854471 6.61352 0.853901C6.67992 0.853321 6.74572 0.865971 6.80722 0.891111C6.86862 0.916251 6.92442 0.953381 6.97142 1.00032C7.01832 1.04727 7.05552 1.1031 7.08062 1.16454C7.10572 1.22599 7.11842 1.29183 7.11782 1.35822C7.11722 1.42461 7.10342 1.49022 7.07722 1.55122C7.05102 1.61222 7.01292 1.6674 6.96522 1.71352L4.31871 4.36002L6.96522 7.00648C7.05632 7.10078 7.10672 7.22708 7.10552 7.35818C7.10442 7.48928 7.05182 7.61468 6.95912 7.70738C6.86642 7.80018 6.74102 7.85268 6.60992 7.85388C6.47882 7.85498 6.35252 7.80458 6.25822 7.71348L3.61171 5.06702L0.965207 7.71348C0.870907 7.80458 0.744606 7.85498 0.613506 7.85388C0.482406 7.85268 0.357007 7.80018 0.264297 7.70738C0.171597 7.61468 0.119017 7.48928 0.117877 7.35818C0.116737 7.22708 0.167126 7.10078 0.258206 7.00648L2.90471 4.36002L0.258206 1.71352C0.164476 1.61976 0.111816 1.4926 0.111816 1.36002C0.111816 1.22744 0.164476 1.10028 0.258206 1.00652Z"
-                            fill="currentColor" />
-                        </svg>
-                      </button>
-                    </div>
-                    <div class="ti-modal-body">
-                      <app-editjobinformation></app-editjobinformation>
-                    </div>
-                    <div class="ti-modal-footer">
-                      <button type="button" class="ti-btn ti-btn-outline-primary ti-btn-wave !mb-0"
-                        data-hs-overlay="#editJobInfoModal">Close</button>
-                      <a class="ti-btn ti-btn-primary-full" href="javascript:void(0);">
-                        Save
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
 
-          <div class="p-0 xl:!ps-0">
-            <div class="table-responsive mb-[0rem]">
-              <table class="table whitespace-nowrap table-borderless !text-[#8c9097] dark:text-white/50 min-w-full">
-                <tbody>
-                  <tr class="text-start">
-                    <th scope="row">Job No</th>
-                    <td>OM12457</td>
-                    <td>Rig No</td>
-                    <td>7"</td>
-                  </tr>
-                  <tr class="text-start">
-                    <th scope="row">Survey Calculation</th>
-                    <td>Minimum Curvature</td>
-                    <td>Map Zone</td>
-                    <td>Zone 40N (54E to 60E)</td>
-                  </tr>
-                  <tr class="text-start">
-                    <th scope="row">Geodetic</th>
-                    <td>Universal Transverse</td>
-                    <td>Prop. Direction</td>
-                    <td>5</td>
-                  </tr>
-                  <tr class="text-start">
-                    <th scope="row">Geodetic Datum</th>
-                    <td>3.5%</td>
-                    <td>52 Week Low</td>
-                    <td>1586.20</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-
-      </div> -->
 
 
       <!-- WELL INFORMATION -->
@@ -497,181 +372,214 @@
             </div>
           </div>
 
+          @if(this.wellInfo.well_id==-1){
+          <div class="ti-spinner text-primary p-2 m-2" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          }@else if(this.wellInfo.well_id==0){
+          <div class="p-3 !text-[#8c9097]"> No data found.</div>
+          }@else{
           <div class="p-0 xl:!ps-0">
-            <div class="grid grid-cols-12 sm:gap-x-6 sm:gap-y-4">
-              <div class="col-span-12 m-4 !mb-2">
-                <fieldset
-                  class="col-span-12 mb-4 border border-solid border-gray-300 p-3 box dark:border-gray-600 !text-[#8c9097]">
-                  <legend>
-                    Well Center Cordinates
-                  </legend>
-
-                  <div class="col-span-12 mb-2">
-
-                    <div>
-                      <table
-                        class="table whitespace-nowrap table-borderless !text-[#8c9097] dark:text-white/50 min-w-full">
-                        <tbody>
-                          <tr class="text-start">
-                            <th scope="row" class="form-label">Latitude</th>
-                            <td>{{wellInfo.latitude_1}} ° &nbsp; {{wellInfo.latitude_2}}' &nbsp;
-                              {{wellInfo.latitude_3}}"</td>
-                            <td>=</td>
-                            <td>{{ convertToDecimalDegrees(wellInfo.latitude_1, wellInfo.latitude_2,
-                              +wellInfo.latitude_3) +'°S'}}</td>
-                          </tr>
-                          <tr class="text-start">
-                            <th scope="row" class="form-label">Longitude</th>
-                            <td>{{wellInfo.longitude_1}} ° &nbsp; {{wellInfo.longitude_2}}' &nbsp;
-                              {{wellInfo.longitude_3}}"</td>
-                            <td>=</td>
-                            <td>{{ convertToDecimalDegrees(wellInfo.longitude_1, wellInfo.longitude_2,
-                              +wellInfo.longitude_3) +'°E'}}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-
-                    </div>
-                  </div>
-                </fieldset>
-
-                <fieldset
-                  class="col-span-12 !mb-0 border border-solid border-gray-300 p-3 box dark:border-gray-600 !text-[#8c9097]">
-                  <legend>
-                    UTM Cordinates
-                  </legend>
-
-                  <div class="md:col-span-6 col-span-12 mb-0">
-
-                    <div>
-                      <table
-                        class="table whitespace-nowrap table-borderless !text-[#8c9097] dark:text-white/50 min-w-full">
-                        <tbody>
-                          <tr class="text-start">
-                            <th scope="row" class="form-label">Northing</th>
-                            <td>{{wellInfo.northing +'mN'}}</td>
-                            <td class="form-label">Easting</td>
-                            <td>{{wellInfo.easting +'mE'}}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-
-                    </div>
-                  </div>
-                </fieldset>
-              </div>
+          <div class="grid grid-cols-12 sm:gap-x-6 sm:gap-y-1">
+            <div class="col-span-12 mx-4 !mb-0 mt-2">
+              <table class="table whitespace-nowrap table-borderless !text-[#8c9097] dark:text-white/50 min-w-full">
+                <tbody>
+                  <tr class="text-start">
+                    <th scope="row">
+                      <div class="grid grid-cols-3 gap-4">
+                        <div class="sm:flex">
+                          <div class="form-label">Client Rep</div>
+                          <div class="mx-4">{{ presurveyInfo.job_info.client_rep}}</div>
+                        </div>
+                        <div class="sm:flex">
+                          <div class="form-label">Well Id</div>
+                          <div class="mx-4">{{ presurveyInfo.job_info.well_id }}</div>
+                        </div>
+                        <div class="sm:flex">
+                          <div class="form-label">Well Name</div>
+                          <div class="mx-4">{{ presurveyInfo.job_info.well_name }}</div>
+                        </div>
+                      </div>
+                    </th>
+                  </tr>
+                </tbody>
+              </table>
             </div>
+            <div class="col-span-12 m-4 !mb-2 !mt-0">
+              <fieldset
+                class="col-span-12 mb-4 border border-solid border-gray-300 p-3 box dark:border-gray-600 !text-[#8c9097]">
+                <legend>
+                  Well Center Cordinates
+                </legend>
 
-            <div class="table-responsive m-2 !mt-0 !mb-[0rem]">
-              <table class="table whitespace-nowrap table-borderless !text-[#8c9097] dark:text-white/50 min-w-full">
-                <tbody>
+                <div class="col-span-12 mb-2">
 
-                  <tr class="text-start">
-                    <th scope="row">
-                      <div class="grid grid-cols-2 gap-4">
-                        <div class="sm:flex">
-                          <div class="form-label">Grid Correction</div>
-                          <div class="mx-4">-</div>
-                        </div>
-                        <div class="sm:flex">
-                          <div class="form-label">Central Meridian</div>
-                          <div class="mx-4">{{ wellInfo.central_meridian +'E'}}</div>
-                        </div>
-                      </div>
-                    </th>
-                  </tr>
+                  <div>
+                    <table
+                      class="table whitespace-nowrap table-borderless !text-[#8c9097] dark:text-white/50 min-w-full">
+                      <tbody>
+                        <tr class="text-start">
+                          <th scope="row" class="form-label">Latitude</th>
+                          <td>{{wellInfo.latitude_1}} ° &nbsp; {{wellInfo.latitude_2}}' &nbsp;
+                            {{wellInfo.latitude_3}}"</td>
+                          <td>=</td>
+                          <td>{{ convertToDecimalDegrees(wellInfo.latitude_1, wellInfo.latitude_2,
+                            +wellInfo.latitude_3) +'°S'}}</td>
+                        </tr>
+                        <tr class="text-start">
+                          <th scope="row" class="form-label">Longitude</th>
+                          <td>{{wellInfo.longitude_1}} ° &nbsp; {{wellInfo.longitude_2}}' &nbsp;
+                            {{wellInfo.longitude_3}}"</td>
+                          <td>=</td>
+                          <td>{{ convertToDecimalDegrees(wellInfo.longitude_1, wellInfo.longitude_2,
+                            +wellInfo.longitude_3) +'°E'}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
 
-                  <tr class="text-start">
-                    <th scope="row">
-                      <div class="grid grid-cols-3 gap-4">
-                        <div class="sm:flex">
-                          <div class="form-label">W(t)</div>
-                          <div class="mx-4">{{ wellInfo.w_t }}</div>
-                        </div>
-                        <div class="sm:flex">
-                          <div class="form-label">Min W(t)</div>
-                          <div class="mx-4">{{ wellInfo.min_wt }}</div>
-                        </div>
-                        <div class="sm:flex">
-                          <div class="form-label">Max W(t)</div>
-                          <div class="mx-4">{{ wellInfo.max_wt }}</div>
-                        </div>
-                      </div>
-                    </th>
-                  </tr>
-                </tbody>
-              </table>
-              <table class="table whitespace-nowrap table-borderless !text-[#8c9097] dark:text-white/50 min-w-full">
-                <tbody>
-                  <tr class="text-start">
-                    <th scope="row">
-                      <div class="grid grid-cols-3 gap-4">
-                        <div class="sm:flex">
-                          <div class="form-label">G(t)</div>
-                          <div class="mx-4">{{ wellInfo.g_t + '°S'}}</div>
-                        </div>
-                        <div class="sm:flex">
-                          <div class="form-label">Min G(t)</div>
-                          <div class="mx-4">{{ wellInfo.min_gt }}</div>
-                        </div>
-                        <div class="sm:flex">
-                          <div class="form-label">Max G(t)</div>
-                          <div class="mx-4">{{ wellInfo.max_gt }}</div>
-                        </div>
-                      </div>
-                    </th>
-                  </tr>
-                </tbody>
-              </table>
-              <table class="table whitespace-nowrap table-borderless !text-[#8c9097] dark:text-white/50 min-w-full">
-                <tbody>
-                  <tr class="text-start">
-                    <th scope="row">
-                      <div class="grid grid-cols-3 gap-4">
-                        <div class="sm:flex">
-                          <div class="form-label">Max Temp</div>
-                          <div class="mx-4">{{ wellInfo.expected_well_temp +'°C'}}</div>
-                        </div>
-                        <div class="sm:flex">
-                          <div class="form-label">Well Type</div>
-                          <div class="mx-4">{{ wellInfo.well_type | forignAsync : "WELLTYPE" }} </div>
-                        </div>
-                        <div class="sm:flex">
-                          <div class="form-label">GLE</div>
-                          <div class="mx-4">{{ wellInfo.GLE +'m'}}</div>
-                        </div>
-                      </div>
-                    </th>
-                  </tr>
-                </tbody>
-              </table>
-              <table class="table whitespace-nowrap table-borderless !text-[#8c9097] dark:text-white/50 min-w-full">
-                <tbody>
-                  <tr class="text-start">
-                    <th scope="row">
-                      <div class="grid grid-cols-2 gap-4">
-                        <div class="sm:flex">
-                          <div class="form-label">Ref.Elevation</div>
-                          <div class="mx-4">{{ wellInfo.ref_elivation }}</div>
-                        </div>
-                        <div class="sm:flex">
-                          <div class="form-label">Ref.Datum</div>
-                          <div class="mx-4">{{ wellInfo.ref_datum }}</div>
-                        </div>
-                      </div>
-                    </th>
-                  </tr>
+                  </div>
+                </div>
+              </fieldset>
 
-                </tbody>
-              </table>
+              <fieldset
+                class="col-span-12 !mb-0 border border-solid border-gray-300 p-3 box dark:border-gray-600 !text-[#8c9097]">
+                <legend>
+                  UTM Cordinates
+                </legend>
+
+                <div class="md:col-span-6 col-span-12 mb-0">
+
+                  <div>
+                    <table
+                      class="table whitespace-nowrap table-borderless !text-[#8c9097] dark:text-white/50 min-w-full">
+                      <tbody>
+                        <tr class="text-start">
+                          <th scope="row" class="form-label">Northing</th>
+                          <td>{{wellInfo.northing +'mN'}}</td>
+                          <td class="form-label">Easting</td>
+                          <td>{{wellInfo.easting +'mE'}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                  </div>
+                </div>
+              </fieldset>
             </div>
           </div>
+
+          <div class="table-responsive m-2 !mt-0 !mb-[0rem]">
+            <table class="table whitespace-nowrap table-borderless !text-[#8c9097] dark:text-white/50 min-w-full">
+              <tbody>
+
+                <tr class="text-start">
+                  <th scope="row">
+                    <div class="grid grid-cols-2 gap-4">
+                      <div class="sm:flex">
+                        <div class="form-label">Grid Correction</div>
+                        <div class="mx-4">-</div>
+                      </div>
+                      <div class="sm:flex">
+                        <div class="form-label">Central Meridian</div>
+                        <div class="mx-4">{{ wellInfo.central_meridian +'E'}}</div>
+                      </div>
+                    </div>
+                  </th>
+                </tr>
+
+                <tr class="text-start">
+                  <th scope="row">
+                    <div class="grid grid-cols-3 gap-4">
+                      <div class="sm:flex">
+                        <div class="form-label">W(t)</div>
+                        <div class="mx-4">{{ wellInfo.w_t }}</div>
+                      </div>
+                      <div class="sm:flex">
+                        <div class="form-label">Min W(t)</div>
+                        <div class="mx-4">{{ wellInfo.min_wt }}</div>
+                      </div>
+                      <div class="sm:flex">
+                        <div class="form-label">Max W(t)</div>
+                        <div class="mx-4">{{ wellInfo.max_wt }}</div>
+                      </div>
+                    </div>
+                  </th>
+                </tr>
+              </tbody>
+            </table>
+            <table class="table whitespace-nowrap table-borderless !text-[#8c9097] dark:text-white/50 min-w-full">
+              <tbody>
+                <tr class="text-start">
+                  <th scope="row">
+                    <div class="grid grid-cols-3 gap-4">
+                      <div class="sm:flex">
+                        <div class="form-label">G(t)</div>
+                        <div class="mx-4">{{ wellInfo.g_t + '°S'}}</div>
+                      </div>
+                      <div class="sm:flex">
+                        <div class="form-label">Min G(t)</div>
+                        <div class="mx-4">{{ wellInfo.min_gt }}</div>
+                      </div>
+                      <div class="sm:flex">
+                        <div class="form-label">Max G(t)</div>
+                        <div class="mx-4">{{ wellInfo.max_gt }}</div>
+                      </div>
+                    </div>
+                  </th>
+                </tr>
+              </tbody>
+            </table>
+            <table class="table whitespace-nowrap table-borderless !text-[#8c9097] dark:text-white/50 min-w-full">
+              <tbody>
+                <tr class="text-start">
+                  <th scope="row">
+                    <div class="grid grid-cols-3 gap-4">
+                      <div class="sm:flex">
+                        <div class="form-label">Max Temp</div>
+                        <div class="mx-4">{{ wellInfo.expected_well_temp +'°C'}}</div>
+                      </div>
+                      <div class="sm:flex">
+                        <div class="form-label">Well Type</div>
+                        <div class="mx-4">{{ wellInfo.well_type | forignAsync : "WELLTYPE" }} </div>
+                      </div>
+                      <div class="sm:flex">
+                        <div class="form-label">GLE</div>
+                        <div class="mx-4">{{ wellInfo.GLE +'m'}}</div>
+                      </div>
+                    </div>
+                  </th>
+                </tr>
+              </tbody>
+            </table>
+            <table class="table whitespace-nowrap table-borderless !text-[#8c9097] dark:text-white/50 min-w-full">
+              <tbody>
+                <tr class="text-start">
+                  <th scope="row">
+                    <div class="grid grid-cols-2 gap-4">
+                      <div class="sm:flex">
+                        <div class="form-label">Ref.Elevation</div>
+                        <div class="mx-4">{{ wellInfo.ref_elivation }}</div>
+                      </div>
+                      <div class="sm:flex">
+                        <div class="form-label">Ref.Datum</div>
+                        <div class="mx-4">{{ wellInfo.ref_datum }}</div>
+                      </div>
+                    </div>
+                  </th>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
         </div>
+      }
 
       </div>
 
     </div>
+
   </div>
+</div>
 </div>
 }@else{
 <div class="ti-spinner text-primary p-2 m-2" role="status">

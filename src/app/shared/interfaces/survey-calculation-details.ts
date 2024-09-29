@@ -1,11 +1,12 @@
 export interface SurveyCalculationDetails{
-  status: string,
-  message: string,
+  status:string,
   max_inclination:number,
-  results:SurveyRows[]
+  survey_details:SurveyRows[],
+  last_row:LastRow,
 }
 
-export interface SurveyRows{    
+export interface SurveyRows{
+  id:number;
   measured_depth: number;     // Measured Depth (MD)
   inclination: number;        // Inclination
   azimuth: number;            // Azimuth
@@ -19,7 +20,11 @@ export interface SurveyRows{
   closure_direction: number;  // Closure Direction
   DLS: number;                // Dog Leg Severity (DLS)
   Vertical_Section: number;
+  header_id:number;
 }
-// "status": "success",
-//     "message": "Survey calculation details created successfully",
-//     "max_inclination": 1.28,
+export interface LastRow {
+  header_id: number;
+  closure_distance: number;
+  closure_direction: number;
+  vertical_section: number;
+}

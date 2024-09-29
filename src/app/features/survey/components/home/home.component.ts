@@ -19,7 +19,9 @@ import { PresurveyInfo } from '../../../../shared/interfaces/presurveyinfo';
 })
 export class HomeComponent {
   private sub: Subscription[];
+  surveyCalculationErrorFlag:boolean = false;
   id: string;
+  runno:string;
   presurveyInfo:PresurveyInfo;
   wellInfo: WellInfo;
   wellInfoI: WellInfo;
@@ -28,6 +30,7 @@ export class HomeComponent {
   constructor(private route: ActivatedRoute, public presurveyDataServices: PresurveyDataServices, private router: Router, public surveyDataServices: SurveyDataServices, private toastr: ToastrService,) {
     this.sub = []
     this.id = "";
+    this.runno='1';
       this.presurveyInfo={
   job_info: {
     client_rep: "",
@@ -74,6 +77,7 @@ export class HomeComponent {
   ngOnInit(): void {
     this.sub.push(this.route.params.subscribe(params => {
       this.id = params['jobNo'];
+      this.runno = params['runNo'];
       this.sub.push(this.presurveyDataServices.PresurveyInfo$.pipe().subscribe({
         next: (data) => {
           this.presurveyInfo = data;
@@ -81,6 +85,15 @@ export class HomeComponent {
           console.log(this.wellInfo);
         }
       }))
+      this.surveyDataServices.getSurveyCalculationDetails(this.id,this.runno).then((value)=>{
+
+      });
+      this.surveyDataServices.surveyCalculationDetailsError$.pipe().subscribe({
+        next:(data)=>{
+          this.surveyCalculationErrorFlag=data;
+
+        }
+      })
 
 
     }))
@@ -98,10 +111,11 @@ export class HomeComponent {
       const formData = new FormData();
       formData.append('file', this.selectedFile);
       formData.append('job_number', this.id);
+      formData.append('run_number', this.runno);
       formData.append('survey_type', '1');
-      this.surveyDataServices.postSurveyFile(formData).then((val) => {
+      this.surveyDataServices.postSurveyFile(formData,this.id,this.runno).then((val) => {
         if (val == true) {
-          this.calculateSurvey();
+          // this.calculateSurvey();
           this.toastr.success('Quality Analysis available,', 'Sucess', { positionClass: 'toast-top-center' });
         }
       });
@@ -111,11 +125,12 @@ export class HomeComponent {
     }
   }
 
-  calculateSurvey(): void {
-    if (this.id) {
+  async calculateSurvey(): Promise<void> {
+    if (this.id && this.runno) {
       const formData = new FormData();
       formData.append('job_number', this.id);
-      this.surveyDataServices.IntiateSurveyCalculation(formData);
+      formData.append('run_number', this.runno);
+      await this.surveyDataServices.IntiateSurveyCalculation(formData,this.id,this.runno);
     } else {
       console.error('No Id');
     }
@@ -124,11 +139,18 @@ export class HomeComponent {
 
 
   navigateToQualityAnalysis() {
-    this.router.navigate(['/survey/quality_analysis/', this.id],);
+    this.router.navigate(['/survey/quality_analysis/', this.id,this.runno],);
   }
 
   navigateToSurveyCalculation() {
-    this.router.navigate(['/survey/survey_calculation/', this.id],);
+    if(this.surveyCalculationErrorFlag){
+      this.calculateSurvey().then(()=>{
+          this.router.navigate(['/survey/survey_calculation/', this.id,this.runno],);
+      });
+    }else{
+      this.router.navigate(['/survey/survey_calculation/', this.id,this.runno],);
+    }
+
   }
 
 }

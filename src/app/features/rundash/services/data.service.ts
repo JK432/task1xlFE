@@ -37,7 +37,10 @@ export class DataService {
     ).subscribe(
       {
         next: (data: [JobGDB]) => {
-          JobSubject.next(data);
+
+          JobSubject.next(data.sort((a, b) => {
+              return new Date(b.job_created_date).getTime() - new Date(a.job_created_date).getTime();
+          }));
           console.log(data);
         },
         error: (error) => {

@@ -11,7 +11,9 @@ import { ActivatedRoute } from '@angular/router';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 import { ToastrService } from 'ngx-toastr';
-
+import { PresurveyInfo } from '../../../../shared/interfaces/presurveyinfo';
+import { WellInfo } from '../../../../shared/interfaces/well_info';
+import { DataService as PresurveydataService } from '../../../presurvey/services/data.service';
 @Component({
   selector: 'app-quality-analysis',
   standalone: true,
@@ -21,11 +23,42 @@ import { ToastrService } from 'ngx-toastr';
 })
 
 export class QualityAnalysisComponent implements OnInit {
+  wellInfo: WellInfo = {
+    east_coorinates: 0,
+    g_t: 0,
+    max_gt: 0,
+    max_wt: 0,
+    min_gt: 0,
+    min_wt: 0,
+    north_coordinates: 0,
+    w_t: 0,
+    well_info_id: 0,
+    central_meridian: 0.0,
+    easting: 0.0,
+    expected_well_temp: 0.0,
+    expected_wellbore_inclination: 0.0,
+    GLE: 0.0,
+    job_number: "",
+    latitude_1: 0.0,
+    latitude_2: 0.0,
+    latitude_3: 0.0,
+    longitude_1: 0.0,
+    longitude_2: 0.0,
+    longitude_3: 0.0,
+    northing: 0.0,
+    ref_datum: "",
+    ref_elivation: "",
+    RKB: 0.0,
+    well_id: 0.0,
+    well_type: 0.0,
+  }
+  clickedbutton: number = 0;
   selectedFile: File | null = null;
   private sub: Subscription[];
   id: string = "";
+  runno: string = "1";
   qualityAnalysis: QualityAnalysis = { results: [], status: "no_data", success_count: 0, g_t_percentage: "", g_t_score: "", w_t_percentage: "", w_t_score: "" }
-  constructor(private route: ActivatedRoute, public dataServices: DataService, public surveyDataServices: SurveyDataServices,private toastr: ToastrService,) {
+  constructor(private route: ActivatedRoute, public dataServices: DataService, public surveyDataServices: SurveyDataServices, private toastr: ToastrService, public presurveyDataService: PresurveydataService) {
     this.sub = [];
     this.sub.push(this.dataServices.qualityAnalysis$.pipe().subscribe({
       next: (data) => {
@@ -39,8 +72,52 @@ export class QualityAnalysisComponent implements OnInit {
 
     this.sub.push(this.route.params.subscribe(params => {
       this.id = params['jobNo'];
+      this.runno = params['runNo'];
       if (this.id.match('^OM\\d+$')) {
-        this.dataServices.getQualityAnalysis(this.id);
+        this.dataServices.getQualityAnalysis(this.id, this.runno);
+        this.surveyDataServices.getSurveyCalculationDetails(this.id,this.runno).then((value)=>{
+
+      });
+      }
+    }))
+
+    this.presurveyDataService.getInfo(this.id);
+    this.sub.push(this.presurveyDataService.PresurveyInfo$.pipe().subscribe({
+      next: (data) => {
+        if (data.well_info) {
+          this.wellInfo = data.well_info;
+        } else {
+          this.wellInfo = {
+            east_coorinates: 0,
+            g_t: 0,
+            max_gt: 0,
+            max_wt: 0,
+            min_gt: 0,
+            min_wt: 0,
+            north_coordinates: 0,
+            w_t: 0,
+            well_info_id: -1,
+            central_meridian: 0.0,
+            easting: 0.0,
+            expected_well_temp: 0.0,
+            expected_wellbore_inclination: 0.0,
+            GLE: 0.0,
+            job_number: "",
+            latitude_1: 0.0,
+            latitude_2: 0.0,
+            latitude_3: 0.0,
+            longitude_1: 0.0,
+            longitude_2: 0.0,
+            longitude_3: 0.0,
+            northing: 0.0,
+            ref_datum: "",
+            ref_elivation: "",
+            RKB: 0.0,
+            well_id: 0.0,
+            well_type: 0.0,
+          };
+        }
+
       }
     }))
   }
@@ -60,52 +137,52 @@ export class QualityAnalysisComponent implements OnInit {
       formData.append('file', this.selectedFile);
       formData.append('job_number', this.id);
       formData.append('survey_type', '1');
-      this.surveyDataServices.postSurveyFile(formData);
+      this.surveyDataServices.postSurveyFile(formData,this.id,this.runno);
       console.log(this.selectedFile);
     } else {
       console.error('No file selected');
     }
   }
 
-generatePDF() {
-  const data = document.getElementById('qualityAnalysisPdf');
-  html2canvas(data!).then(canvas => {
-    const imgWidth = 208; // Width of the PDF page
-    const pageHeight = 295; // Height of the PDF page
-    const imgHeight = canvas.height * imgWidth / canvas.width;
-    let heightLeft = imgHeight; // Remaining height of the image content
+  generatePDF() {
+    const data = document.getElementById('qualityAnalysisPdf');
+    html2canvas(data!).then(canvas => {
+      const imgWidth = 208; // Width of the PDF page
+      const pageHeight = 295; // Height of the PDF page
+      const imgHeight = canvas.height * imgWidth / canvas.width;
+      let heightLeft = imgHeight; // Remaining height of the image content
 
-    const contentDataURL = canvas.toDataURL('image/png');
-    const pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF
+      const contentDataURL = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF
 
-    let position = 0;
+      let position = 0;
 
-    // Add the first page image
-    pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight+2);
-    heightLeft -= pageHeight; // Subtract the page height from the remaining height
+      // Add the first page image
+      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight + 2);
+      heightLeft -= pageHeight; // Subtract the page height from the remaining height
 
-    // If the remaining content is larger than one page, add new pages
-    while (heightLeft > 0) {
-      position = heightLeft - imgHeight+2; // Move to the next page position
-      pdf.addPage(); // Add a new page
-      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
-      heightLeft -= pageHeight; // Subtract the page height again
-    }
+      // If the remaining content is larger than one page, add new pages
+      while (heightLeft > 0) {
+        position = heightLeft - imgHeight + 2; // Move to the next page position
+        pdf.addPage(); // Add a new page
+        pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight; // Subtract the page height again
+      }
 
-    pdf.save(`${this.id}_QualityAnalysis.pdf`); // Save the generated PDF
-  });
-}
+      pdf.save(`${this.id}_QualityAnalysis.pdf`); // Save the generated PDF
+    });
+  }
 
-generatePDF2() {
+  generatePDF2() {
 
-  this.qualityAnalysis.results.forEach((res,$index)=>{
+    this.qualityAnalysis.results.forEach((res, $index) => {
 
-  });
-
-
+    });
 
 
-const htmlString = `
+
+
+    const htmlString = `
    <div class="table-responsive m-2 !mt-0 !mb-[0rem]" id="qualityAnalysisPdf">
             <table class="table !p-0 !pt-4 !text-center min-w-full">
               <thead class="">
@@ -151,45 +228,46 @@ const htmlString = `
             </table>
  </div>
 `;
-const parser = new DOMParser();
-const doc = parser.parseFromString(htmlString, 'text/html');
-  const data = document.getElementById('qualityAnalysisPdf');
-  html2canvas(data!).then(canvas => {
-    const imgWidth = 208; // Width of the PDF page
-    const pageHeight = 295; // Height of the PDF page
-    const imgHeight = canvas.height * imgWidth / canvas.width;
-    let heightLeft = imgHeight; // Remaining height of the image content
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlString, 'text/html');
+    const data = document.getElementById('qualityAnalysisPdf');
+    html2canvas(data!).then(canvas => {
+      const imgWidth = 208; // Width of the PDF page
+      const pageHeight = 295; // Height of the PDF page
+      const imgHeight = canvas.height * imgWidth / canvas.width;
+      let heightLeft = imgHeight; // Remaining height of the image content
 
-    const contentDataURL = canvas.toDataURL('image/png');
-    const pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF
+      const contentDataURL = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF
 
-    const padding = 10; // Set padding around the content
-    const availableWidth = imgWidth - padding * 2; // Adjust width for padding
-    const availableHeight = pageHeight - padding * 2; // Adjust height for padding
+      const padding = 10; // Set padding around the content
+      const availableWidth = imgWidth - padding * 2; // Adjust width for padding
+      const availableHeight = pageHeight - padding * 2; // Adjust height for padding
 
-    let position = padding; // Start position with padding
+      let position = padding; // Start position with padding
 
-    // Add the first page image with padding
-    pdf.addImage(contentDataURL, 'PNG', padding, position, availableWidth, imgHeight);
-    heightLeft -= availableHeight; // Subtract the available height from the remaining content height
-
-    // If the remaining content is larger than one page, add new pages with padding
-    while (heightLeft > 0) {
-      pdf.addPage(); // Add a new page
-      position = padding; // Reset position to the top with padding
+      // Add the first page image with padding
       pdf.addImage(contentDataURL, 'PNG', padding, position, availableWidth, imgHeight);
-      heightLeft -= availableHeight; // Subtract the available height again
-    }
+      heightLeft -= availableHeight; // Subtract the available height from the remaining content height
 
-    pdf.save(`${this.id}_QualityAnalysis.pdf`); // Save the generated PDF
-  });
-}
+      // If the remaining content is larger than one page, add new pages with padding
+      while (heightLeft > 0) {
+        pdf.addPage(); // Add a new page
+        position = padding; // Reset position to the top with padding
+        pdf.addImage(contentDataURL, 'PNG', padding, position, availableWidth, imgHeight);
+        heightLeft -= availableHeight; // Subtract the available height again
+      }
 
-  deletesurvey(stationId:number){
-      this.dataServices.deleteQAStation(stationId,this.id).then((value)=>{
-        if(value){
-          this.toastr.success('Survey Station '+stationId+' Deleted,', 'Sucess', { positionClass: 'toast-top-center' });
-        }
-      })
+      pdf.save(`${this.id}_QualityAnalysis.pdf`); // Save the generated PDF
+    });
+  }
+
+  deleteSurveyStation(stationId: number) {
+    this.clickedbutton = stationId;
+    this.dataServices.deleteQAStation(stationId, this.id, this.runno).then((value) => {
+      if (value) {
+        this.toastr.success('Survey Station ' + stationId + ' Deleted,', 'Sucess', { positionClass: 'toast-top-center' });
+      }
+    })
   }
 }

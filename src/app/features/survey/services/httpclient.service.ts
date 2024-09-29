@@ -12,19 +12,23 @@ export class HttpclientService {
 
   constructor(private http: HttpClient){}
 
-  postSurveyFile(formData:FormData){
-    return this.http.post<QualityAnalysis>(environment.serverAPI.ROOT +environment.serverAPI.QUALITY_ANALYSIS,formData)
+  postSurveyFile(formData:FormData,jobno:string,runno:string){
+    return this.http.post<QualityAnalysis>(environment.serverAPI.ROOT +environment.serverAPI.QUALITY_ANALYSIS+jobno+'/'+runno+'/',formData)
   }
-    postIntiateCalculation(formData:FormData){
+    postIntiateCalculation(formData:FormData,jobno:string,runno:string){
     return this.http.post<SurveyIntialCalculation>(environment.serverAPI.ROOT +environment.serverAPI.SURVEY_INTIAL_CALCULATION,formData)
   }
-    postCalculationDetails(formData:FormData){
+    postCalculationDetails(formData:FormData,jobno:string,runno:string){
     return this.http.post<SurveyCalculationDetails>(environment.serverAPI.ROOT +environment.serverAPI.SURVEY_CALCULATION_DETAILS,formData)
   }
-    getQualityAnalysis(job_number:string){
-      return this.http.get<QualityAnalysis>(environment.serverAPI.ROOT+environment.serverAPI.QUALITY_ANALYSIS+job_number+'/',)
+    getQualityAnalysis(jobno:string,runno:string){
+      return this.http.get<QualityAnalysis>(environment.serverAPI.ROOT+environment.serverAPI.QUALITY_ANALYSIS+jobno+'/'+runno+'/',)
     }
-       deleteSurveyStation(stationId:number,job_number:string){
-      return this.http.delete<QualityAnalysis>(environment.serverAPI.ROOT+environment.serverAPI.QUALITY_ANALYSIS+job_number+'/' + stationId+'/',)
+
+    getSurveyCalculationDetails(jobno:string,runno:string){
+      return this.http.get<SurveyCalculationDetails>(environment.serverAPI.ROOT+environment.serverAPI.SURVEY_CALCULATION_DETAILS+jobno+'/'+runno+'/',)
+    }
+       deleteSurveyStation(stationId:number,job_number:string,runno:string){
+      return this.http.delete<QualityAnalysis>(environment.serverAPI.ROOT+environment.serverAPI.QUALITY_ANALYSIS+job_number+'/'+runno+'/' + stationId+'/',)
     }
 }

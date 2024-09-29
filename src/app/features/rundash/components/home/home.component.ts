@@ -8,6 +8,10 @@ import { SharedModule } from '../../../../shared/shared.module';
 import { FormsService } from '../../../presurvey/services/forms.service';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DataService as PresSurveyDataService } from '../../../presurvey/services/data.service';
+import { PresurveyInfo } from '../../../../shared/interfaces/presurveyinfo';
+import { take } from 'rxjs/internal/operators/take';
+
 
 @Component({
   selector: 'app-home',
@@ -17,43 +21,79 @@ import { Router } from '@angular/router';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
-  // startJobForm: FormGroup;
-  // preserveyForm: FormGroup;
-  // jobInfoForm: FormGroup;
+  selectedjobNo: string = '';
+  presurveyInfo: PresurveyInfo = {
+    job_info: {
+      client_rep: "",
+      job_number: "",
+      well_id: "",
+      well_name: "",
+      arrival_date: new Date(Date.now()).toISOString()
+    },
+    survey_info: [],
+    tie_on_information: [],
+    well_info: {
+      east_coorinates: 0,
+      g_t: 0,
+      max_gt: 0,
+      max_wt: 0,
+      min_gt: 0,
+      min_wt: 0,
+      north_coordinates: 0,
+      w_t: 0,
+      well_info_id: 0,
+      central_meridian: 0.0,
+      easting: 0.0,
+      expected_well_temp: 0.0,
+      expected_wellbore_inclination: 0.0,
+      GLE: 0.0,
+      job_number: "",
+      latitude_1: 0.0,
+      latitude_2: 0.0,
+      latitude_3: 0.0,
+      longitude_1: 0.0,
+      longitude_2: 0.0,
+      longitude_3: 0.0,
+      northing: 0.0,
+      ref_datum: "",
+      ref_elivation: "",
+      RKB: 0.0,
+      well_id: 0.0,
+      well_type: 0.0
+    }
+  };
   jobs: JobGDB[] = [];
-  constructor(public dataService: DataService, private presurveyFormServices: FormsService,private router:Router) {
+  constructor(public dataService: DataService, private presurveyFormServices: FormsService, private router: Router, public presurveyDataServices: PresSurveyDataService,) {
     this.dataService.getMasterData();
     this.dataService.getJob();
     this.dataService.jobs$.pipe().subscribe({ next: (data) => { this.jobs = data } })
-    // this.startJobForm = this.presurveyFormServices.presurveyForm.get('startJobForm') as FormGroup;
-    // this.jobInfoForm = this.presurveyFormServices.presurveyForm.get('jobInfoForm') as FormGroup;
-    // this.preserveyForm = this.presurveyFormServices.presurveyForm;
   }
 
 
   startPresurvey(job: JobGDB) {
+    this.selectedjobNo = job.job_number;
+    this.presurveyDataServices.getInfo(job.job_number).then((data) => {
+      if (data) {
+        this.presurveyDataServices.PresurveyInfo$.pipe(take(1)).subscribe({
+          next: (data) => {
+            this.presurveyInfo = data;
+            if (
+              (this.presurveyInfo.survey_info && this.presurveyInfo.survey_info.length > 0) &&
+              (this.presurveyInfo.tie_on_information && this.presurveyInfo.tie_on_information.length > 0) &&
+              this.presurveyInfo.well_info !== null &&
+              this.presurveyInfo.job_info !== null
+            ) {
+              this.router.navigate(['/dash/jobdetails/' + job.job_number + '/']);
+            } else {
+              this.router.navigate(['/presurvey/form/' + job.job_number + '/']);
+            }
 
-    // this.startJobForm.patchValue({
-    //   serviceType: job.service,
-    //   jobNumber: job.job_number,
-    //   customer: job.customer,
-    //   unitOfMeasure: job.unit_of_measure,
-    //   estimatedDate: job.estimated_date.split('T')[0],
-    // })
+          }
+        });
+      }
+    });
 
-    console.log(typeof(job.estimated_date));
 
-    // this.jobInfoForm.patchValue({
-    //   location:job.location,
-    //   rigNo:job.rig_number,
-    // })
-
-    // this.preserveyForm.patchValue({
-    //   startJobForm:this.startJobForm,
-    //   jobInfoForm:this.jobInfoForm,
-    // })
-
-    this.router.navigate(['/presurvey/form/'+job.job_number+'/']);
   }
 
 }

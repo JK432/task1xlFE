@@ -16,6 +16,7 @@ import { TieOnInfo } from '../../../../shared/interfaces/tieoninfo';
 import { ForignAsyncPipe } from '../../pipes/forign-async.pipe';
 import { CommonModule } from '@angular/common';
 import { JobDataComponent } from '../../../../shared/components/job-data/job-data.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-rundash',
@@ -104,7 +105,7 @@ export class RundashComponent implements OnInit {
   wellInfo: WellInfo;
   wellInfoI: WellInfo;
 
-  constructor(private route: ActivatedRoute, public presurveyDataServices: DataService, private router: Router,public rundashdataService:RundashDataService) {
+  constructor(private route: ActivatedRoute, public presurveyDataServices: DataService, private router: Router,public rundashdataService:RundashDataService,private toastr: ToastrService,) {
     this.selectedRun = 1;
     this.sub = []
     this.id = "";
@@ -143,7 +144,7 @@ export class RundashComponent implements OnInit {
       run_number: 0
     };
 
-    this.wellInfo = { central_meridian: 0.0, easting: 0.0, expected_well_temp: 0.0, expected_wellbore_inclination: 0.0, GLE: 0.0, job_number: "", latitude_1: 0.0, latitude_2: 0.0, latitude_3: 0.0, longitude_1: 0.0, longitude_2: 0.0, longitude_3: 0.0, northing: 0.0, ref_datum: "", ref_elivation: "", RKB: 0.0, well_id: 0.0, well_type: 0.0, east_coorinates: 0, g_t: 0, max_gt: 0, max_wt: 0, min_gt: 0, min_wt: 0, north_coordinates: 0, w_t: 0, well_info_id: 0, }
+    this.wellInfo = { central_meridian: 0.0, easting: 0.0, expected_well_temp: 0.0, expected_wellbore_inclination: 0.0, GLE: 0.0, job_number: "", latitude_1: 0.0, latitude_2: 0.0, latitude_3: 0.0, longitude_1: 0.0, longitude_2: 0.0, longitude_3: 0.0, northing: 0.0, ref_datum: "", ref_elivation: "", RKB: 0.0, well_id: 0.0, well_type: 0.0, east_coorinates: 0, g_t: 0, max_gt: 0, max_wt: 0, min_gt: 0, min_wt: 0, north_coordinates: 0, w_t: 0, well_info_id: -1, }
     this.wellInfoI = { central_meridian: 0.0, easting: 0.0, expected_well_temp: 0.0, expected_wellbore_inclination: 0.0, GLE: 0.0, job_number: "", latitude_1: 10, latitude_2: 75, latitude_3: 12.35, longitude_1: 0.0, longitude_2: 0.0, longitude_3: 0.0, northing: 0.0, ref_datum: "", ref_elivation: "", RKB: 0.0, well_id: 0.0, well_type: 0.0, east_coorinates: 0, g_t: 0, max_gt: 0, max_wt: 0, min_gt: 0, min_wt: 0, north_coordinates: 0, w_t: 0, well_info_id: 0, }
 
   }
@@ -160,7 +161,12 @@ export class RundashComponent implements OnInit {
   }
 
   navigateToSurvey() {
-    this.router.navigate(['/survey', this.wellInfo.job_number],);
+    if(this.selectedRun>0){
+      this.router.navigate(['/survey', this.wellInfo.job_number,this.selectedRun],);
+    }else{
+      this.toastr.warning('No Run Selected', 'Warning', { positionClass: 'toast-top-center' });
+    }
+
   }
 
   ngOnInit(): void {
@@ -171,10 +177,18 @@ export class RundashComponent implements OnInit {
       this.sub.push(this.presurveyDataServices.PresurveyInfo$.pipe().subscribe({
         next: (data) => {
           this.presurveyInfo = data;
-          this.wellInfo = this.presurveyInfo.well_info;
+
+          if(this.presurveyInfo.well_info){
+            this.wellInfo = this.presurveyInfo.well_info;
+          }else{
+            this.wellInfo = this.wellInfoI;
+          }
           if(this.presurveyInfo.survey_info.length>0){
           this.selectedSurveyInfo = this.presurveyInfo.survey_info.find(surveyInfo => surveyInfo.run_number === this.selectedRun)??this.emptysurveyInfo;
           this.selectedTieOnInfo = this.presurveyInfo.tie_on_information.find(tieonInfo => tieonInfo.run_number === this.selectedRun)??this.emptyTieonInfo;
+          }else{
+           this.selectedSurveyInfo.survey_info_id=0;
+           this.selectedTieOnInfo.id=0;
           }
           console.log(this.presurveyInfo);
         }
