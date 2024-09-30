@@ -110,7 +110,7 @@ export class FormsService {
         gle: ['', [Validators.required, ValidationService.isNumber(), Validators.pattern('.*\\S.*')]],
         gleUnit: ['', Validators.required],
 
-        rkb: ['', [Validators.required, ValidationService.isNumber(), Validators.pattern('.*\\S.*'),ValidationService.isBetweenTen()]],
+        rkb: ['', [Validators.required, ValidationService.isNumber(), Validators.pattern('.*\\S.*'), ValidationService.isBetweenTen()]],
         rkbUnit: ['', Validators.required],
       }, {
         validators: [ValidationService.isVertical(), ValidationService.isDeviated()],
@@ -160,6 +160,32 @@ export class FormsService {
 
         departure: ['', [Validators.required, ValidationService.isNumber(), Validators.pattern('.*\\S.*')]],
         departureUnit: ['', [Validators.required,]],
+      }),
+
+      assetInfoForm: this.formBuilder.group({
+
+        //         {
+        //     "cost_center": 3,
+        //     "gyro_data": 3,
+        //     "vehicle": 1,
+        //     "emp_1": 1,
+        //     "emp_2": 1,
+        //     "emp_3": 1,
+        //     "emp_4": 1,
+        //     "emp_5": 1
+        // }
+        cost_center: [-1, [Validators.required, ValidationService.isNumber(), Validators.pattern('.*\\S.*')]],
+        gyro_data: [-1, [Validators.required, ValidationService.isNumber(), Validators.pattern('.*\\S.*')]],
+
+        vehicle: [-1, [Validators.required, ValidationService.isNumber(), Validators.pattern('.*\\S.*')]],
+
+        emp_1: [-1, [Validators.required, ValidationService.isNumber(), Validators.pattern('.*\\S.*')]],
+        emp_2: [-1, [ValidationService.isNumber(), Validators.pattern('.*\\S.*')]],
+        emp_3: [-1, [ValidationService.isNumber(), Validators.pattern('.*\\S.*')]],
+        emp_4: [-1, [ValidationService.isNumber(), Validators.pattern('.*\\S.*')]],
+        emp_5: [-1, [ValidationService.isNumber(), Validators.pattern('.*\\S.*')]],
+        emp_6: [-1, [ValidationService.isNumber(), Validators.pattern('.*\\S.*')]],
+        emp_7: [-1, [ValidationService.isNumber(), Validators.pattern('.*\\S.*')]],
       }),
     })
   }

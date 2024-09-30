@@ -12,6 +12,7 @@ import { TieOnInfoPost } from '../../../../shared/interfaces/tieOnInfoPost';
 import { JobInfo } from '../../../../shared/interfaces/jobinfo';
 import { PresurveyInfoPost } from '../../../../shared/interfaces/presurveyinfo';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { ProgressService } from '../../../../shared/services/progress.service';
 
 @Component({
   selector: 'app-tieoninformation',
@@ -72,7 +73,7 @@ export class TieoninformationComponent {
   private sub: Subscription[];
   id: string;
 
-  constructor(private route: ActivatedRoute,private formBuilder: FormBuilder, private formsServices: FormsService, public data: DataService, private toastr: ToastrService, private switcher: SwitcherService, private router: Router,) {
+  constructor(private route: ActivatedRoute,private formBuilder: FormBuilder, private formsServices: FormsService, public data: DataService, private toastr: ToastrService, private switcher: SwitcherService, private router: Router,public progressService:ProgressService) {
     this.sub = []
     this.id ="";
 
@@ -150,90 +151,95 @@ export class TieoninformationComponent {
       this.formsServices.updatePreSurvayForm(this.presurveyForm);
       this.progress.set('Tie-On Info', true)
       this.switcher.updateProgress(this.progress);
-
+      this.switcher.swicthPage('Tie-On Info', 'Asset Info');
       this.toastr.success('Saved Tie On Information', 'Sucess', { positionClass: 'toast-top-center' });
 
-      if (this.presurveyForm.invalid) {
-        const dirtyControls = this.getDirtyControls(this.presurveyForm);
-        if (dirtyControls[0]) {
-          this.toastr.warning(`Check ${dirtyControls[0]}, Some values are Missing`, 'Warning', { positionClass: 'toast-top-center' });
-        } else {
-          this.toastr.warning(`Check Every Form, Some values are Missing`, 'Warning', { positionClass: 'toast-top-center' });
-        }
-        this.tieOnInfoForm.markAllAsTouched();
+      // if (this.presurveyForm.invalid) {
+      //   const dirtyControls = this.getDirtyControls(this.presurveyForm);
+      //   if (dirtyControls[0]) {
+      //     this.toastr.warning(`Check ${dirtyControls[0]}, Some values are Missing`, 'Warning', { positionClass: 'toast-top-center' });
+      //   } else {
+      //     this.toastr.warning(`Check Every Form, Some values are Missing`, 'Warning', { positionClass: 'toast-top-center' });
+      //   }
+      //   this.tieOnInfoForm.markAllAsTouched();
 
-      } else {
+      // } else {
 
-        this.wellInfo = {
-          central_meridian: +this.wellInfoForm.get("centralMeridian")?.value,
-          easting: +this.wellInfoForm.get("easting")?.value,
-          expected_well_temp: +this.wellInfoForm.get("expectedWellTemp")?.value,
-          expected_wellbore_inclination: +this.wellInfoForm.get("expectedWellInclination")?.value,
-          GLE: +this.wellInfoForm.get("gle")?.value,
-          job_number: this.id,
-          latitude_1: +this.wellInfoForm.get("latDeg")?.value,
-          latitude_2: +this.wellInfoForm.get("latMin")?.value,
-          latitude_3: +this.wellInfoForm.get("latSec")?.value,
-          longitude_1: +this.wellInfoForm.get("lngDeg")?.value,
-          longitude_2: +this.wellInfoForm.get("lngMin")?.value,
-          longitude_3: +this.wellInfoForm.get("lngSec")?.value,
-          northing: +this.wellInfoForm.get("northing")?.value,
-          ref_datum: this.wellInfoForm.get("refDatum")?.value,
-          ref_elivation: this.wellInfoForm.get("refElevation")?.value,
-          RKB: +this.wellInfoForm.get("rkb")?.value,
-          well_id: +this.wellInfoForm.get("wellId")?.value,
-          well_type: +this.wellInfoForm.get("wellType")?.value
-        }
+      //   this.wellInfo = {
+      //     central_meridian: +this.wellInfoForm.get("centralMeridian")?.value,
+      //     easting: +this.wellInfoForm.get("easting")?.value,
+      //     expected_well_temp: +this.wellInfoForm.get("expectedWellTemp")?.value,
+      //     expected_wellbore_inclination: +this.wellInfoForm.get("expectedWellInclination")?.value,
+      //     GLE: +this.wellInfoForm.get("gle")?.value,
+      //     job_number: this.id,
+      //     latitude_1: +this.wellInfoForm.get("latDeg")?.value,
+      //     latitude_2: +this.wellInfoForm.get("latMin")?.value,
+      //     latitude_3: +this.wellInfoForm.get("latSec")?.value,
+      //     longitude_1: +this.wellInfoForm.get("lngDeg")?.value,
+      //     longitude_2: +this.wellInfoForm.get("lngMin")?.value,
+      //     longitude_3: +this.wellInfoForm.get("lngSec")?.value,
+      //     northing: +this.wellInfoForm.get("northing")?.value,
+      //     ref_datum: this.wellInfoForm.get("refDatum")?.value,
+      //     ref_elivation: this.wellInfoForm.get("refElevation")?.value,
+      //     RKB: +this.wellInfoForm.get("rkb")?.value,
+      //     well_id: +this.wellInfoForm.get("wellId")?.value,
+      //     well_type: +this.wellInfoForm.get("wellType")?.value
+      //   }
 
-        this.surveyInfo = {
-          run_name: this.surveyInfoForm.get("runName")?.value,
-          run_number: +this.surveyInfoForm.get("runNo")?.value,
-          survey_run_in: this.surveyInfoForm.get("surveyRunIn")?.value,
-          minimum_id: this.surveyInfoForm.get("minimumId")?.value,
-          north_reference: this.surveyInfoForm.get("northReference")?.value,
-          survey_calculation_method: this.surveyInfoForm.get("surveyCalculationMethods")?.value,
-          map_zone: this.surveyInfoForm.get("mapZone")?.value,
-          geodetic_system: this.surveyInfoForm.get("geodeticSystem")?.value,
-          geodetic_datum: this.surveyInfoForm.get("geodeticDatum")?.value,
-          start_depth: +this.surveyInfoForm.get("startDepth")?.value,
-          tag_depth: +this.surveyInfoForm.get("tagDepth")?.value,
-          proposal_direction: +this.surveyInfoForm.get("proposalDirection")?.value,
-          job_number:this.id,
-          type_of_tool:1,
-          survey_type: this.surveyInfoForm.get("surveyType")?.value,
-          hole_section:1,
-        }
+      //   this.surveyInfo = {
+      //     run_name: this.surveyInfoForm.get("runName")?.value,
+      //     run_number: +this.surveyInfoForm.get("runNo")?.value,
+      //     survey_run_in: this.surveyInfoForm.get("surveyRunIn")?.value,
+      //     minimum_id: this.surveyInfoForm.get("minimumId")?.value,
+      //     north_reference: this.surveyInfoForm.get("northReference")?.value,
+      //     survey_calculation_method: this.surveyInfoForm.get("surveyCalculationMethods")?.value,
+      //     map_zone: this.surveyInfoForm.get("mapZone")?.value,
+      //     geodetic_system: this.surveyInfoForm.get("geodeticSystem")?.value,
+      //     geodetic_datum: this.surveyInfoForm.get("geodeticDatum")?.value,
+      //     start_depth: +this.surveyInfoForm.get("startDepth")?.value,
+      //     tag_depth: +this.surveyInfoForm.get("tagDepth")?.value,
+      //     proposal_direction: +this.surveyInfoForm.get("proposalDirection")?.value,
+      //     job_number:this.id,
+      //     type_of_tool:1,
+      //     survey_type: this.surveyInfoForm.get("surveyType")?.value,
+      //     hole_section:1,
+      //   }
 
-        this.tieonInfo = {
-          measured_depth: +this.tieOnInfoForm.get('measuredDepth')?.value,
-          true_vertical_depth: +this.tieOnInfoForm.get('trueVerticalDepth')?.value,
-          inclination: +this.tieOnInfoForm.get('inclination')?.value,
-          latitude: +this.tieOnInfoForm.get('latitude')?.value,
-          azimuth: +this.tieOnInfoForm.get('azimuth')?.value,
-          departure: +this.tieOnInfoForm.get('departure')?.value,
-          job_number:this.id,
-          run_number:+this.surveyInfoForm.get("runNo")?.value,
-        };
+      //   this.tieonInfo = {
+      //     measured_depth: +this.tieOnInfoForm.get('measuredDepth')?.value,
+      //     true_vertical_depth: +this.tieOnInfoForm.get('trueVerticalDepth')?.value,
+      //     inclination: +this.tieOnInfoForm.get('inclination')?.value,
+      //     latitude: +this.tieOnInfoForm.get('latitude')?.value,
+      //     azimuth: +this.tieOnInfoForm.get('azimuth')?.value,
+      //     departure: +this.tieOnInfoForm.get('departure')?.value,
+      //     job_number:this.id,
+      //     run_number:+this.surveyInfoForm.get("runNo")?.value,
+      //   };
 
-        this.jobinfo = {
-          client_rep: this.wellInfoForm.get('clientRepresentative')?.value,
-          job_number: this.id,
-          well_id: this.wellInfoForm.get('wellId')?.value,
-          well_name: this.wellInfoForm.get('wellName')?.value,
-          arrival_date:new Date(Date.now()).toISOString().split('T')[0],
-        }
-        console.log(this.wellInfo)
-        console.log(this.surveyInfo)
-        console.log(this.tieonInfo)
-        const presurveyInfo:PresurveyInfoPost = {job_info:this.jobinfo,survey_info:this.surveyInfo,tie_on_information:this.tieonInfo,well_info:this.wellInfo,}
-        console.log(presurveyInfo);
+      //   this.jobinfo = {
+      //     client_rep: this.wellInfoForm.get('clientRepresentative')?.value,
+      //     job_number: this.id,
+      //     well_id: this.wellInfoForm.get('wellId')?.value,
+      //     well_name: this.wellInfoForm.get('wellName')?.value,
+      //     arrival_date:new Date(Date.now()).toISOString().split('T')[0],
+      //   }
+      //   console.log(this.wellInfo)
+      //   console.log(this.surveyInfo)
+      //   console.log(this.tieonInfo)
+      //   const presurveyInfo:PresurveyInfoPost = {job_info:this.jobinfo,survey_info:this.surveyInfo,tie_on_information:this.tieonInfo,well_info:this.wellInfo,}
+      //   console.log(presurveyInfo);
+      //   this.progress.set('Tie-On Info', true)
+      //   this.switcher.updateProgress(this.progress);
+      //   this.switcher.swicthPage('Tie-On Info', 'Asset Info');
+      //   // this.toastr.success('Saved Tie-On Information', 'Sucess', { positionClass: 'toast-top-center' });
 
-        this.data.postInfo(presurveyInfo).then((value) => {
-          if (value) {
-            this.router.navigate(['/dash/jobdetails', this.wellInfo.job_number],);
-          }
-        });
-      }
+      //   // this.data.postInfo(presurveyInfo).then((value) => {
+      //   //   if (value) {
+      //   //     this.progressService.setProgress(this.wellInfo.job_number,true)
+      //   //     this.router.navigate(['/dash/jobdetails', this.wellInfo.job_number],);
+      //   //   }
+      //   // });
+      // }
 
     }
 

@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { jobGuard } from '../../core/guards/job.guard';
+import { formGuard } from '../../core/guards/form.guard';
 
 const routes: Routes = [
   {
@@ -23,6 +25,7 @@ const routes: Routes = [
       },
             {
         path: 'jobdetails/:jobNo',
+        canActivate: [jobGuard,formGuard],
         loadComponent: () => {
           return import('./components/rundash/rundash.component').then(
             (m) => m.RundashComponent

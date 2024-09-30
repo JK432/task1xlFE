@@ -10,14 +10,16 @@ import { WellinformationformComponent } from '../wellinformationform/wellinforma
 import { SurveyinformationformComponent } from "../surveyinformationform/surveyinformationform.component";
 import { TieoninformationComponent } from "../tieoninformation/tieoninformation.component";
 import { DataService } from '../../../rundash/services/data.service';
+import { DataService as presurveyDataService} from '../../services/data.service';
 import { JobDataComponent } from '../../../../shared/components/job-data/job-data.component';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AssetinformationComponent } from '../assetinformation/assetinformation.component';
 
 @Component({
   selector: 'app-presurvey',
   standalone: true,
-  imports: [SharedModule, StartjobformComponent, CommonModule, JobinformationformComponent, WellinformationformComponent, SurveyinformationformComponent, TieoninformationComponent,JobDataComponent],
+  imports: [SharedModule, StartjobformComponent, CommonModule, JobinformationformComponent, WellinformationformComponent, SurveyinformationformComponent, TieoninformationComponent,JobDataComponent,AssetinformationComponent],
   templateUrl: './presurvey.component.html',
   styleUrl: './presurvey.component.scss'
 })
@@ -29,11 +31,12 @@ export class PresurveyComponent implements OnInit{
     ['Job and Well Info', false],
     ['Run Info', false],
     ['Tie-On Info', false],
+    ['Asset Info', false],
   ]);
   currentPage:string='Job and Well Info';
   id:string;
 
-  constructor(private formBuilder: FormBuilder, private formServices: FormsService, private switcher:SwitcherService,public rundashDataService:DataService,private router: Router,private route: ActivatedRoute) {
+  constructor(private formBuilder: FormBuilder, private formServices: FormsService, private switcher:SwitcherService,public rundashDataService:DataService,private router: Router,private route: ActivatedRoute,public presurveyDataService:presurveyDataService) {
     this.sub=[];
     this.id ="";
     this.rundashDataService.getMasterData();

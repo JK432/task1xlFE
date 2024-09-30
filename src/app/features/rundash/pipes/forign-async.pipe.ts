@@ -25,7 +25,7 @@ export class ForignAsyncPipe implements PipeTransform {
     if (value == null || field == null) {
       return 'Invalid input';
     }
-    if(field == 'CUSTOMER'){
+    if (field == 'CUSTOMER') {
       console.log(this.masterData.customers)
     }
 
@@ -45,6 +45,7 @@ export class ForignAsyncPipe implements PipeTransform {
       //     case 'HOLESECTION':
       // return this.masterData.hole_section.find(hole_section => hole_section.id === value)?.minimum_id ?? 'Not Found';
       case 'SURVEYTYPE':
+        console.log(this.masterData);
         return this.masterData.survey_type.find(survey_type => survey_type.id === value)?.survey_types ?? 'Not Found';
 
       case 'TOOLSTYPE':

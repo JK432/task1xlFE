@@ -13,7 +13,7 @@ export class HttpclientService {
   constructor(private http: HttpClient) {}
 
   getIntialData(){
-    return this.http.get<IntialData>(environment.serverAPI.INTIALDATA)
+    return this.http.get<IntialData>(environment.serverAPI.ROOT + environment.serverAPI.MASTER_DATA)
   }
 
   getFieldEmployeeData(){

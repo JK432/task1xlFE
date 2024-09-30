@@ -13,6 +13,7 @@ import { JobInfoPost } from '../../../shared/interfaces/jobinfopost';
 import { SurveyInfoPost } from '../../../shared/interfaces/surveyinfoPost';
 import { TieOnInfoPost } from '../../../shared/interfaces/tieOnInfoPost';
 import { PresurveyInfo, PresurveyInfoPost } from '../../../shared/interfaces/presurveyinfo';
+import { CostCenter, Employee, GyroSenser, IntialAssetData, JobAssetPost, Vehicle } from '../../../shared/interfaces/asset';
 
 
 
@@ -28,7 +29,7 @@ const PreSurveyDataSubject = new BehaviorSubject<PresurveyInfo>({
     arrival_date: new Date(Date.now()).toISOString()
   },
   survey_info: [],
-  tie_on_information:[],
+  tie_on_information: [],
   well_info: {
     east_coorinates: 0,
     g_t: 0,
@@ -89,9 +90,16 @@ const surveyCalculationMethodsSubject = new BehaviorSubject<string>('');
 const geodeticSystemSubject = new BehaviorSubject<string>('');
 const mapZoneSubject = new BehaviorSubject<string>('');
 const geodeticDatumSubject = new BehaviorSubject<string>('');
+
+const assetMasterSubject = new BehaviorSubject<IntialAssetData>({ cost_centers: [], employee: [], gyro_sensers: [], vehicles: [], });
+const assetMasterLoadingSubject = new BehaviorSubject<boolean>(false);
+const assetMasterErrorSubject = new BehaviorSubject<boolean>(false);
 // const startDepthUnitsSubject = new BehaviorSubject<string[]>([]);
 // const tagDepthUnitsSubject = new BehaviorSubject<string[]>([]);
 // const proposalDirectionUnitsSubject = new BehaviorSubject<string[]>([]);
+
+
+
 
 
 
@@ -99,8 +107,13 @@ const geodeticDatumSubject = new BehaviorSubject<string>('');
   providedIn: 'root'
 })
 export class DataService {
+  intialAssetData: IntialAssetData = { cost_centers: [], employee: [], gyro_sensers: [], vehicles: [] }
   PresurveyInfo$ = PreSurveyDataSubject.asObservable();
   Infoloading$ = InfoLoadingSubject.asObservable();
+
+  assetMaster$ = assetMasterSubject.asObservable();
+  assetMasterLoading$ = assetMasterLoadingSubject.asObservable();
+
 
   latUnits: string[] = ['N', 'S'];
   lngUnits: string[] = ['E', 'W'];
@@ -212,7 +225,7 @@ export class DataService {
 
   getRunNumber() {
     const no = this.localStorage.getItem('RUN_NO')
-    let runNo: number = 0;
+    let runNo: number = 1;
     if (no && !isNaN(no)) {
       runNo = Number(no);
     } else { }
@@ -244,7 +257,7 @@ export class DataService {
 
   postInfo(presurveyinfo: PresurveyInfoPost) {
     return new Promise((resolve, reject,) => {
-      InfoLoadingSubject.next(true);
+
       this.httpClientService.postAllInfo(presurveyinfo).pipe(
         finalize(() => InfoLoadingSubject.next(false))
       ).subscribe(
@@ -262,8 +275,124 @@ export class DataService {
     });
   }
 
+  getCostCenter():Promise<CostCenter[]>{
+    return new Promise<CostCenter[]>((resolve, reject,) => {
+      this.httpClientService.getAllCostCenter().pipe(
+        // finalize(() => assetMasterLoadingSubject.next(false))
+      ).subscribe(
+        {
+          next: (cost_centers: CostCenter[]) => {
+            this.intialAssetData.cost_centers = cost_centers;
+            resolve(cost_centers);
+          },
+          error: (error) => {
+            reject([]);
+            throw new CustomError("Error on posting job data");
+          },
+        }
+      );
+    });
+  }
 
+  getEmployee():Promise<Employee[]> {
+    return new Promise<Employee[]>((resolve, reject,) => {
+      this.httpClientService.getAllEmployee().pipe(
+        // finalize(() => assetMasterLoadingSubject.next(false))
+      ).subscribe(
+        {
+          next: (employee: Employee[]) => {
+            this.intialAssetData.employee = employee;
+            resolve(employee);
+          },
+          error: (error) => {
+            reject([]);
+            throw new CustomError("Error on posting job data");
+          },
+        }
+      );
+    });
+  }
 
+  getSensors():Promise<GyroSenser[]> {
+    return new Promise<GyroSenser[]>((resolve, reject,) => {
+      this.httpClientService.getAllGyroData().pipe(
+        // finalize(() => assetMasterLoadingSubject.next(false))
+      ).subscribe(
+        {
+          next: (gyrosensor: GyroSenser[]) => {
+            this.intialAssetData.gyro_sensers = gyrosensor;
+            resolve(gyrosensor);
+          },
+          error: (error) => {
+            reject([]);
+            throw new CustomError("Error on posting job data");
+          },
+        }
+      );
+    });
+  }
+
+  getVehicles():Promise<Vehicle[]>{
+    return new Promise<Vehicle[]>((resolve, reject,) => {
+      this.httpClientService.getAllVehicle().pipe(
+        // finalize(() => assetMasterLoadingSubject.next(false))
+      ).subscribe(
+        {
+          next: (vehicles: Vehicle[]) => {
+            this.intialAssetData.vehicles = vehicles;
+            resolve(vehicles);
+          },
+          error: (error) => {
+            reject([]);
+            throw new CustomError("Error on posting job data");
+          },
+        }
+      );
+    });
+  }
+
+  async getMasterData(){
+    assetMasterLoadingSubject.next(true);
+   await this.getVehicles().then((vehicle:Vehicle[])=>{
+      this.intialAssetData.vehicles = vehicle;
+    })
+    await this.getCostCenter().then((cost_center:CostCenter[])=>{
+      this.intialAssetData.cost_centers = cost_center;
+    })
+    await this.getEmployee().then((employee:Employee[])=>{
+      this.intialAssetData.employee = employee;
+    })
+    await this.getSensors().then((sensors:GyroSenser[])=>{
+      this.intialAssetData.gyro_sensers = sensors;
+    })
+    console.log("getMaster")
+    console.log(this.intialAssetData)
+
+    assetMasterSubject.next(this.intialAssetData);
+    assetMasterLoadingSubject.next(false);
+
+  }
+
+    postAsset(data: JobAssetPost) {
+    return new Promise((resolve, reject,) => {
+      console.log(data);
+
+      this.httpClientService.postAsset(data).pipe(
+        // finalize(() => assetMasterLoadingSubject.next(false))
+      ).subscribe(
+        {
+          next: (data: JobAssetPost) => {
+            resolve(true);
+          },
+          error: (error) => {
+            reject(false);
+            throw new CustomError("Error on posting job data");
+
+          },
+        }
+      );
+    });
+  }
 
   getRunNumberSubject() {
     return runNumberSubject.asObservable();

@@ -26,6 +26,11 @@ export const environment = {
     SURVEY_CALCULATION_DETAILS: "surveycalculationdetails/",
     CREATE_JOB_DETAILS: "create-job-detail/",
     GET_JOB_DETAILS: "job-data/",
+    COST_CENTER: "asset-master/",
+    VEHICLE_DATA: "vehicle-data/",
+    EMPLOYEE_DATA: "employee/",
+    GYRO_DATA: "gyro-data/",
+    JOB_ASSETS: "get-jobassets/",
   }
 };
 

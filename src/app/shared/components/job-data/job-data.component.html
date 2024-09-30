@@ -65,25 +65,32 @@
 
     <div class="flex items-center xl:space-x-4 space-x-2">
       <!-- Presurvey -->
-      <div class="!rounded-full bg-info/10 !pr-4 !font-semibold flex items-center">
+
+            <!-- <button type="button" class="ti-btn ti-btn-primary-full label-ti-btn !rounded-full" (click)="navigatePreSurvey()">
+              <span class="label-ti-btn-icon me-1 !rounded-full">1</span>
+              Presurvey
+            </button> -->
+      <div class="!rounded-full bg-info/10 !pr-4 !font-semibold flex items-center  bg-primary text-white "  (click)="navigatePreSurvey()" >
         <span
-          class="inline-flex items-center justify-center !w-[1.75rem] !h-[1.75rem] leading-[1.75rem] text-[1rem] rounded-full text-success bg-success/10 font-semibold mr-2">
+          class="inline-flex items-center justify-center !w-[1.75rem] !h-[1.75rem] leading-[1.75rem] text-[1rem] rounded-full text-white !bg-white/20 font-semibold mr-2 ">
           1
         </span>
-        <span class="">Presurvey</span>
+        <span class="" (click)="navigatePreSurvey()">Presurvey</span>
       </div>
+
+
 
       <!-- Arrow -->
       <i
         class="ti ti-chevrons-right flex-shrink-0 text-[#8c9097] dark:text-white/50 px-[0.5rem] hidden xl:inline-block"></i>
 
       <!-- Quality Analysis -->
-      <div class="!rounded-full bg-info/10 !pr-4 !font-semibold flex items-center">
+      <div class="!rounded-full bg-primary !pr-4 !font-semibold flex items-center text-white" (click)="navigateSurvey()">
         <span
-          class="inline-flex items-center justify-center !w-[1.75rem] !h-[1.75rem] leading-[1.75rem] text-[1rem] rounded-full text-success bg-success/10 font-semibold mr-2">
+          class="inline-flex items-center justify-center !w-[1.75rem] !h-[1.75rem] leading-[1.75rem] text-[1rem] rounded-full !bg-white/20 font-semibold mr-2">
           2
         </span>
-        <span class="">Quality Analysis</span>
+        <span class="">Survey</span>
       </div>
 
       <!-- Arrow -->
@@ -91,12 +98,16 @@
         class="ti ti-chevrons-right flex-shrink-0 text-[#8c9097] dark:text-white/50 px-[0.5rem] hidden xl:inline-block"></i>
 
       <!-- Survey Calculation -->
-      <div class="!rounded-full bg-info/10 !pr-4 !font-semibold flex items-center">
+            <!-- <button type="button" class="ti-btn ti-btn-primary-full label-ti-btn !rounded-full">
+              <span class="label-ti-btn-icon me-1 !rounded-full">3</span>
+              Sequence of Events
+            </button> -->
+      <div class="!rounded-full bg-primary !pr-4 !font-semibold flex items-center text-white">
         <span
-          class="inline-flex items-center justify-center !w-[1.75rem] !h-[1.75rem] leading-[1.75rem] text-[1rem] rounded-full text-success bg-success/10 font-semibold mr-2">
+          class="inline-flex items-center justify-center !w-[1.75rem] !h-[1.75rem] leading-[1.75rem] text-[1rem] rounded-full text-white bg-white/20 font-semibold mr-2">
           3
         </span>
-        <span class="">Survey Calculation</span>
+        <span class="">Sequence of Events</span>
       </div>
     </div>
   </div>

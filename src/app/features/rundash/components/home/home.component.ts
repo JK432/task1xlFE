@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { DataService as PresSurveyDataService } from '../../../presurvey/services/data.service';
 import { PresurveyInfo } from '../../../../shared/interfaces/presurveyinfo';
 import { take } from 'rxjs/internal/operators/take';
+import { ProgressService } from '../../../../shared/services/progress.service';
 
 
 @Component({
@@ -63,9 +64,10 @@ export class HomeComponent {
     }
   };
   jobs: JobGDB[] = [];
-  constructor(public dataService: DataService, private presurveyFormServices: FormsService, private router: Router, public presurveyDataServices: PresSurveyDataService,) {
+  constructor(public dataService: DataService, private presurveyFormServices: FormsService, private router: Router, public presurveyDataServices: PresSurveyDataService,public progressService:ProgressService) {
     this.dataService.getMasterData();
     this.dataService.getJob();
+    this.presurveyDataServices.getMasterData();
     this.dataService.jobs$.pipe().subscribe({ next: (data) => { this.jobs = data } })
   }
 
@@ -77,14 +79,18 @@ export class HomeComponent {
         this.presurveyDataServices.PresurveyInfo$.pipe(take(1)).subscribe({
           next: (data) => {
             this.presurveyInfo = data;
+
+
             if (
               (this.presurveyInfo.survey_info && this.presurveyInfo.survey_info.length > 0) &&
               (this.presurveyInfo.tie_on_information && this.presurveyInfo.tie_on_information.length > 0) &&
               this.presurveyInfo.well_info !== null &&
               this.presurveyInfo.job_info !== null
             ) {
+              this.progressService.setProgress(job.job_number,true)
               this.router.navigate(['/dash/jobdetails/' + job.job_number + '/']);
             } else {
+              this.progressService.setProgress(job.job_number,false);
               this.router.navigate(['/presurvey/form/' + job.job_number + '/']);
             }
 

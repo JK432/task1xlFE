@@ -17,6 +17,7 @@ import { ForignAsyncPipe } from '../../pipes/forign-async.pipe';
 import { CommonModule } from '@angular/common';
 import { JobDataComponent } from '../../../../shared/components/job-data/job-data.component';
 import { ToastrService } from 'ngx-toastr';
+import { ProgressService } from '../../../../shared/services/progress.service';
 
 @Component({
   selector: 'app-rundash',
@@ -26,6 +27,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './rundash.component.scss'
 })
 export class RundashComponent implements OnInit {
+
   emptysurveyInfo: SurveyInfo = {
       survey_info_id: 0,
       run_name: "",
@@ -57,11 +59,13 @@ export class RundashComponent implements OnInit {
       job_number: "",
       run_number: 0
     };
+
   selectedRun: number;
   private sub: Subscription[];
   selectedSurveyInfo: SurveyInfo;
   selectedTieOnInfo: TieOnInfo;
   id: string;
+
   presurveyInfo: PresurveyInfo = {
     job_info: {
       client_rep: "",
@@ -105,8 +109,9 @@ export class RundashComponent implements OnInit {
   wellInfo: WellInfo;
   wellInfoI: WellInfo;
 
-  constructor(private route: ActivatedRoute, public presurveyDataServices: DataService, private router: Router,public rundashdataService:RundashDataService,private toastr: ToastrService,) {
+  constructor(private route: ActivatedRoute, public presurveyDataServices: DataService, private router: Router,public rundashdataService:RundashDataService,private toastr: ToastrService,public progressService:ProgressService) {
     this.selectedRun = 1;
+    this.progressService.runno = this.selectedRun.toString();
     this.sub = []
     this.id = "";
     rundashdataService.getMasterData();
@@ -153,6 +158,7 @@ export class RundashComponent implements OnInit {
   }
 
   selectRun(runNumber:number){
+    this.progressService.runno = runNumber.toString();
     this.selectedRun = runNumber;
     if(this.presurveyInfo.survey_info.length>0){
           this.selectedSurveyInfo = this.presurveyInfo.survey_info.find(surveyInfo => surveyInfo.run_number === this.selectedRun)??this.emptysurveyInfo;
@@ -202,4 +208,5 @@ export class RundashComponent implements OnInit {
       s.unsubscribe();
     });
   }
+
 }

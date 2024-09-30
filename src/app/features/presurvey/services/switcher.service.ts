@@ -15,6 +15,8 @@ export class SwitcherService {
     ['Job and Well Info', false],
     ['Run Info', false],
     ['Tie-On Info', false],
+    ['Asset Info', false],
+
 
   ]));
   private pageSubject = new BehaviorSubject<string>('Job and Well Info');

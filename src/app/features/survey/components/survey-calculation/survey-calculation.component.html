@@ -5,22 +5,13 @@
   <div class="ti-spinner text-primary p-2 m-2" role="status">
     <span class="sr-only">Loading...</span>
   </div>
-
-    <!-- <div class="grid grid-cols-12 gap-x-6">
-      <div class="xl:col-span-12 col-span-12"> Some thing went Wrong.Failed to load Suvey.
-      </div>
-    </div> -->
-
 }@else{
-
-
   <div class="grid grid-cols-12 gap-x-6">
       @if(dataServices.surveyCalculationDetailsPostLoading$ | async){
       <div class="ti-spinner text-primary p-2 m-2" role="status">
         <span class="sr-only">Loading...</span>
       </div>
       }@else{
-
         @if(this.surveyCalculationDetails.status != "no_data"){
                       <div class="xl:col-span-6 col-span-12">
                         <div class="box custom-box">

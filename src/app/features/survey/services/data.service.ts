@@ -59,6 +59,8 @@ export class DataService {
             resolve(true);
           },
           error: (error) => {
+            qualityAnalysisSubject.next({status:'no_data',g_t_percentage:"",g_t_score:"",results:[],success_count:0,w_t_percentage:"",w_t_score:"",});
+
             console.error('Error on Survey Calculation', typeof (error.error.error) == undefined ? "" : error.error.error);
             reject();
             throw new CustomError("Error on survey calculation \n" + typeof (error.error.error) == undefined ? "" : error.error.error);
@@ -81,6 +83,7 @@ export class DataService {
             resolve(true);
           },
           error: (error) => {
+            surveyCalculationDetailsSubject.next({last_row:{closure_direction:0,closure_distance:0,header_id:0,vertical_section:0,},max_inclination:0,status:'no_data',survey_details:[]});
             console.error('Error on Survey Calculation', typeof (error.error.error) == undefined ? "" : error.error.error);
             reject();
             throw new CustomError("Error on survey calculation \n" + typeof (error.error.error) == undefined ? "" : error.error.error);
@@ -129,9 +132,9 @@ export class DataService {
             resolve(true);
           },
           error: (error) => {
+            qualityAnalysisSubject.next({status:'no_data',g_t_percentage:"",g_t_score:"",results:[],success_count:0,w_t_percentage:"",w_t_score:"",});
             console.error('Error on Geting Quality Analysis', typeof (error.error.error) == undefined ? "" : error.error.error);
-            reject();
-            throw new CustomError("Error on Geting Quality Analysis \n" + typeof (error.error.error) == undefined ? "" : error.error.error);
+            reject(false);
           },
         }
       );
@@ -153,6 +156,7 @@ export class DataService {
             resolve(true);
           },
           error: (error) => {
+            surveyCalculationDetailsSubject.next({last_row:{closure_direction:0,closure_distance:0,header_id:0,vertical_section:0,},max_inclination:0,status:'no_data',survey_details:[]});
             if(error.error){
               surveyCalculationDetailsErrorSubject.next(true);
             }

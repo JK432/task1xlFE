@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { jobGuard } from '../../core/guards/job.guard';
 
 const routes: Routes = [
   {
@@ -16,6 +17,7 @@ const routes: Routes = [
       },
       {
         path: 'form/:jobNo',
+        canActivate: [jobGuard],
         loadComponent: () => {
           return import('./components/presurvey/presurvey.component').then(
             (m) => m.PresurveyComponent

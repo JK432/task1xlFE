@@ -8,7 +8,7 @@ import { SharedModule } from '../../../../shared/shared.module';
 import { ImportSurveyComponent } from '../../modals/import-survey/import-survey.component';
 import { StatusColorPipe } from '../../pipes/status-color.pipe';
 import { ApexAxisChartSeries, ApexChart, ApexDataLabels, ApexFill, ApexMarkers, ApexTitleSubtitle, ApexTooltip, ApexXAxis, ApexYAxis, NgApexchartsModule } from 'ng-apexcharts';
-import { range } from 'rxjs';
+import { min, range } from 'rxjs';
 
 @Component({
   selector: 'app-survey-calculation',
@@ -180,7 +180,7 @@ export class SurveyCalculationComponent implements OnInit {
       }
     }))
 
-    
+
   }
 
   ngOnInit(): void {
@@ -276,7 +276,7 @@ export class SurveyCalculationComponent implements OnInit {
     // Chart options
     const chartOptions = {
       series: [{
-        name: 'Vertical Section',
+        name: '',
         data: verticalSectionData.map((verticalSection, index) => ({
           x: tvdData[index],
           y: verticalSection
@@ -285,7 +285,7 @@ export class SurveyCalculationComponent implements OnInit {
       }],
 
       chart: {
-        height: 320,
+       height: 320,
         type: 'line',
         zoom: {
           enabled: false
@@ -295,6 +295,9 @@ export class SurveyCalculationComponent implements OnInit {
             chart.windowResizeHandler();
           }
         },
+        toolbar: {
+          show: false
+        }
       },
 
       colors: ['#845adf'],
@@ -339,10 +342,12 @@ export class SurveyCalculationComponent implements OnInit {
         }],
       },
       yaxis: {
-        tickAmount: 6,
+        tickAmount: 5,
+        min:-3,
+        max:3,
         title: {
           text: 'Vertical Section',
-          rotate: -90, // Rotate to place vertically
+          rotate: 90, // Rotate to place vertically
           offsetX: 0,  // Adjust horizontal offset
           offsetY: 0,  // Adjust vertical offset
           style: {
@@ -367,7 +372,7 @@ export class SurveyCalculationComponent implements OnInit {
       xaxis: {
         // categories: sortedVerticalSection,
         type: 'numeric',
-        tickAmount: 5,
+        tickAmount: 3,
         stepSize: 1,
         title: {
           text: 'True Vertical Depth',
@@ -407,14 +412,16 @@ export class SurveyCalculationComponent implements OnInit {
           colors: '#4a4a4a',        // Color for the legend labels
           useSeriesColors: false     // Prevent the legend from using series colors
         },
-      }
+      },
+
+
 
     };
 
     return chartOptions;
   }
 
-    getChartOptionsPlan(surveyData: SurveyRows[]) {
+  getChartOptionsPlan(surveyData: SurveyRows[]) {
     // Extract TVD and Vertical Section data from survey details
     const latitude = surveyData.map(point => (point.latitude)).slice(1);
     const departure = surveyData.map(point => (point.departure)).slice(1);
