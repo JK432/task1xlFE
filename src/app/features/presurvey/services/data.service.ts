@@ -14,6 +14,8 @@ import { SurveyInfoPost } from '../../../shared/interfaces/surveyinfoPost';
 import { TieOnInfoPost } from '../../../shared/interfaces/tieOnInfoPost';
 import { PresurveyInfo, PresurveyInfoPost } from '../../../shared/interfaces/presurveyinfo';
 import { CostCenter, Employee, GyroSenser, IntialAssetData, JobAssetPost, Vehicle } from '../../../shared/interfaces/asset';
+import { SurveyInfo } from '../../../shared/interfaces/surveyinfo';
+import { TieOnInfo } from '../../../shared/interfaces/tieoninfo';
 
 
 
@@ -205,7 +207,7 @@ export class DataService {
       "18 1/4\""
     ]);
 
-    northReferenceSubject.next(['geodeticDatumSubject']);
+    northReferenceSubject.next(['Grid North']);
 
     surveyCalculationMethodsSubject.next('Minimum Curvature');
 
@@ -256,7 +258,7 @@ export class DataService {
   }
 
   postInfo(presurveyinfo: PresurveyInfoPost) {
-    return new Promise((resolve, reject,) => {
+    return new Promise((resolve, reject) => {
 
       this.httpClientService.postAllInfo(presurveyinfo).pipe(
         finalize(() => InfoLoadingSubject.next(false))
@@ -272,6 +274,15 @@ export class DataService {
           },
         }
       );
+    });
+  }
+
+ updatePresurveyForRun(surveyInfo:SurveyInfo,tieOnInfo:TieOnInfo) {
+    return new Promise((resolve, reject) => {
+     let presurveylatest =  PreSurveyDataSubject.getValue();
+     presurveylatest.survey_info.push(surveyInfo);
+     presurveylatest.tie_on_information.push(tieOnInfo);
+     PreSurveyDataSubject.next(presurveylatest);
     });
   }
 

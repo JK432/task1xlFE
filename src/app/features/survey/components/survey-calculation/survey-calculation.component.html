@@ -1,133 +1,159 @@
-<app-page-header [title]="'Survey Calculation Result'" [activeTitle]="'Home'" [title1]="'Survey Calculation Result'"></app-page-header>
+<app-page-header [title]="'Survey Calculation Result'" [activeTitle]="'Home'"
+  [title1]="'Survey Calculation Result'"></app-page-header>
 
 
 @if(dataServices.surveyCalculationDetailsPostLoading$ |async){
+<div class="ti-spinner text-primary p-2 m-2" role="status">
+  <span class="sr-only">Loading...</span>
+</div>
+}@else{
+<div class="grid grid-cols-12 gap-x-6">
+  @if(dataServices.surveyCalculationDetailsPostLoading$ | async){
   <div class="ti-spinner text-primary p-2 m-2" role="status">
     <span class="sr-only">Loading...</span>
   </div>
-}@else{
-  <div class="grid grid-cols-12 gap-x-6">
-      @if(dataServices.surveyCalculationDetailsPostLoading$ | async){
-      <div class="ti-spinner text-primary p-2 m-2" role="status">
-        <span class="sr-only">Loading...</span>
+  }@else{
+  @if(this.surveyCalculationDetails.status != "no_data"){
+  <div class="xl:col-span-6 col-span-12">
+    <div class="box custom-box">
+      <div class="box-header">
+        <div class="box-title">Section View</div>
       </div>
-      }@else{
-        @if(this.surveyCalculationDetails.status != "no_data"){
-                      <div class="xl:col-span-6 col-span-12">
-                        <div class="box custom-box">
-                          <div class="box-header">
-                            <div class="box-title">Section View</div>
-                          </div>
-                          <div class="box-body">
-                            <div id="dynamic-chart" class="chart-container">
-                              <apx-chart [series]="sectionChartOption.series" [chart]="sectionChartOption.chart"
-                                [xaxis]="sectionChartOption.xaxis" [dataLabels]="sectionChartOption.dataLabels"
-                                [grid]="sectionChartOption.grid" [stroke]="sectionChartOption.stroke" [title]="sectionChartOption.title"
-                                [colors]="sectionChartOption.colors" [yaxis]="sectionChartOption.yaxis"
-                                [annotations]="sectionChartOption.annotations" [legend]="sectionChartOption.legend"></apx-chart>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="xl:col-span-6 col-span-12">
-                        <div class="box custom-box">
-                          <div class="box-header">
-                            <div class="box-title">Plan View</div>
-                          </div>
-                          <div class="box-body">
-                            <div id="dynamic-chart" class="chart-container">
-                              <apx-chart [series]="planChartOption.series" [chart]="planChartOption.chart" [xaxis]="planChartOption.xaxis"
-                                [dataLabels]="planChartOption.dataLabels" [grid]="planChartOption.grid" [stroke]="planChartOption.stroke"
-                                [title]="planChartOption.title" [colors]="planChartOption.colors" [yaxis]="planChartOption.yaxis"
-                                [annotations]="planChartOption.annotations" [legend]="planChartOption.legend"></apx-chart>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-
-        }@else{
-
-                    <div class=" col-span-12 p-4">
-                      Can't Find the Survey Data, Ensure Quality Calculation first.
-                    </div>
-
-        }
-
-      }
-
-    <div class="xl:col-span-12 col-span-12">
-
-
-      <div class="table-responsive">
-
-
-
-        @if(dataServices.surveyCalculationDetailsPostLoading$ | async){
-        <div class="ti-spinner text-primary p-2 m-2" role="status">
-          <span class="sr-only">Loading...</span>
+      <div class="box-body">
+        <div id="dynamic-chart" class="chart-container">
+          <apx-chart [series]="sectionChartOption.series" [chart]="sectionChartOption.chart"
+            [xaxis]="sectionChartOption.xaxis" [dataLabels]="sectionChartOption.dataLabels"
+            [grid]="sectionChartOption.grid" [stroke]="sectionChartOption.stroke" [title]="sectionChartOption.title"
+            [colors]="sectionChartOption.colors" [yaxis]="sectionChartOption.yaxis"
+            [annotations]="sectionChartOption.annotations" [legend]="sectionChartOption.legend"></apx-chart>
         </div>
-        }@else {
-        @if (this.surveyCalculationDetails.status != "no_data"){
+      </div>
+    </div>
+  </div>
 
-        <div class="box">
-          <div class="box-header">
-            <h5 class="box-title">Survey Calculation Details</h5>
-          </div>
-          <div class="box-body">
-            <table class="table whitespace-nowrap min-w-full">
-              <thead>
-                <tr class=" table-primary border-b border-defaultborder">
-                  <th scope="col" class="text-start">Depth</th>
-                  <th scope="col" class="text-start">Inc</th>
-                  <th scope="col" class="text-start">Azimuth</th>
-                  <th scope="col" class="text-start">TVD</th>
-                  <th scope="col" class="text-start">Vertical Section</th>
-                  <th scope="col" class="text-start">+N/-S</th>
-                  <th scope="col" class="text-start">+E/-W</th>
-                  <th scope="col" class="text-start">DLS</th>
-                  <th scope="col" class="text-start">Closure Distance</th>
-                  <th scope="col" class="text-start">Closure Direction</th>
-                </tr>
-              </thead>
-              <tbody *ngIf=" !(dataServices.surveyCalculationDetailsPostLoading$ | async);  else loadedContent">
-                <!-- @if (this.qualityAnalysis.results.length>0){ -->
-                @for(result of this.surveyCalculationDetails.survey_details; track $index){
-                <tr class="border-b border-defaultborder">
-                  <td>{{result.measured_depth}}</td>
-                  <td>{{result.inclination}}</td>
-                  <td>{{result.azimuth}}</td>
-                  <td>{{result.tvd}}</td>
-                  <td>{{result.Vertical_Section}}</td>
-                  <td>{{result.latitude}}</td>
-                  <td>{{result.departure}}</td>
-                  <td>{{result.DLS}}</td>
-                  <td>{{result.closure_distance}}</td>
-                  <td>{{result.closure_direction}}</td>
-                </tr>
-                }
-
-              </tbody>
-              <ng-template #loadedContent>
-                <div class="ti-spinner text-primary p-2 m-2" role="status">
-                  <span class="sr-only">Loading...</span>
-                </div>
-              </ng-template>
-
-            </table>
-          </div>
-
+  <div class="xl:col-span-6 col-span-12">
+    <div class="box custom-box">
+      <div class="box-header">
+        <div class="box-title">Plan View</div>
+      </div>
+      <div class="box-body">
+        <div id="dynamic-chart" class="chart-container">
+          <apx-chart [series]="planChartOption.series" [chart]="planChartOption.chart" [xaxis]="planChartOption.xaxis"
+            [dataLabels]="planChartOption.dataLabels" [grid]="planChartOption.grid" [stroke]="planChartOption.stroke"
+            [title]="planChartOption.title" [colors]="planChartOption.colors" [yaxis]="planChartOption.yaxis"
+            [annotations]="planChartOption.annotations" [legend]="planChartOption.legend"></apx-chart>
         </div>
-        }@else{
-        }
-        }
-
       </div>
     </div>
   </div>
 
 
+  }@else{
+
+  <div class=" col-span-12 p-4">
+    Can't Find the Survey Data, Ensure Quality Calculation first.
+  </div>
+
+  }
+
+  }
+
+  <div class="xl:col-span-12 col-span-12">
+
+
+    <div class="">
+
+
+
+      @if(dataServices.surveyCalculationDetailsPostLoading$ | async){
+      <div class="ti-spinner text-primary p-2 m-2" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      }@else {
+      @if (this.surveyCalculationDetails.status != "no_data"){
+
+      <div class="box">
+        <div class="box-header">
+          <h5 class="box-title">Survey Calculation Details</h5>
+        </div>
+        <div class="mr-2 !ml-0">
+          <div class="">
+            <div class="table-responsive m-2 !mt-0 !mb-[0rem]">
+                <table class="table whitespace-nowrap min-w-full">
+                  <thead>
+                    <tr class=" table-primary border-b border-defaultborder">
+                      <th scope="col" class="text-center">Depth</th>
+                      <th scope="col" class="text-center">Inc</th>
+                      <th scope="col" class="text-center">Azimuth</th>
+                      <th scope="col" class="text-center">TVD</th>
+                      <th scope="col" class="text-center">Vertical <br> Section</th>
+                      <th scope="col" class="text-center">+N/-S</th>
+                      <th scope="col" class="text-center">+E/-W</th>
+                      <th scope="col" class="text-center">DLS</th>
+                      <th scope="col" class="text-center">Closure <br> Distance</th>
+                      <th scope="col" class="text-center">Closure <br> Direction</th>
+                      <th scope="col" class="text-center">CL</th>
+                      <th scope="col" class="text-center">Dog Leg</th>
+                      <th scope="col" class="text-center">Ratio <br> Factor</th>
+                    </tr>
+                    <tr class=" table-info border-b border-defaultborder !h-[20px]">
+                      <th scope="col" class="text-center">m</th>
+                      <th scope="col" class="text-center">deg</th>
+                      <th scope="col" class="text-center">deg</th>
+                      <th scope="col" class="text-center">m</th>
+                      <th scope="col" class="text-center">m</th>
+                      <th scope="col" class="text-center">m</th>
+                      <th scope="col" class="text-center">m</th>
+                      <th scope="col" class="text-center">°/30m</th>
+                      <th scope="col" class="text-center">m</th>
+                      <th scope="col" class="text-center">degs</th>
+                      <th scope="col" class="text-center">m</th>
+                      <th scope="col" class="text-center"></th>
+                      <th scope="col" class="text-center"></th>
+                    </tr>
+                  </thead>
+                  <tbody *ngIf=" !(dataServices.surveyCalculationDetailsPostLoading$ | async);  else loadedContent">
+                    <!-- @if (this.qualityAnalysis.results.length>0){ -->
+                    @for(result of this.surveyCalculationDetails.survey_details; track $index){
+                    <tr class="border-b border-defaultborder">
+                      <td class="text-center">{{ result.measured_depth !== null ? result.measured_depth : 'null' }}</td>
+                      <td class="text-center">{{ result.inclination !== null ? result.inclination : 'null' }}</td>
+                      <td class="text-center">{{ result.azimuth !== null ? result.azimuth : 'null' }}</td>
+                      <td class="text-center">{{ result.tvd !== null ? result.tvd : 'null' }}</td>
+                      <td class="text-center">{{ result.Vertical_Section !== null ? result.Vertical_Section : 'null' }}</td>
+                      <td class="text-center">{{ result.latitude !== null ? result.latitude : 'null' }}</td>
+                      <td class="text-center">{{ result.departure !== null ? result.departure : 'null' }}</td>
+                      <td class="text-center">{{ result.DLS !== null ? result.DLS : 'null' }}</td>
+                      <td class="text-center">{{ result.closure_distance !== null ? result.closure_distance : 'null' }}</td>
+                      <td class="text-center">{{ result.closure_direction !== null ? result.closure_direction : 'null' }}</td>
+                      <td class="text-center">{{ result.CL !== null ? result.CL : 'null' }}</td>
+                      <td class="text-center">{{ result.dog_leg !== null ? result.dog_leg : 'null' }}</td>
+                      <td class="text-center">{{ result.ratio_factor !== null ? result.ratio_factor : 'null' }}</td>
+                    </tr>
+                    }
+
+                  </tbody>
+                  <ng-template #loadedContent>
+                    <div class="ti-spinner text-primary p-2 m-2" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </ng-template>
+
+                </table>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+      }@else{
+      }
+      }
+
+    </div>
+  </div>
+</div>
+
+
 }
-
-

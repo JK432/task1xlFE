@@ -50,7 +50,7 @@ export class PresurveyComponent implements OnInit{
     })
   }
 
-    ngOnInit(): void {
+  ngOnInit(): void {
     this.sub.push(this.route.params.subscribe(params => {
       this.id = params['jobNo'];
     }))

@@ -31,6 +31,10 @@ export const environment = {
     EMPLOYEE_DATA: "employee/",
     GYRO_DATA: "gyro-data/",
     JOB_ASSETS: "get-jobassets/",
+    RUN_INFO: "surveyinfo/",
+    TIE_ON_INFO: "tieoninfo/",
+    SOE: "soe/",
+    EVENT: "asset/",
   }
 };
 

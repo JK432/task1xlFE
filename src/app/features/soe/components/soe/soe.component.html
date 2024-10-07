@@ -1,0 +1,115 @@
+<app-page-header [title]="'SOE'" [activeTitle]="'Start Job'" [title1]="'Pre Survey'"></app-page-header>
+<app-job-data [jobNo]="this.id"></app-job-data>
+
+<div class="grid grid-cols-12 gap-x-6">
+
+
+  <!-- RUN LIST -->
+  <div class="xl:col-span-12 col-span-12">
+    <div class="box">
+      <div class="box-header justify-between sm:flex block ">
+        <div class="box-title">
+          Run Information
+        </div>
+        <div>
+        </div>
+      </div>
+
+      <div class="p-5">
+        <div class="table-responsive mb-[0rem]">
+          <div class="md:col-span-12 col-span-12 mb-0">
+
+            <div>
+              <div class="md:col-span-6 col-span-12 mb-4">
+                <label class="form-label" for="servicetype">Select an Event</label>
+
+                <!-- Flex container to align the select and button -->
+                <div class="flex items-center space-x-2">
+                  <!-- Select Dropdown -->
+                  @if(!(data.EventLoading$|async)){
+                  <select id="servicetype" class="form-select !py-[0.59rem] flex-grow" [(ngModel)]="SelectedEvent">
+                    <option *ngFor="let event of Events" [value]="event.id">
+                      {{ event.action }}
+                    </option>
+                  </select>
+
+                  @if(!(this.data.SoePostLoading$ | async)){
+                  <button type="button" class="ti-btn ti-btn-primary-full label-ti-btn label-end m-0 !py-1" (click)="addEvent()">
+                    <i class="ri-arrow-right-s-line label-ti-btn-icon ms-2 text-[1.125rem]"></i>
+                    Add
+                  </button>
+                  }@else{
+
+
+                  <button type="button" class="ti-btn ti-btn-primary-full ti-btn-loader ti-btn-disabled m-0 !py-1">
+                    <span class="me-2">Add</span>
+                    <span class="loading"><i class="ri-refresh-line text-[1rem] animate-spin"></i></span>
+                  </button>
+                  }
+
+                  <!-- Button -->
+
+                  }@else{
+                  <div class="ti-spinner text-primary p-2 m-2" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  }
+
+                </div>
+                @if(SelectedEvent == 0){
+
+                <div class="text-danger">
+                  Select an Event.
+                </div>
+                }@else {
+                <div></div>
+                }
+              </div>
+
+              <div class="table-responsive m-2 !mt-0 !mb-[0rem]" id="qualityAnalysisPdf">
+                <table class="table !p-0 !pt-4 !text-center min-w-full">
+                  <thead class="">
+                    <tr class=" table-primary border-b border-defaultborder">
+                      <th scope="col " class="!text-center w-[20%]">Time</th>
+                      <th scope="col" class="!text-center w-[80%]">Event</th>
+                    </tr>
+                  </thead>
+                  <tbody *ngIf=" (data.Soe$ | async);  else loadedContent">
+
+                    @if(data.SoeLoading$ |async){
+                    <div class="ti-spinner text-primary p-2 m-2" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    }@else{
+                    @for(soe of this.SOEs; track $index){
+                    <tr class="border-b border-defaultborder ">
+                      <td class="!p-1 !text-center">{{soe.created_at | hoursAgo}}</td>
+                      <td class="!p-1 !text-center">{{soe.soe_desc | titlecase}}</td>
+                    </tr>
+                    }
+                    }
+
+
+                  </tbody>
+                  <ng-template #loadedContent>
+                    <div class="ti-spinner text-primary p-2 m-2" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </ng-template>
+
+                </table>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+  </div>
+</div>

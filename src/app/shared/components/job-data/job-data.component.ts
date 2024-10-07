@@ -58,9 +58,12 @@ export class JobDataComponent implements OnInit {
     this.router.navigate(['/survey/', this.id,this.progressService.runno],);
   }
   navigateSOE(){
-
+    this.router.navigate(['/soe/job/', this.id],);
   }
   navigatePreSurvey(){
+    this.router.navigate(['/dash/jobdetails/', this.id],);
+  }
+  navigateReport(){
     this.router.navigate(['/dash/jobdetails/', this.id],);
   }
 

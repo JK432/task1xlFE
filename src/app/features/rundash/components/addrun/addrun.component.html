@@ -1,447 +1,776 @@
-<!-- <div class="box-body">
-  <form (ngSubmit)="onSubmit()" [formGroup]="surveyInfoForm">
 
-    <div class="grid grid-cols-12 sm:gap-x-6 sm:gap-y-4">
-
-      <div class="md:col-span-6 col-span-12 mb-4">
-        <label class="form-label" for="runName">Run name</label>
-        <input id="runName" type="text" class="form-control" placeholder="" aria-label="Run name"
-          formControlName="runName">
-
-        @if(surveyInfoForm.controls['runName'].invalid &&
-        (surveyInfoForm.controls['runName'].dirty ||
-        surveyInfoForm.controls['runName'].touched)){
-
-        <div class="text-danger"
-          *ngIf="surveyInfoForm.controls['runName'].errors?.['required'] && surveyInfoForm.controls['runName'].touched">
-          Run name is required.
-        </div>
-        <div
-          *ngIf="surveyInfoForm.controls['runName'].errors?.['pattern'] && surveyInfoForm.controls['runName'].touched"
-          class="text-danger">
-          Invalid Input.
-        </div>
-        }
-
+@if(!(presurveyData.Infoloading$ | async)){
+<div class="col-span-12 md:col-span-6 xxl:!col-span-4">
+  <div class="box !mb-0">
+    <div>
+      <!-- <div class="box-body"> -->
+      <div class="sm:border-b-2 border-gray-200 dark:border-white/10">
+        <nav class="-mb-0.5 sm:flex sm:space-x-6 rtl:space-x-reverse">
+          <a class="w-full sm:w-auto hs-tab-active:font-semibold hs-tab-active:border-primary hs-tab-active:text-primary py-4 px-1 inline-flex items-center gap-2 border-b-[3px] border-transparent text-sm whitespace-nowrap text-defaulttextcolor dark:text-[#8c9097] dark:text-white/50 hover:text-primary"
+            [ngClass]="{ 'active': currentPage == 'Run Info'}" (click)="changePage('','Run Info')" id="icon-item-1"
+            data-hs-tab="icon-1" href="javascript:void(0);" aria-controls="icon-1">
+            Run Info
+          </a>
+          <a class="w-full sm:w-auto hs-tab-active:font-semibold hs-tab-active:border-primary hs-tab-active:text-primary py-4 px-1 inline-flex items-center gap-2 border-b-[3px] border-transparent text-sm whitespace-nowrap text-defaulttextcolor dark:text-[#8c9097] dark:text-white/50 hover:text-primary"
+            [ngClass]="{ 'active': currentPage == 'Tie-On Info'}" (click)="changePage('Run Info','Tie-On Info')"
+            id="icon-item-2" data-hs-tab="icon-2" href="javascript:void(0);" aria-controls="icon-2">
+            Tie On Info
+          </a>
+        </nav>
       </div>
 
-      <div class="md:col-span-6 col-span-12 mb-4">
-        <label class="form-label" for="runNumber">Run Number</label>
-        <input id="runNumber" type="text" class="form-control" placeholder="1" aria-label="Run Number"
-          formControlName="runNo" [disabled]="true">
+      <div class="mt-3">
+        <div id="icon-1" aria-labelledby="icon-item-1" *ngIf="currentPage == 'Run Info'">
+          <div class="box-body mt-0">
+            <form (ngSubmit)="onSubmitSurveyInfo()" [formGroup]="surveyInfoForm">
 
-        @if( surveyInfoForm.controls['runNo'].invalid &&
-        (surveyInfoForm.controls['runNo'].dirty ||
-        surveyInfoForm.controls['runNo'].touched)){
+              <div class="grid grid-cols-12 sm:gap-x-6 sm:gap-y-4">
 
-        <div class="text-danger"
-          *ngIf="surveyInfoForm.controls['runNo'].errors?.['required'] && surveyInfoForm.controls['runNo'].touched">
-          Run Number is required.
+                <div class="md:col-span-6 col-span-12 mb-4">
+                  <label class="form-label" for="runName">Run name</label>
+                  <input id="runName" type="text" class="form-control" placeholder="" aria-label="Run name"
+                    formControlName="runName">
+
+                  @if(surveyInfoForm.controls['runName'].invalid &&
+                  (surveyInfoForm.controls['runName'].dirty ||
+                  surveyInfoForm.controls['runName'].touched)){
+
+                  <div class="text-danger"
+                    *ngIf="surveyInfoForm.controls['runName'].errors?.['required'] && surveyInfoForm.controls['runName'].touched">
+                    Run name is required.
+                  </div>
+                  <div
+                    *ngIf="surveyInfoForm.controls['runName'].errors?.['pattern'] && surveyInfoForm.controls['runName'].touched"
+                    class="text-danger">
+                    Invalid Input.
+                  </div>
+                  }
+
+                </div>
+
+                <div class="md:col-span-6 col-span-12 mb-4">
+                  <label class="form-label" for="runNumber">Run Number</label>
+                  <input id="runNumber" type="text" class="form-control" placeholder="1" aria-label="Run Number"
+                    formControlName="runNo" [disabled]="true">
+
+                  @if( surveyInfoForm.controls['runNo'].invalid &&
+                  (surveyInfoForm.controls['runNo'].dirty ||
+                  surveyInfoForm.controls['runNo'].touched)){
+
+                  <div class="text-danger"
+                    *ngIf="surveyInfoForm.controls['runNo'].errors?.['required'] && surveyInfoForm.controls['runNo'].touched">
+                    Run Number is required.
+                  </div>
+
+                  <div
+                    *ngIf="surveyInfoForm.controls['runNo'].errors?.['pattern'] && surveyInfoForm.controls['runNo'].touched"
+                    class="text-danger">
+                    Invalid Input.
+                  </div>
+                  }
+
+                </div>
+
+                <div class="md:col-span-6 col-span-12 mb-4">
+                  <label class="form-label" for="typeOfTool">Type of Tool</label>
+                  <select id="typeOfTool" class="form-select !py-[0.59rem]" formControlName="typeOfTool">
+                    <option *ngFor="let typeOfTool of typeOfTools" [value]="typeOfTool"
+                      [selected]="typeOfTool == selectedTypeOfTool">{{typeOfTool}}
+                    </option>
+                  </select>
+
+                  @if( surveyInfoForm.controls['typeOfTool'].invalid &&
+                  (surveyInfoForm.controls['typeOfTool'].dirty ||
+                  surveyInfoForm.controls['typeOfTool'].touched)){
+
+                  <div class="text-danger"
+                    *ngIf="surveyInfoForm.controls['typeOfTool'].errors?.['required'] && surveyInfoForm.controls['typeOfTool'].touched">
+                    Tool type is required.
+                  </div>
+                  <div
+                    *ngIf="surveyInfoForm.controls['typeOfTool'].errors?.['pattern'] && surveyInfoForm.controls['typeOfTool'].touched"
+                    class="text-danger">
+                    Invalid Input.
+                  </div>
+                  }
+
+                </div>
+
+
+                <div class="md:col-span-6 col-span-12 mb-4">
+                  <label class="form-label" for="surveyType">Survey Type</label>
+                  <select id="surveyType" class="form-select !py-[0.59rem]" formControlName="surveyType">
+                    <option *ngFor="let surveyType of surveyTypes" [value]="surveyType.id"
+                      [selected]="surveyType.id == selectedSurveyType">
+                      {{surveyType.survey_types}}
+                    </option>
+                  </select>
+
+                  @if( surveyInfoForm.controls['surveyType'].invalid &&
+                  (surveyInfoForm.controls['surveyType'].dirty ||
+                  surveyInfoForm.controls['surveyType'].touched)){
+
+                  <div class="text-danger"
+                    *ngIf="surveyInfoForm.controls['surveyType'].errors?.['required'] && surveyInfoForm.controls['surveyType'].touched">
+                    Survey Type is required.
+                  </div>
+
+                  <div
+                    *ngIf="surveyInfoForm.controls['surveyType'].errors?.['pattern'] && surveyInfoForm.controls['surveyType'].touched"
+                    class="text-danger">
+                    Invalid Input.
+                  </div>
+                  }
+                </div>
+
+
+                <div class="md:col-span-6 col-span-12 mb-4">
+                  <label class="form-label" for="holeSection">Hole Section</label>
+                  <select id="holeSection" class="form-select !py-[0.59rem]" formControlName="holeSection">
+                    <option *ngFor="let holeSection of holeSections" [value]="holeSection"
+                      [selected]="holeSection == selectedHoleSection">
+                      {{holeSection}}
+                    </option>
+                  </select>
+
+                  @if( surveyInfoForm.controls['holeSection'].invalid &&
+                  (surveyInfoForm.controls['holeSection'].dirty ||
+                  surveyInfoForm.controls['holeSection'].touched)){
+
+                  <div class="text-danger"
+                    *ngIf="surveyInfoForm.controls['holeSection'].errors?.['required'] && surveyInfoForm.controls['holeSection'].touched">
+                    Hole Section is required.
+                  </div>
+
+                  <div
+                    *ngIf="surveyInfoForm.controls['holeSection'].errors?.['pattern'] && surveyInfoForm.controls['holeSection'].touched"
+                    class="text-danger">
+                    Invalid Input.
+                  </div>
+
+
+                  }
+                </div>
+
+                <div class="md:col-span-6 col-span-12 mb-4">
+                  <label class="form-label" for="surveyRunIn">Survey Run In</label>
+                  <select id="surveyRunIn" class="form-select !py-[0.59rem]" formControlName="surveyRunIn">
+                    <option *ngFor="let surveyRunIn of surveyRunIns" [value]="surveyRunIn"
+                      [selected]="surveyRunIn == selectedHoleSection">
+                      {{surveyRunIn}}
+                    </option>
+                  </select>
+
+                  @if( surveyInfoForm.controls['surveyRunIn'].invalid &&
+                  (surveyInfoForm.controls['surveyRunIn'].dirty ||
+                  surveyInfoForm.controls['surveyRunIn'].touched)){
+
+                  <div class="text-danger"
+                    *ngIf="surveyInfoForm.controls['surveyRunIn'].errors?.['required'] && surveyInfoForm.controls['surveyRunIn'].touched">
+                    Survey Run In is required.
+                  </div>
+
+                  <div
+                    *ngIf="surveyInfoForm.controls['surveyRunIn'].errors?.['pattern'] && surveyInfoForm.controls['surveyRunIn'].touched"
+                    class="text-danger">
+                    Invalid Input.
+                  </div>
+
+
+                  }
+                </div>
+
+                <div class="md:col-span-6 col-span-12 mb-4">
+                  <label class="form-label" for="minimumId">Minimum Id</label>
+                  <input id="minimumId" type="text" class="form-control" placeholder="" aria-label="Minimum Id"
+                    formControlName="minimumId">
+
+                  @if( surveyInfoForm.controls['minimumId'].invalid &&
+                  (surveyInfoForm.controls['minimumId'].dirty ||
+                  surveyInfoForm.controls['minimumId'].touched)){
+
+                  <div class="text-danger"
+                    *ngIf="surveyInfoForm.controls['minimumId'].errors?.['required'] && surveyInfoForm.controls['minimumId'].touched">
+                    Minimum Id is required.
+                  </div>
+
+                  <div
+                    *ngIf="surveyInfoForm.controls['minimumId'].errors?.['pattern'] && surveyInfoForm.controls['minimumId'].touched"
+                    class="text-danger">
+                    Invalid Input.
+                  </div>
+
+
+                  }
+
+                </div>
+
+                <div class="md:col-span-6 col-span-12 mb-4">
+                  <label class="form-label" for="northReference">North referance</label>
+                  <select id="northReference" class="form-select !py-[0.59rem]" formControlName="northReference">
+                    <option *ngFor="let northReference of northReferences" [value]="northReference"
+                      [selected]="northReference == selectedNorthReference">
+                      {{northReference}}
+                    </option>
+                  </select>
+
+                  @if( surveyInfoForm.controls['northReference'].invalid &&
+                  (surveyInfoForm.controls['northReference'].dirty ||
+                  surveyInfoForm.controls['northReference'].touched)){
+
+                  <div class="text-danger"
+                    *ngIf="surveyInfoForm.controls['northReference'].errors?.['required'] && surveyInfoForm.controls['northReference'].touched">
+                    North Reference is required.
+                  </div>
+
+                  <div
+                    *ngIf="surveyInfoForm.controls['northReference'].errors?.['pattern'] && surveyInfoForm.controls['northReference'].touched"
+                    class="text-danger">
+                    Invalid Input.
+                  </div>
+
+                  }
+                </div>
+
+                <div class="md:col-span-6 col-span-12 mb-4">
+                  <label class="form-label" for="surveyCalculationMethods">Survey Calculation Methods</label>
+                  <input id="surveyCalculationMethods" type="text" class="form-control" placeholder=""
+                    aria-label="Survey Calculation Methods" formControlName="surveyCalculationMethods"
+                    [disabled]="true">
+
+                  @if( surveyInfoForm.controls['surveyCalculationMethods'].invalid &&
+                  (surveyInfoForm.controls['surveyCalculationMethods'].dirty ||
+                  surveyInfoForm.controls['surveyCalculationMethods'].touched)){
+
+                  <div class="text-danger"
+                    *ngIf="surveyInfoForm.controls['surveyCalculationMethods'].errors?.['required'] && surveyInfoForm.controls['surveyCalculationMethods'].touched">
+                    Survey Calculation Methods is required.
+                  </div>
+
+                  <div
+                    *ngIf="surveyInfoForm.controls['surveyCalculationMethods'].errors?.['pattern'] && surveyInfoForm.controls['surveyCalculationMethods'].touched"
+                    class="text-danger">
+                    Invalid Input.
+                  </div>
+
+                  }
+
+                </div>
+
+                <div class="md:col-span-6 col-span-12 mb-4">
+                  <label class="form-label" for="geodeticSystem">Geodetic System</label>
+                  <input id="geodeticSystem" type="text" class="form-control" placeholder=""
+                    aria-label="Geodetic System" formControlName="geodeticSystem" [disabled]="true">
+
+                  @if( surveyInfoForm.controls['geodeticSystem'].invalid &&
+                  (surveyInfoForm.controls['geodeticSystem'].dirty ||
+                  surveyInfoForm.controls['geodeticSystem'].touched)){
+
+                  <div class="text-danger"
+                    *ngIf="surveyInfoForm.controls['geodeticSystem'].errors?.['required'] && surveyInfoForm.controls['geodeticSystem'].touched">
+                    Geodetic System Methods is required.
+                  </div>
+
+                  <div
+                    *ngIf="surveyInfoForm.controls['geodeticSystem'].errors?.['pattern'] && surveyInfoForm.controls['geodeticSystem'].touched"
+                    class="text-danger">
+                    Invalid Input.
+                  </div>
+
+                  }
+
+                </div>
+
+                <div class="md:col-span-6 col-span-12 mb-4">
+                  <label class="form-label" for="mapZone">Map Zone</label>
+                  <input id="mapZone" type="text" class="form-control" placeholder="" aria-label="Map Zone"
+                    formControlName="mapZone" [disabled]="true">
+
+                  @if( surveyInfoForm.controls['mapZone'].invalid &&
+                  (surveyInfoForm.controls['mapZone'].dirty ||
+                  surveyInfoForm.controls['mapZone'].touched)){
+
+                  <div class="text-danger"
+                    *ngIf="surveyInfoForm.controls['mapZone'].errors?.['required'] && surveyInfoForm.controls['mapZone'].touched">
+                    Map Zone is required.
+                  </div>
+
+                  <div
+                    *ngIf="surveyInfoForm.controls['mapZone'].errors?.['pattern'] && surveyInfoForm.controls['mapZone'].touched"
+                    class="text-danger">
+                    Invalid Input.
+                  </div>
+
+
+                  }
+                </div>
+
+                <div class="md:col-span-6 col-span-12 mb-4">
+                  <label class="form-label" for="mapZone">Geodetic Datum</label>
+                  <input id="geodeticDatum" type="text" class="form-control" placeholder="" aria-label="Geodetic Datum"
+                    formControlName="geodeticDatum" [disabled]="true">
+
+                  @if( surveyInfoForm.controls['geodeticDatum'].invalid &&
+                  (surveyInfoForm.controls['geodeticDatum'].dirty ||
+                  surveyInfoForm.controls['geodeticDatum'].touched)){
+
+                  <div class="text-danger"
+                    *ngIf="surveyInfoForm.controls['geodeticDatum'].errors?.['required'] && surveyInfoForm.controls['geodeticDatum'].touched">
+                    Geodetic Datum is required.
+                  </div>
+
+                  <div
+                    *ngIf="surveyInfoForm.controls['geodeticDatum'].errors?.['pattern'] && surveyInfoForm.controls['geodeticDatum'].touched"
+                    class="text-danger">
+                    Invalid Input.
+                  </div>
+
+                  }
+                </div>
+
+                <div class="md:col-span-4 col-span-12 mb-4">
+                  <label class="form-label" for="startDepth">Start Depth</label>
+                  <div>
+
+
+                    <div class="sm:flex rounded-sm">
+                      <input id="startDepth" type="text" formControlName="startDepth"
+                        class="ti-form-input rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0  sm:first:rounded-se-none  sm:last:rounded-es-none  sm:last:rounded-e-sm  relative focus:z-10">
+                      <select name="hs-inline-leading-select-currency" formControlName="startDepthUnit"
+                        class="inline-block rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-sm border-l-0 border-r border-defaultborder dark:border-defaultborder/10 focus:ring-primary focus:border-primary dark:focus:border-defaultborder/10 dark:bg-bodybg ps-2 pe-[2.25rem]">
+                        <option *ngFor="let startDepthUnit of presurveyData.startDepthUnits" [value]="startDepthUnit"
+                          [selected]="startDepthUnit == selectedStartDepthUnit">{{startDepthUnit}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  @if( surveyInfoForm.controls['startDepth'].invalid &&
+                  (surveyInfoForm.controls['startDepth'].dirty ||
+                  surveyInfoForm.controls['startDepth'].touched)){
+
+
+                  <div class="text-danger"
+                    *ngIf="surveyInfoForm.controls['startDepth'].errors?.['isNumber'] && surveyInfoForm.controls['startDepth'].touched">
+                    Invalid Format.
+                  </div>
+                  <div class="text-danger"
+                    *ngIf="surveyInfoForm.controls['startDepth'].errors?.['required'] && surveyInfoForm.controls['startDepth'].touched">
+                    Start Depth is required
+                  </div>
+
+                  <div
+                    *ngIf="surveyInfoForm.controls['startDepth'].errors?.['pattern'] && surveyInfoForm.controls['startDepth'].touched"
+                    class="text-danger">
+                    Invalid Input.
+                  </div>
+                  }
+
+                  @if( surveyInfoForm.controls['startDepthUnit'].invalid &&
+                  (surveyInfoForm.controls['startDepthUnit'].dirty ||
+                  surveyInfoForm.controls['startDepthUnit'].touched)){
+
+                  <div class="text-danger"
+                    *ngIf="surveyInfoForm.controls['startDepthUnit'].errors?.['required'] && surveyInfoForm.controls['startDepthUnit'].touched">
+                    Start Depth Unit is required.
+                  </div>
+                  }
+
+                </div>
+                <div class="md:col-span-4 col-span-12 mb-4">
+                  <label class="form-label" for="tagDepth">Tag Depth</label>
+                  <div>
+                    <div class="sm:flex rounded-sm">
+                      <input id="tagDepth" type="text" formControlName="tagDepth"
+                        class="ti-form-input rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0  sm:first:rounded-se-none  sm:last:rounded-es-none  sm:last:rounded-e-sm  relative focus:z-10">
+                      <select name="hs-inline-leading-select-currency" formControlName="tagDepthUnit"
+                        class="inline-block rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-sm border-l-0 border-r border-defaultborder dark:border-defaultborder/10 focus:ring-primary focus:border-primary dark:focus:border-defaultborder/10 dark:bg-bodybg ps-2 pe-[2.25rem]">
+                        <option *ngFor="let tagDepthUnit of presurveyData.tagDepthUnits" [value]="tagDepthUnit"
+                          [selected]="tagDepthUnit == selectedTagDepthUnit">{{tagDepthUnit}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+
+                  @if( surveyInfoForm.controls['tagDepth'].invalid &&
+                  (surveyInfoForm.controls['tagDepth'].dirty ||
+                  surveyInfoForm.controls['tagDepth'].touched)){
+
+
+                  <div class="text-danger"
+                    *ngIf="surveyInfoForm.controls['tagDepth'].errors?.['isNumber'] && surveyInfoForm.controls['tagDepth'].touched">
+                    Invalid Format.
+                  </div>
+                  <div class="text-danger"
+                    *ngIf="surveyInfoForm.controls['tagDepth'].errors?.['required'] && surveyInfoForm.controls['tagDepth'].touched">
+                    Tag Depth is required
+                  </div>
+                  }
+
+                  @if( surveyInfoForm.controls['tagDepthUnit'].invalid &&
+                  (surveyInfoForm.controls['tagDepthUnit'].dirty ||
+                  surveyInfoForm.controls['tagDepthUnit'].touched)){
+
+                  <div class="text-danger"
+                    *ngIf="surveyInfoForm.controls['tagDepthUnit'].errors?.['required'] && surveyInfoForm.controls['tagDepthUnit'].touched">
+                    Tag Depth Unit is required.
+                  </div>
+                  }
+                </div>
+
+                <div class="md:col-span-4 col-span-12 mb-4">
+                  <label class="form-label" for="proposalDirection">Proposal Direction</label>
+                  <div>
+                    <div class="sm:flex rounded-sm">
+                      <input id="proposalDirection" type="text" formControlName="proposalDirection"
+                        class="ti-form-input rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0  sm:first:rounded-se-none  sm:last:rounded-es-none  sm:last:rounded-e-sm  relative focus:z-10">
+                      <select name="hs-inline-leading-select-currency" formControlName="proposalDirectionUnit"
+                        class="inline-block rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-sm border-l-0 border-r border-defaultborder dark:border-defaultborder/10 focus:ring-primary focus:border-primary dark:focus:border-defaultborder/10 dark:bg-bodybg ps-2 pe-[2.25rem]">
+                        <option *ngFor="let proposalDirectionUnit of presurveyData.proposalDirectionUnits"
+                          [value]="proposalDirectionUnit"
+                          [selected]="proposalDirectionUnit == selectedProposalDirectionUnit">{{proposalDirectionUnit}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+
+                  @if( surveyInfoForm.controls['proposalDirection'].invalid &&
+                  (surveyInfoForm.controls['proposalDirection'].dirty ||
+                  surveyInfoForm.controls['proposalDirection'].touched)){
+
+
+                  <div class="text-danger"
+                    *ngIf="surveyInfoForm.controls['proposalDirection'].errors?.['isNumber'] && surveyInfoForm.controls['proposalDirection'].touched">
+                    Invalid Format.
+                  </div>
+                  <div class="text-danger"
+                    *ngIf="surveyInfoForm.controls['proposalDirection'].errors?.['required'] && surveyInfoForm.controls['proposalDirection'].touched">
+                    Proposal Direction is required
+                  </div>
+                  }
+
+                  @if( surveyInfoForm.controls['proposalDirectionUnit'].invalid &&
+                  (surveyInfoForm.controls['proposalDirectionUnit'].dirty ||
+                  surveyInfoForm.controls['proposalDirectionUnit'].touched)){
+
+                  <div class="text-danger"
+                    *ngIf="surveyInfoForm.controls['proposalDirectionUnit'].errors?.['required'] && surveyInfoForm.controls['proposalDirectionUnit'].touched">
+                    Proposal Direction Unit is required.
+                  </div>
+                  }
+                </div>
+
+
+                <div class="md:col-span-12 col-span-12 flex justify-end sm:gap-x-4 sm:gap-y-4">
+                  <button type="button" class="ti-btn ti-btn-outline-primary ti-btn-wave !mb-0"
+                    (click)="onBack()">Back</button>
+                  <button type="submit" class="ti-btn ti-btn-primary-full !mb-0">Next</button>
+                </div>
+              </div>
+
+            </form>
+
+
+
+          </div>
+
+          <ng-template #loadedContent>
+            <div class="ti-spinner text-primary p-2 m-2" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </ng-template>
         </div>
+        <div id="icon-2" aria-labelledby="icon-item-2" *ngIf="currentPage == 'Tie-On Info'">
+          <div class="box-body">
+            <form (ngSubmit)="onSubmitTieOnInfo()" [formGroup]="tieOnInfoForm">
 
-        <div *ngIf="surveyInfoForm.controls['runNo'].errors?.['pattern'] && surveyInfoForm.controls['runNo'].touched"
-          class="text-danger">
-          Invalid Input.
-        </div>
-        }
+              <div class="grid grid-cols-12 sm:gap-x-6 sm:gap-y-4">
 
-      </div>
-
-      <div class="md:col-span-6 col-span-12 mb-4">
-        <label class="form-label" for="typeOfTool">Type of Tool</label>
-        <select id="typeOfTool" class="form-select !py-[0.59rem]" formControlName="typeOfTool">
-          <option *ngFor="let typeOfTool of typeOfTools" [value]="typeOfTool"
-            [selected]="typeOfTool == selectedTypeOfTool">{{typeOfTool}}
-          </option>
-        </select>
-
-        @if( surveyInfoForm.controls['typeOfTool'].invalid &&
-        (surveyInfoForm.controls['typeOfTool'].dirty ||
-        surveyInfoForm.controls['typeOfTool'].touched)){
-
-        <div class="text-danger"
-          *ngIf="surveyInfoForm.controls['typeOfTool'].errors?.['required'] && surveyInfoForm.controls['typeOfTool'].touched">
-          Tool type is required.
-        </div>
-        <div
-          *ngIf="surveyInfoForm.controls['typeOfTool'].errors?.['pattern'] && surveyInfoForm.controls['typeOfTool'].touched"
-          class="text-danger">
-          Invalid Input.
-        </div>
-        }
-
-      </div>
+                <div class="md:col-span-6 col-span-12 mb-4">
+                  <label class="form-label" for="measuredDepth">Measured Depth</label>
+                  <div>
 
 
-      <div class="md:col-span-6 col-span-12 mb-4">
-        <label class="form-label" for="surveyType">Survey Type</label>
-        <select id="surveyType" class="form-select !py-[0.59rem]" formControlName="surveyType">
-          <option *ngFor="let surveyType of surveyTypes" [value]="surveyType.id"
-            [selected]="surveyType.id == selectedSurveyType">
-            {{surveyType.survey_types}}
-          </option>
-        </select>
-
-        @if( surveyInfoForm.controls['surveyType'].invalid &&
-        (surveyInfoForm.controls['surveyType'].dirty ||
-        surveyInfoForm.controls['surveyType'].touched)){
-
-        <div class="text-danger"
-          *ngIf="surveyInfoForm.controls['surveyType'].errors?.['required'] && surveyInfoForm.controls['surveyType'].touched">
-          Survey Type is required.
-        </div>
-
-        <div
-          *ngIf="surveyInfoForm.controls['surveyType'].errors?.['pattern'] && surveyInfoForm.controls['surveyType'].touched"
-          class="text-danger">
-          Invalid Input.
-        </div>
-        }
-      </div>
+                    <div class="sm:flex rounded-sm">
+                      <input id="measuredDepth" type="text" formControlName="measuredDepth"
+                        class="ti-form-input rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0  sm:first:rounded-se-none  sm:last:rounded-es-none  sm:last:rounded-e-sm  relative focus:z-10">
+                      <select name="hs-inline-leading-select-currency" formControlName="measuredDepthUnit"
+                        class="inline-block rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-sm border-l-0 border-r border-defaultborder dark:border-defaultborder/10 focus:ring-primary focus:border-primary dark:focus:border-defaultborder/10 dark:bg-bodybg ps-2 pe-[2.25rem]">
+                        <option *ngFor="let measuredDepthUnit of presurveyData.meterFeetUnits"
+                          [value]="measuredDepthUnit" [selected]="measuredDepthUnit == selectedMeasuredDepthUnit">
+                          {{measuredDepthUnit}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  @if( tieOnInfoForm.controls['measuredDepth'].invalid &&
+                  (tieOnInfoForm.controls['measuredDepth'].dirty ||
+                  tieOnInfoForm.controls['measuredDepth'].touched)){
 
 
-      <div class="md:col-span-6 col-span-12 mb-4">
-        <label class="form-label" for="holeSection">Hole Section</label>
-        <select id="holeSection" class="form-select !py-[0.59rem]" formControlName="holeSection">
-          <option *ngFor="let holeSection of holeSections" [value]="holeSection"
-            [selected]="holeSection == selectedHoleSection">
-            {{holeSection}}
-          </option>
-        </select>
+                  <div class="text-danger"
+                    *ngIf="tieOnInfoForm.controls['measuredDepth'].errors?.['isNumber'] && tieOnInfoForm.controls['measuredDepth'].touched">
+                    Invalid Format.
+                  </div>
+                  <div class="text-danger"
+                    *ngIf="tieOnInfoForm.controls['measuredDepth'].errors?.['required'] && tieOnInfoForm.controls['measuredDepth'].touched">
+                    Measured Depth is required
+                  </div>
+                  }
 
-        @if( surveyInfoForm.controls['holeSection'].invalid &&
-        (surveyInfoForm.controls['holeSection'].dirty ||
-        surveyInfoForm.controls['holeSection'].touched)){
+                  @if( tieOnInfoForm.controls['measuredDepthUnit'].invalid &&
+                  (tieOnInfoForm.controls['measuredDepthUnit'].dirty ||
+                  tieOnInfoForm.controls['measuredDepthUnit'].touched)){
 
-        <div class="text-danger"
-          *ngIf="surveyInfoForm.controls['holeSection'].errors?.['required'] && surveyInfoForm.controls['holeSection'].touched">
-          Hole Section is required.
-        </div>
+                  <div class="text-danger"
+                    *ngIf="tieOnInfoForm.controls['measuredDepthUnit'].errors?.['required'] && tieOnInfoForm.controls['measuredDepthUnit'].touched">
+                    Measured Depth Unit is required.
+                  </div>
+                  }
 
-        <div
-          *ngIf="surveyInfoForm.controls['holeSection'].errors?.['pattern'] && surveyInfoForm.controls['holeSection'].touched"
-          class="text-danger">
-          Invalid Input.
-        </div>
+                </div>
 
-
-        }
-      </div>
-
-      <div class="md:col-span-6 col-span-12 mb-4">
-        <label class="form-label" for="surveyRunIn">Survey Run In</label>
-        <select id="surveyRunIn" class="form-select !py-[0.59rem]" formControlName="surveyRunIn">
-          <option *ngFor="let surveyRunIn of surveyRunIns" [value]="surveyRunIn"
-            [selected]="surveyRunIn == selectedHoleSection">
-            {{surveyRunIn}}
-          </option>
-        </select>
-
-        @if( surveyInfoForm.controls['surveyRunIn'].invalid &&
-        (surveyInfoForm.controls['surveyRunIn'].dirty ||
-        surveyInfoForm.controls['surveyRunIn'].touched)){
-
-        <div class="text-danger"
-          *ngIf="surveyInfoForm.controls['surveyRunIn'].errors?.['required'] && surveyInfoForm.controls['surveyRunIn'].touched">
-          Survey Run In is required.
-        </div>
-
-        <div
-          *ngIf="surveyInfoForm.controls['surveyRunIn'].errors?.['pattern'] && surveyInfoForm.controls['surveyRunIn'].touched"
-          class="text-danger">
-          Invalid Input.
-        </div>
+                <div class="md:col-span-6 col-span-12 mb-4">
+                  <label class="form-label" for="trueVerticalDepth">True Vertical Depth</label>
+                  <div>
 
 
-        }
-      </div>
-
-      <div class="md:col-span-6 col-span-12 mb-4">
-        <label class="form-label" for="minimumId">Minimum Id</label>
-        <input id="minimumId" type="text" class="form-control" placeholder="" aria-label="Minimum Id"
-          formControlName="minimumId">
-
-        @if( surveyInfoForm.controls['minimumId'].invalid &&
-        (surveyInfoForm.controls['minimumId'].dirty ||
-        surveyInfoForm.controls['minimumId'].touched)){
-
-        <div class="text-danger"
-          *ngIf="surveyInfoForm.controls['minimumId'].errors?.['required'] && surveyInfoForm.controls['minimumId'].touched">
-          Minimum Id is required.
-        </div>
-
-        <div
-          *ngIf="surveyInfoForm.controls['minimumId'].errors?.['pattern'] && surveyInfoForm.controls['minimumId'].touched"
-          class="text-danger">
-          Invalid Input.
-        </div>
+                    <div class="sm:flex rounded-sm">
+                      <input id="trueVerticalDepth" type="text" formControlName="trueVerticalDepth"
+                        class="ti-form-input rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0  sm:first:rounded-se-none  sm:last:rounded-es-none  sm:last:rounded-e-sm  relative focus:z-10">
+                      <select name="hs-inline-leading-select-currency" formControlName="trueVerticalDepthUnit"
+                        class="inline-block rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-sm border-l-0 border-r border-defaultborder dark:border-defaultborder/10 focus:ring-primary focus:border-primary dark:focus:border-defaultborder/10 dark:bg-bodybg ps-2 pe-[2.25rem]">
+                        <option *ngFor="let trueVerticalDepthUnit of presurveyData.meterFeetUnits"
+                          [value]="trueVerticalDepthUnit"
+                          [selected]="trueVerticalDepthUnit == selectedTrueVerticalDepthUnit">{{trueVerticalDepthUnit}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  @if( tieOnInfoForm.controls['trueVerticalDepth'].invalid &&
+                  (tieOnInfoForm.controls['trueVerticalDepth'].dirty ||
+                  tieOnInfoForm.controls['trueVerticalDepth'].touched)){
 
 
-        }
+                  <div class="text-danger"
+                    *ngIf="tieOnInfoForm.controls['trueVerticalDepth'].errors?.['isNumber'] && tieOnInfoForm.controls['trueVerticalDepth'].touched">
+                    Invalid Format.
+                  </div>
+                  <div class="text-danger"
+                    *ngIf="tieOnInfoForm.controls['trueVerticalDepth'].errors?.['required'] && tieOnInfoForm.controls['trueVerticalDepth'].touched">
+                    True Vertical Depth is required
+                  </div>
+                  }
 
-      </div>
+                  @if( tieOnInfoForm.controls['trueVerticalDepthUnit'].invalid &&
+                  (tieOnInfoForm.controls['trueVerticalDepthUnit'].dirty ||
+                  tieOnInfoForm.controls['trueVerticalDepthUnit'].touched)){
 
-      <div class="md:col-span-6 col-span-12 mb-4">
-        <label class="form-label" for="northReference">North referance</label>
-        <select id="northReference" class="form-select !py-[0.59rem]" formControlName="northReference">
-          <option *ngFor="let northReference of northReferences" [value]="northReference"
-            [selected]="northReference == selectedNorthReference">
-            {{northReference}}
-          </option>
-        </select>
+                  <div class="text-danger"
+                    *ngIf="tieOnInfoForm.controls['trueVerticalDepthUnit'].errors?.['required'] && tieOnInfoForm.controls['trueVerticalDepthUnit'].touched">
+                    True Vertical Depth Unit is required.
+                  </div>
+                  }
 
-        @if( surveyInfoForm.controls['northReference'].invalid &&
-        (surveyInfoForm.controls['northReference'].dirty ||
-        surveyInfoForm.controls['northReference'].touched)){
-
-        <div class="text-danger"
-          *ngIf="surveyInfoForm.controls['northReference'].errors?.['required'] && surveyInfoForm.controls['northReference'].touched">
-          North Reference is required.
-        </div>
-
-        <div
-          *ngIf="surveyInfoForm.controls['northReference'].errors?.['pattern'] && surveyInfoForm.controls['northReference'].touched"
-          class="text-danger">
-          Invalid Input.
-        </div>
-
-        }
-      </div>
-
-      <div class="md:col-span-6 col-span-12 mb-4">
-        <label class="form-label" for="surveyCalculationMethods">Survey Calculation Methods</label>
-        <input id="surveyCalculationMethods" type="text" class="form-control" placeholder=""
-          aria-label="Survey Calculation Methods" formControlName="surveyCalculationMethods" [disabled]="true">
-
-        @if( surveyInfoForm.controls['surveyCalculationMethods'].invalid &&
-        (surveyInfoForm.controls['surveyCalculationMethods'].dirty ||
-        surveyInfoForm.controls['surveyCalculationMethods'].touched)){
-
-        <div class="text-danger"
-          *ngIf="surveyInfoForm.controls['surveyCalculationMethods'].errors?.['required'] && surveyInfoForm.controls['surveyCalculationMethods'].touched">
-          Survey Calculation Methods is required.
-        </div>
-
-        <div
-          *ngIf="surveyInfoForm.controls['surveyCalculationMethods'].errors?.['pattern'] && surveyInfoForm.controls['surveyCalculationMethods'].touched"
-          class="text-danger">
-          Invalid Input.
-        </div>
-
-        }
-
-      </div>
-
-      <div class="md:col-span-6 col-span-12 mb-4">
-        <label class="form-label" for="geodeticSystem">Geodetic System</label>
-        <input id="geodeticSystem" type="text" class="form-control" placeholder="" aria-label="Geodetic System"
-          formControlName="geodeticSystem" [disabled]="true">
-
-        @if( surveyInfoForm.controls['geodeticSystem'].invalid &&
-        (surveyInfoForm.controls['geodeticSystem'].dirty ||
-        surveyInfoForm.controls['geodeticSystem'].touched)){
-
-        <div class="text-danger"
-          *ngIf="surveyInfoForm.controls['geodeticSystem'].errors?.['required'] && surveyInfoForm.controls['geodeticSystem'].touched">
-          Geodetic System Methods is required.
-        </div>
-
-        <div
-          *ngIf="surveyInfoForm.controls['geodeticSystem'].errors?.['pattern'] && surveyInfoForm.controls['geodeticSystem'].touched"
-          class="text-danger">
-          Invalid Input.
-        </div>
-
-        }
-
-      </div>
-
-      <div class="md:col-span-6 col-span-12 mb-4">
-        <label class="form-label" for="mapZone">Map Zone</label>
-        <input id="mapZone" type="text" class="form-control" placeholder="" aria-label="Map Zone"
-          formControlName="mapZone" [disabled]="true">
-
-        @if( surveyInfoForm.controls['mapZone'].invalid &&
-        (surveyInfoForm.controls['mapZone'].dirty ||
-        surveyInfoForm.controls['mapZone'].touched)){
-
-        <div class="text-danger"
-          *ngIf="surveyInfoForm.controls['mapZone'].errors?.['required'] && surveyInfoForm.controls['mapZone'].touched">
-          Map Zone is required.
-        </div>
-
-        <div
-          *ngIf="surveyInfoForm.controls['mapZone'].errors?.['pattern'] && surveyInfoForm.controls['mapZone'].touched"
-          class="text-danger">
-          Invalid Input.
-        </div>
+                </div>
 
 
-        }
-      </div>
-
-      <div class="md:col-span-6 col-span-12 mb-4">
-        <label class="form-label" for="mapZone">Geodetic Datum</label>
-        <input id="geodeticDatum" type="text" class="form-control" placeholder="" aria-label="Geodetic Datum"
-          formControlName="geodeticDatum" [disabled]="true">
-
-        @if( surveyInfoForm.controls['geodeticDatum'].invalid &&
-        (surveyInfoForm.controls['geodeticDatum'].dirty ||
-        surveyInfoForm.controls['geodeticDatum'].touched)){
-
-        <div class="text-danger"
-          *ngIf="surveyInfoForm.controls['geodeticDatum'].errors?.['required'] && surveyInfoForm.controls['geodeticDatum'].touched">
-          Geodetic Datum is required.
-        </div>
-
-        <div
-          *ngIf="surveyInfoForm.controls['geodeticDatum'].errors?.['pattern'] && surveyInfoForm.controls['geodeticDatum'].touched"
-          class="text-danger">
-          Invalid Input.
-        </div>
-
-        }
-      </div>
-
-      <div class="md:col-span-4 col-span-12 mb-4">
-        <label class="form-label" for="startDepth">Start Depth</label>
-        <div>
+                <div class="md:col-span-6 col-span-12 mb-4">
+                  <label class="form-label" for="inclination">Inclination</label>
+                  <div>
 
 
-          <div class="sm:flex rounded-sm">
-            <input id="startDepth" type="text" formControlName="startDepth"
-              class="ti-form-input rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0  sm:first:rounded-se-none  sm:last:rounded-es-none  sm:last:rounded-e-sm  relative focus:z-10">
-            <select name="hs-inline-leading-select-currency" formControlName="startDepthUnit"
-              class="inline-block rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-sm border-l-0 border-r border-defaultborder dark:border-defaultborder/10 focus:ring-primary focus:border-primary dark:focus:border-defaultborder/10 dark:bg-bodybg ps-2 pe-[2.25rem]">
-              <option *ngFor="let startDepthUnit of data.startDepthUnits" [value]="startDepthUnit"
-                [selected]="startDepthUnit == selectedStartDepthUnit">{{startDepthUnit}}
-              </option>
-            </select>
+                    <div class="sm:flex rounded-sm">
+                      <input id="inclination" type="text" formControlName="inclination"
+                        class="ti-form-input rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0  sm:first:rounded-se-none  sm:last:rounded-es-none  sm:last:rounded-e-sm  relative focus:z-10">
+                      <select name="hs-inline-leading-select-currency" formControlName="inclinationUnit"
+                        class="inline-block rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-sm border-l-0 border-r border-defaultborder dark:border-defaultborder/10 focus:ring-primary focus:border-primary dark:focus:border-defaultborder/10 dark:bg-bodybg ps-2 pe-[2.25rem]">
+                        <option *ngFor="let inclinationUnit of presurveyData.inclinationUnits" [value]="inclinationUnit"
+                          [selected]="inclinationUnit == selectedInclinationUnit">{{inclinationUnit}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  @if( tieOnInfoForm.controls['inclination'].invalid &&
+                  (tieOnInfoForm.controls['inclination'].dirty ||
+                  tieOnInfoForm.controls['inclination'].touched)){
+
+
+                  <div class="text-danger"
+                    *ngIf="tieOnInfoForm.controls['inclination'].errors?.['isNumber'] && tieOnInfoForm.controls['inclination'].touched">
+                    Invalid Format.
+                  </div>
+                  <div class="text-danger"
+                    *ngIf="tieOnInfoForm.controls['inclination'].errors?.['required'] && tieOnInfoForm.controls['inclination'].touched">
+                    Inclination is required.
+                  </div>
+                  }
+
+                  @if( tieOnInfoForm.controls['inclinationUnit'].invalid &&
+                  (tieOnInfoForm.controls['inclinationUnit'].dirty ||
+                  tieOnInfoForm.controls['inclinationUnit'].touched)){
+
+                  <div class="text-danger"
+                    *ngIf="tieOnInfoForm.controls['inclinationUnit'].errors?.['required'] && tieOnInfoForm.controls['inclinationUnit'].touched">
+                    Inclination Unit is required.
+                  </div>
+                  }
+
+                </div>
+
+                <div class="md:col-span-6 col-span-12 mb-4">
+                  <label class="form-label" for="latitude">latitude (+N/-S)</label>
+                  <div>
+
+
+                    <div class="sm:flex rounded-sm">
+                      <input id="latitude" type="text" formControlName="latitude"
+                        class="ti-form-input rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0  sm:first:rounded-se-none  sm:last:rounded-es-none  sm:last:rounded-e-sm  relative focus:z-10">
+                      <select name="hs-inline-leading-select-currency" formControlName="latitudeUnit"
+                        class="inline-block rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-sm border-l-0 border-r border-defaultborder dark:border-defaultborder/10 focus:ring-primary focus:border-primary dark:focus:border-defaultborder/10 dark:bg-bodybg ps-2 pe-[2.25rem]">
+                        <option *ngFor="let latitudeUnit of presurveyData.meterFeetUnits" [value]="latitudeUnit"
+                          [selected]="latitudeUnit == selectedLatitudeUnit">{{latitudeUnit}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  @if( tieOnInfoForm.controls['latitude'].invalid &&
+                  (tieOnInfoForm.controls['latitude'].dirty ||
+                  tieOnInfoForm.controls['latitude'].touched)){
+
+
+                  <div class="text-danger"
+                    *ngIf="tieOnInfoForm.controls['latitude'].errors?.['isNumber'] && tieOnInfoForm.controls['latitude'].touched">
+                    Invalid Format.
+                  </div>
+                  <div class="text-danger"
+                    *ngIf="tieOnInfoForm.controls['latitude'].errors?.['required'] && tieOnInfoForm.controls['latitude'].touched">
+                    latitude is required.
+                  </div>
+                  }
+
+                  @if( tieOnInfoForm.controls['latitudeUnit'].invalid &&
+                  (tieOnInfoForm.controls['latitudeUnit'].dirty ||
+                  tieOnInfoForm.controls['latitudeUnit'].touched)){
+
+                  <div class="text-danger"
+                    *ngIf="tieOnInfoForm.controls['latitudeUnit'].errors?.['required'] && tieOnInfoForm.controls['latitudeUnit'].touched">
+                    Inclination Unit is required.
+                  </div>
+                  }
+
+                </div>
+
+                <div class="md:col-span-6 col-span-12 mb-4">
+                  <label class="form-label" for="azimuth">Azimuth</label>
+                  <div>
+
+
+                    <div class="sm:flex rounded-sm">
+                      <input id="azimuth" type="text" formControlName="azimuth"
+                        class="ti-form-input rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0  sm:first:rounded-se-none  sm:last:rounded-es-none  sm:last:rounded-e-sm  relative focus:z-10">
+                      <select name="hs-inline-leading-select-currency" formControlName="azimuthUnit"
+                        class="inline-block rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-sm border-l-0 border-r border-defaultborder dark:border-defaultborder/10 focus:ring-primary focus:border-primary dark:focus:border-defaultborder/10 dark:bg-bodybg ps-2 pe-[2.25rem]">
+                        <option *ngFor="let azimuthUnit of presurveyData.inclinationUnits" [value]="azimuthUnit"
+                          [selected]="azimuthUnit == selectedAzimuthUnit">{{azimuthUnit}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  @if( tieOnInfoForm.controls['azimuth'].invalid &&
+                  (tieOnInfoForm.controls['azimuth'].dirty ||
+                  tieOnInfoForm.controls['azimuth'].touched)){
+
+
+                  <div class="text-danger"
+                    *ngIf="tieOnInfoForm.controls['azimuth'].errors?.['isNumber'] && tieOnInfoForm.controls['azimuth'].touched">
+                    Invalid Format.
+                  </div>
+                  <div class="text-danger"
+                    *ngIf="tieOnInfoForm.controls['azimuth'].errors?.['required'] && tieOnInfoForm.controls['azimuth'].touched">
+                    Azimuth is required.
+                  </div>
+                  }
+
+                  @if( tieOnInfoForm.controls['azimuthUnit'].invalid &&
+                  (tieOnInfoForm.controls['azimuthUnit'].dirty ||
+                  tieOnInfoForm.controls['azimuthUnit'].touched)){
+
+                  <div class="text-danger"
+                    *ngIf="tieOnInfoForm.controls['azimuthUnit'].errors?.['required'] && tieOnInfoForm.controls['azimuthUnit'].touched">
+                    Azimuth Unit is required.
+                  </div>
+                  }
+
+                </div>
+
+                <div class="md:col-span-6 col-span-12 mb-4">
+                  <label class="form-label" for="departure">Departure</label>
+                  <div>
+
+
+                    <div class="sm:flex rounded-sm">
+                      <input id="departure" type="text" formControlName="departure"
+                        class="ti-form-input rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0  sm:first:rounded-se-none  sm:last:rounded-es-none  sm:last:rounded-e-sm  relative focus:z-10">
+                      <select name="hs-inline-leading-select-currency" formControlName="departureUnit"
+                        class="inline-block rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-sm border-l-0 border-r border-defaultborder dark:border-defaultborder/10 focus:ring-primary focus:border-primary dark:focus:border-defaultborder/10 dark:bg-bodybg ps-2 pe-[2.25rem]">
+                        <option *ngFor="let departureUnit of presurveyData.meterFeetUnits" [value]="departureUnit"
+                          [selected]="departureUnit == selectedDepartureUnit">{{departureUnit}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  @if( tieOnInfoForm.controls['departure'].invalid &&
+                  (tieOnInfoForm.controls['departure'].dirty ||
+                  tieOnInfoForm.controls['departure'].touched)){
+
+
+                  <div class="text-danger"
+                    *ngIf="tieOnInfoForm.controls['departure'].errors?.['isNumber'] && tieOnInfoForm.controls['departure'].touched">
+                    Invalid Format.
+                  </div>
+                  <div class="text-danger"
+                    *ngIf="tieOnInfoForm.controls['departure'].errors?.['required'] && tieOnInfoForm.controls['departure'].touched">
+                    Departure is required.
+                  </div>
+                  }
+
+                  @if( tieOnInfoForm.controls['departureUnit'].invalid &&
+                  (tieOnInfoForm.controls['departureUnit'].dirty ||
+                  tieOnInfoForm.controls['departureUnit'].touched)){
+
+                  <div class="text-danger"
+                    *ngIf="tieOnInfoForm.controls['departureUnit'].errors?.['required'] && tieOnInfoForm.controls['departureUnit'].touched">
+                    Departure Unit is required.
+                  </div>
+                  }
+
+                </div>
+
+
+                <div class="md:col-span-12 col-span-12 flex justify-end sm:gap-x-4 sm:gap-y-4">
+                  <button type="button" class="ti-btn ti-btn-outline-primary ti-btn-wave !mb-0 !mr-5"
+                    (click)="tieInToSurface()">Tie-in to Surface</button>
+                  <button type="button" class="ti-btn ti-btn-outline-primary ti-btn-wave !mb-0"
+                    (click)="onBack()">Back</button>
+                  <button type="submit" class="ti-btn ti-btn-primary-full !mb-0">Submit</button>
+                </div>
+              </div>
+
+            </form>
+
+
+
           </div>
         </div>
-        @if( surveyInfoForm.controls['startDepth'].invalid &&
-        (surveyInfoForm.controls['startDepth'].dirty ||
-        surveyInfoForm.controls['startDepth'].touched)){
-
-
-        <div class="text-danger"
-          *ngIf="surveyInfoForm.controls['startDepth'].errors?.['isNumber'] && surveyInfoForm.controls['startDepth'].touched">
-          Invalid Format.
-        </div>
-        <div class="text-danger"
-          *ngIf="surveyInfoForm.controls['startDepth'].errors?.['required'] && surveyInfoForm.controls['startDepth'].touched">
-          Start Depth is required
-        </div>
-
-        <div
-          *ngIf="surveyInfoForm.controls['startDepth'].errors?.['pattern'] && surveyInfoForm.controls['startDepth'].touched"
-          class="text-danger">
-          Invalid Input.
-        </div>
-        }
-
-        @if( surveyInfoForm.controls['startDepthUnit'].invalid &&
-        (surveyInfoForm.controls['startDepthUnit'].dirty ||
-        surveyInfoForm.controls['startDepthUnit'].touched)){
-
-        <div class="text-danger"
-          *ngIf="surveyInfoForm.controls['startDepthUnit'].errors?.['required'] && surveyInfoForm.controls['startDepthUnit'].touched">
-          Start Depth Unit is required.
-        </div>
-        }
-
-      </div>
-      <div class="md:col-span-4 col-span-12 mb-4">
-        <label class="form-label" for="tagDepth">Tag Depth</label>
-        <div>
-          <div class="sm:flex rounded-sm">
-            <input id="tagDepth" type="text" formControlName="tagDepth"
-              class="ti-form-input rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0  sm:first:rounded-se-none  sm:last:rounded-es-none  sm:last:rounded-e-sm  relative focus:z-10">
-            <select name="hs-inline-leading-select-currency" formControlName="tagDepthUnit"
-              class="inline-block rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-sm border-l-0 border-r border-defaultborder dark:border-defaultborder/10 focus:ring-primary focus:border-primary dark:focus:border-defaultborder/10 dark:bg-bodybg ps-2 pe-[2.25rem]">
-              <option *ngFor="let tagDepthUnit of data.tagDepthUnits" [value]="tagDepthUnit"
-                [selected]="tagDepthUnit == selectedTagDepthUnit">{{tagDepthUnit}}
-              </option>
-            </select>
-          </div>
-        </div>
-
-        @if( surveyInfoForm.controls['tagDepth'].invalid &&
-        (surveyInfoForm.controls['tagDepth'].dirty ||
-        surveyInfoForm.controls['tagDepth'].touched)){
-
-
-        <div class="text-danger"
-          *ngIf="surveyInfoForm.controls['tagDepth'].errors?.['isNumber'] && surveyInfoForm.controls['tagDepth'].touched">
-          Invalid Format.
-        </div>
-        <div class="text-danger"
-          *ngIf="surveyInfoForm.controls['tagDepth'].errors?.['required'] && surveyInfoForm.controls['tagDepth'].touched">
-          Tag Depth is required
-        </div>
-        }
-
-        @if( surveyInfoForm.controls['tagDepthUnit'].invalid &&
-        (surveyInfoForm.controls['tagDepthUnit'].dirty ||
-        surveyInfoForm.controls['tagDepthUnit'].touched)){
-
-        <div class="text-danger"
-          *ngIf="surveyInfoForm.controls['tagDepthUnit'].errors?.['required'] && surveyInfoForm.controls['tagDepthUnit'].touched">
-          Tag Depth Unit is required.
-        </div>
-        }
-      </div>
-
-      <div class="md:col-span-4 col-span-12 mb-4">
-        <label class="form-label" for="proposalDirection">Proposal Direction</label>
-        <div>
-          <div class="sm:flex rounded-sm">
-            <input id="proposalDirection" type="text" formControlName="proposalDirection"
-              class="ti-form-input rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0  sm:first:rounded-se-none  sm:last:rounded-es-none  sm:last:rounded-e-sm  relative focus:z-10">
-            <select name="hs-inline-leading-select-currency" formControlName="proposalDirectionUnit"
-              class="inline-block rounded-none -mt-px -ms-px first:rounded-t-sm last:rounded-b-sm sm:first:rounded-s-sm sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-sm border-l-0 border-r border-defaultborder dark:border-defaultborder/10 focus:ring-primary focus:border-primary dark:focus:border-defaultborder/10 dark:bg-bodybg ps-2 pe-[2.25rem]">
-              <option *ngFor="let proposalDirectionUnit of data.proposalDirectionUnits" [value]="proposalDirectionUnit"
-                [selected]="proposalDirectionUnit == selectedProposalDirectionUnit">{{proposalDirectionUnit}}
-              </option>
-            </select>
-          </div>
-        </div>
-
-        @if( surveyInfoForm.controls['proposalDirection'].invalid &&
-        (surveyInfoForm.controls['proposalDirection'].dirty ||
-        surveyInfoForm.controls['proposalDirection'].touched)){
-
-
-        <div class="text-danger"
-          *ngIf="surveyInfoForm.controls['proposalDirection'].errors?.['isNumber'] && surveyInfoForm.controls['proposalDirection'].touched">
-          Invalid Format.
-        </div>
-        <div class="text-danger"
-          *ngIf="surveyInfoForm.controls['proposalDirection'].errors?.['required'] && surveyInfoForm.controls['proposalDirection'].touched">
-          Proposal Direction is required
-        </div>
-        }
-
-        @if( surveyInfoForm.controls['proposalDirectionUnit'].invalid &&
-        (surveyInfoForm.controls['proposalDirectionUnit'].dirty ||
-        surveyInfoForm.controls['proposalDirectionUnit'].touched)){
-
-        <div class="text-danger"
-          *ngIf="surveyInfoForm.controls['proposalDirectionUnit'].errors?.['required'] && surveyInfoForm.controls['proposalDirectionUnit'].touched">
-          Proposal Direction Unit is required.
-        </div>
-        }
-      </div>
-
-
-      <div class="md:col-span-12 col-span-12 flex justify-end sm:gap-x-4 sm:gap-y-4">
-        <button type="button" class="ti-btn ti-btn-outline-primary ti-btn-wave !mb-0" (click)="onBack()">Back</button>
-        <button type="submit" class="ti-btn ti-btn-primary-full !mb-0">Next</button>
       </div>
     </div>
+  </div>
+</div>
 
-  </form>
+}@else{
+  <div class="ti-spinner text-primary p-2 m-2" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+}
 
 
-
-</div> -->

@@ -25,6 +25,26 @@ export class ValidationService {
     }
   }
 
+
+    static isNullOrNumber(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+
+      const value = control.value;
+
+      if (!value || value==null) {
+        return null;
+      }
+      var inValid = /\s/;
+
+
+      const isSpace = inValid.test(value);
+
+      const isNumber = !isNaN(parseFloat(value)) && isFinite(Number(value))  && !isSpace;
+
+      return !isNumber ? { isNumber: true } : null;
+    }
+  }
+
   static isLatitude(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const value = control.value;

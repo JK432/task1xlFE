@@ -4,6 +4,7 @@ import { PresurveyRoutingModule } from '../../features/presurvey/presurvey-routi
 import { RundashRoutingModule } from '../../features/rundash/rundash-routing.module';
 import { AdminRoutingModule } from '../../features/admin/admin-routing.module';
 import { SurveyRoutingModule } from '../../features/survey/survey-routing.module';
+import { SoeRoutingModule } from '../../features/soe/soe-routing.module';
 
 
 export const content: Routes = [
@@ -12,7 +13,9 @@ export const content: Routes = [
       ...PresurveyRoutingModule.routes,
       ...RundashRoutingModule.routes,
       ...AdminRoutingModule.routes,
-      ...SurveyRoutingModule.routes
+      ...SurveyRoutingModule.routes,
+      ...SoeRoutingModule.routes
+
   ]}
 ];
 @NgModule({

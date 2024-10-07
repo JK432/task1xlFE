@@ -58,24 +58,23 @@
   </div>
 </div>
 <div class="box custom-box !pt-0">
-  <div class="box-body">
-    <!-- <div
-      class="popular-tags mb-2 sm:mb-0 space-x-1 rtl:space-x-reverse text-[1rem] mt-2 xl:flex xl:items-center text-left">
-    </div> -->
+  <div class="box-body ">
+    <div class="table-responsive m-2 !mt-0 !mb-[0rem]">
 
     <div class="flex items-center xl:space-x-4 space-x-2">
       <!-- Presurvey -->
 
-            <!-- <button type="button" class="ti-btn ti-btn-primary-full label-ti-btn !rounded-full" (click)="navigatePreSurvey()">
-              <span class="label-ti-btn-icon me-1 !rounded-full">1</span>
-              Presurvey
-            </button> -->
-      <div class="!rounded-full bg-info/10 !pr-4 !font-semibold flex items-center  bg-primary text-white "  (click)="navigatePreSurvey()" >
+      <!-- <button type="button" class="ti-btn ti-btn-primary-full label-ti-btn !rounded-full" (click)="navigatePreSurvey()">
+                  <span class="label-ti-btn-icon me-1 !rounded-full">1</span>
+                  Presurvey
+                </button> -->
+      <div class="!rounded-full bg-info/10 !pr-4 !font-semibold flex items-center  bg-primary text-white "
+        (click)="navigatePreSurvey()">
         <span
           class="inline-flex items-center justify-center !w-[1.75rem] !h-[1.75rem] leading-[1.75rem] text-[1rem] rounded-full text-white !bg-white/20 font-semibold mr-2 ">
           1
         </span>
-        <span class="" (click)="navigatePreSurvey()">Presurvey</span>
+        <span class="cursor-pointer" (click)="navigatePreSurvey()">Presurvey</span>
       </div>
 
 
@@ -85,7 +84,8 @@
         class="ti ti-chevrons-right flex-shrink-0 text-[#8c9097] dark:text-white/50 px-[0.5rem] hidden xl:inline-block"></i>
 
       <!-- Quality Analysis -->
-      <div class="!rounded-full bg-primary !pr-4 !font-semibold flex items-center text-white" (click)="navigateSurvey()">
+      <div class="!rounded-full bg-primary !pr-4 !font-semibold flex items-center text-white cursor-pointer"
+        (click)="navigateSurvey()">
         <span
           class="inline-flex items-center justify-center !w-[1.75rem] !h-[1.75rem] leading-[1.75rem] text-[1rem] rounded-full !bg-white/20 font-semibold mr-2">
           2
@@ -98,17 +98,34 @@
         class="ti ti-chevrons-right flex-shrink-0 text-[#8c9097] dark:text-white/50 px-[0.5rem] hidden xl:inline-block"></i>
 
       <!-- Survey Calculation -->
-            <!-- <button type="button" class="ti-btn ti-btn-primary-full label-ti-btn !rounded-full">
-              <span class="label-ti-btn-icon me-1 !rounded-full">3</span>
-              Sequence of Events
-            </button> -->
-      <div class="!rounded-full bg-primary !pr-4 !font-semibold flex items-center text-white">
+      <!-- <button type="button" class="ti-btn ti-btn-primary-full label-ti-btn !rounded-full">
+                  <span class="label-ti-btn-icon me-1 !rounded-full">3</span>
+                  Sequence of Events
+                </button> -->
+      <div class="!rounded-full bg-primary !pr-4 !font-semibold flex items-center text-white cursor-pointer"
+        (click)="navigateSOE()">
         <span
           class="inline-flex items-center justify-center !w-[1.75rem] !h-[1.75rem] leading-[1.75rem] text-[1rem] rounded-full text-white bg-white/20 font-semibold mr-2">
           3
         </span>
         <span class="">Sequence of Events</span>
       </div>
+
+      <i class="ti ti-chevrons-right flex-shrink-0 text-[#8c9097] dark:text-white/50 px-[0.5rem] hidden xl:inline-block"></i>
+      <div class="!rounded-full bg-primary !pr-4 !font-semibold flex items-center text-white cursor-pointer"
+        (click)="navigateReport()">
+        <span
+          class="inline-flex items-center justify-center !w-[1.75rem] !h-[1.75rem] leading-[1.75rem] text-[1rem] rounded-full text-white bg-white/20 font-semibold mr-2">
+          4
+        </span>
+        <span class="">Reports</span>
+      </div>
     </div>
+    </div>
+    <!-- <div
+      class="popular-tags mb-2 sm:mb-0 space-x-1 rtl:space-x-reverse text-[1rem] mt-2 xl:flex xl:items-center text-left">
+    </div> -->
+
+
   </div>
 </div>
